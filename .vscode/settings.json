@@ -1,0 +1,8 @@
+{
+  "rust-analyzer.showUnlinkedFileNotification": false,
+  "vim.handleKeys": {
+    "<C-w>": false,
+    "<C-c>": false,
+    "<C-p>": false
+  }
+}
