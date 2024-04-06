@@ -3,9 +3,9 @@
 ## Layout node system
 
 - stretch to fill
-  - take primary/off axis into account (e.g off axis will not have siblings)
-  - support multiple stretch to fill siblings
-  - recurse down as well (or does it already do this?)
+  - [ ] take primary/off axis into account (e.g off axis will not have siblings)
+  - [x] support multiple stretch to fill siblings
+  - [ ] recurse down as well (or does it already do this?)
 - interactivity
   - callback functions that can mutate bits of game state
     - or maybe "signals" or "requests", to avoid borrow checking issues?

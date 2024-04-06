@@ -29,6 +29,13 @@ impl Resizability {
       _ => false,
     }
   }
+
+  pub fn extract_expand_to_fill_weight(self: &Self) -> u32 {
+    match self {
+      Self::ExpandToFill(weight) => *weight,
+      _ => 0,
+    }
+  }
 }
 
 #[derive(Debug, Clone)]

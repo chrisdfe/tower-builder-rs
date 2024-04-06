@@ -39,13 +39,13 @@ pub fn create_room_definition_buttons_with_wrapper() -> TreeNodeInput<Element> {
   }
 }
 
-pub fn create_debug_stretch_to_fill_node() -> TreeNodeInput<Element> {
+pub fn create_debug_stretch_to_fill_node(expand_weight: u32) -> TreeNodeInput<Element> {
   TreeNodeInput {
     data: Element {
       name: String::from("debug stretch_to_fill node"),
       config: ElementConfig {
         padding: 10,
-        resizability: Resizability::ExpandToFill(1),
+        resizability: Resizability::ExpandToFill(expand_weight),
         ..Default::default()
       },
       ..Default::default()
@@ -57,11 +57,11 @@ pub fn create_debug_stretch_to_fill_node() -> TreeNodeInput<Element> {
 #[rustfmt::skip]
 pub fn create_debug_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeNodeInput<Element>, Option<Uuid>)> {
   vec![
-    (create_debug_stretch_to_fill_node(), Some(root_node_id)),
+    (create_debug_stretch_to_fill_node(1), Some(root_node_id)),
     (create_room_definition_buttons_with_wrapper(), Some(root_node_id)),
-    (create_debug_stretch_to_fill_node(), Some(root_node_id)),
+    (create_debug_stretch_to_fill_node(2), Some(root_node_id)),
     (create_room_definition_buttons_with_wrapper(), Some(root_node_id)),
-    (create_debug_stretch_to_fill_node(), Some(root_node_id)),
+    (create_debug_stretch_to_fill_node(3), Some(root_node_id)),
   ]  
 }
 

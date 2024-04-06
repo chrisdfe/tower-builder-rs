@@ -1,6 +1,6 @@
 use uuid::Uuid;
 
-use crate::game::ui::elements::element_node_vec;
+use crate::game::ui::elements::{element_node_vec, Resizability};
 use crate::game::ui::elements::{Element, Elements};
 use crate::game::Game;
 use crate::measurements::Axis;
@@ -79,10 +79,19 @@ fn calculate_sibling_group_for_axis(
   let (expand_to_fill_siblings, non_expand_to_fill_siblings) =
     group_siblings_by_expand_to_fill(&sibling_id_group, &elements_replica);
   let expand_to_fill_siblings_len = expand_to_fill_siblings.len() as u32;
-  let non_expand_to_fill_siblings_len = non_expand_to_fill_siblings.len() as u32;
+  let total_expand_to_fill_sibling_weights = expand_to_fill_siblings
+    .iter()
+    .map(|sibling| {
+      sibling
+        .data
+        .config
+        .resizability
+        .extract_expand_to_fill_weight()
+    })
+    .fold(0, |acc, weight| acc + weight);
 
   let primary_axis = parent_node.data.config.stack_axis.clone();
-  let _is_on_primary_axis = primary_axis == *calculation_axis;
+  let is_on_primary_axis = primary_axis == *calculation_axis;
 
   let (_, parent_content_size, parent_children_size) = parent_node
     .data
@@ -99,13 +108,21 @@ fn calculate_sibling_group_for_axis(
 
     let calculated_sizes = expand_to_fill_siblings
       .into_iter()
-      // Do the actual calculation here
       .map(|sibling| {
         let child_gap = parent_node.data.config.child_gap;
+        let weight = sibling
+          .data
+          .config
+          .resizability
+          .extract_expand_to_fill_weight();
 
-        let outer_size = ((parent_content_size - non_expand_to_fill_siblings_size)
-          - (child_gap * (sibling_id_group.len() - 1) as u32))
-          / expand_to_fill_siblings_len;
+        // Do the actual calculation here
+        let outer_size = {
+          ((parent_content_size - non_expand_to_fill_siblings_size)
+            - (child_gap * (sibling_id_group.len() - 1) as u32))
+            / (total_expand_to_fill_sibling_weights)
+            * weight
+        };
 
         let content_size = outer_size - (sibling.data.config.padding * 2);
 
