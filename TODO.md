@@ -2,21 +2,39 @@
 
 ## Layout node system
 
-- stretch to fill
+- stretch to fill layout_nodes
+  - [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
   - [ ] take primary/off axis into account (e.g off axis will not have siblings)
   - [x] support multiple stretch to fill siblings
   - [ ] recurse down as well (or does it already do this?)
-- interactivity
-  - callback functions that can mutate bits of game state
+- interactive layout_nodes
+  - [ ] hover states
+  - [ ] click state
+  - [ ] one of these two types of of click handlers:
+    - callback functions that can mutate bits of game state
     - or maybe "signals" or "requests", to avoid borrow checking issues?
-- rename prerender to precalculate
+- "relative"-ly positioned layout_nodes
+  - [ ] support for "layers" - i.e a stack of root nodes instead of just 1
+  - [ ] higher layer = rendered on top & responds to click first
+- rename 'prerender' to 'precalculate'
 - update algorithms to calculate widths of all children at once
 - abstract layout calculations from actual layout node system - it's just a bunch of math
+  - tests
 - adding/removing a layout node should trigger a rerender
+  - make Elements.tree private? this would be the only way to really ensure this happens
 - I could probably iterate through things once instead of twice, once for each axis
 - text color config
 - "space between" gap style
-- child_gap will need to be an enum, "Fixed" and "SpaceBetween"
+  - child_gap will need to be an enum, "Fixed" and "SpaceBetween"
+- UI components
+  - buttons
+    - (This will probably be the done when I do the "interactive layout_nodes" thing ^^^)
+  - text inputs
+  - radios
+
+## Building
+
+## Route finding
 
 ## Other
 
