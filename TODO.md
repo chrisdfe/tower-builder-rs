@@ -13,8 +13,7 @@
   - [ ] one of these two types of of click handlers:
     - callback functions that can mutate bits of game state
     - or maybe "signals" or "requests", to avoid borrow checking issues?
-- "relative"-ly positioned layout_nodes
-  - [ ] support for "layers" - i.e a stack of root nodes instead of just 1
+- [ ] support for "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
 - rename 'prerender' to 'precalculate'
 - update algorithms to calculate widths of all children at once
