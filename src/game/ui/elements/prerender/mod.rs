@@ -5,10 +5,12 @@ use crate::{
   utils::get_random_color,
 };
 
+/// A collection of generic functions to use in reduce/fold algorithms
 mod accumulators;
-mod background;
-mod dimensions;
-mod positions;
+
+pub mod background;
+pub mod dimensions;
+pub mod positions;
 
 /*
  * Prerender

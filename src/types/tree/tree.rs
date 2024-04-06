@@ -185,6 +185,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     let TreeNodeInput { children, data } = input;
 
     let node = TreeNode::new(data, parent_id);
+
     let node_id = node.id.clone();
     self.nodes.push(node);
 

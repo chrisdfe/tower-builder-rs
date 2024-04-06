@@ -7,7 +7,6 @@ use super::{ElementCalculatedProperties, ElementConfig, ElementInput};
 #[derive(Debug, Clone)]
 pub struct Element {
   pub name: String,
-  pub id: Uuid,
   // text will be ignored for wrapper nodes (i.e if its tree node has children)
   pub text: String,
   pub config: ElementConfig,
@@ -18,7 +17,6 @@ impl Default for Element {
   fn default() -> Self {
     Self {
       name: String::from("untitled node"),
-      id: Uuid::new_v4(),
       config: Default::default(),
       calculated: Default::default(),
       text: String::from(""),

@@ -16,12 +16,18 @@ pub enum BackgroundColorKind {
 
 #[derive(Debug, Clone)]
 pub struct ElementConfig {
+  // dimensions/position
   pub padding: u32,
   pub child_gap: u32,
   pub resizability: Resizability,
   pub stack_axis: Axis,
   pub content_alignment: TwoDimensional<ContentAlignment>,
+
+  // Colors
   pub background_color: BackgroundColorKind,
+
+  // Interactivity
+  pub is_interactive: bool,
 }
 
 impl Default for ElementConfig {
@@ -35,7 +41,10 @@ impl Default for ElementConfig {
         horizontal: ContentAlignment::Center,
         vertical: ContentAlignment::Center,
       },
+
       background_color: BackgroundColorKind::Randomized,
+
+      is_interactive: false,
     }
   }
 }

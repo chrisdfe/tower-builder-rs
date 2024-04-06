@@ -17,27 +17,6 @@ pub fn update(game: &mut Game) {
   //   get_fps()
   // );
 
-  // Search for hovered button
-  let (mouse_x, mouse_y) = mouse_position();
-
-  let mouse_point = Point {
-    x: mouse_x,
-    y: mouse_y,
-  };
-
-  // let hovered_button = game
-  //   .ui
-  //   .buttons
-  //   .buttons
-  //   .iter()
-  //   .find(|button| button.as_rect().contains_point(&mouse_point));
-
-  // game.ui.buttons.hovered_button_id = if let Some(hovered_button) = hovered_button {
-  //   Some(hovered_button.id.clone())
-  // } else {
-  //   None
-  // };
-
   // TODO - only if !ui.mouse_is_hover_ui()
   // Mouse position
   game.ui.selection.previous_selected_cell = game.ui.selection.current_selected_cell.clone();

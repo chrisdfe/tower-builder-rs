@@ -25,6 +25,7 @@ fn create_room_definition_element(
     name,
     config: ElementConfig {
       padding: 10,
+      is_interactive: true,
       ..ElementConfig::default()
     },
     ..Default::default()
@@ -34,8 +35,8 @@ fn create_room_definition_element(
 lazy_static! {
   pub static ref ROOM_DEFINITION_BUTTONS: Vec<ElementInput> = vec![
     create_room_definition_element(RoomDefinitionId::Lobby, String::from("Lobby")),
-    create_room_definition_element(RoomDefinitionId::LobbyLarge, String::from("Large Lobby")),
-    create_room_definition_element(RoomDefinitionId::Office, String::from("Office")),
+    // create_room_definition_element(RoomDefinitionId::LobbyLarge, String::from("Large Lobby")),
+    // create_room_definition_element(RoomDefinitionId::Office, String::from("Office")),
     create_room_definition_element(RoomDefinitionId::Condo, String::from("Condo")),
   ];
 }

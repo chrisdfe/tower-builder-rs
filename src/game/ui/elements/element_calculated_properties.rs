@@ -1,8 +1,8 @@
-use std::ops::Bound;
+use std::os::windows::io::IntoRawSocket;
 
 use macroquad::color::Color;
 
-use crate::measurements::{Axis, Dimensions, Point};
+use crate::measurements::{Axis, Dimensions, Point, Rect};
 
 #[derive(Debug, Clone)]
 pub struct ElementCalculatedProperties {
@@ -57,6 +57,12 @@ impl ElementCalculatedProperties {
     self.outer_position = None;
 
     self.background_color = None;
+  }
+
+  pub fn outer_as_rect(&self) -> Rect {
+    let outer_position = self.outer_position.as_ref().unwrap();
+    let outer_dimensions = self.outer_dimensions.as_ref().unwrap();
+    Rect::from_point_and_dimensions(&outer_position, &outer_dimensions)
   }
 
   /// Gets the calculated outer/content/children dimensions field for the specified axis.

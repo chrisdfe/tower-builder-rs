@@ -3,13 +3,13 @@
 ## Layout node system
 
 - stretch to fill layout_nodes
-  - [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
   - [ ] take primary/off axis into account (e.g off axis will not have siblings)
   - [x] support multiple stretch to fill siblings
   - [ ] recurse down as well (or does it already do this?)
-- "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
-- resizability should be configurable on a per-axis basis (right now it's for both)
-- interactive layout_nodes
+- [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
+- [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
+- [ ] resizability should be configurable on a per-axis basis (right now it's for both)
+- [ ] interactive layout_nodes
   - [ ] hover states
   - [ ] click state
   - [ ] one of these two types of of click handlers:
@@ -17,21 +17,21 @@
     - or maybe "signals" or "requests", to avoid borrow checking issues?
 - [ ] support for "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
-- rename 'prerender' to 'precalculate'
-- update algorithms to calculate widths of all children at once
-- abstract layout calculations from actual layout node system - it's just a bunch of math
-  - tests
-- adding/removing a layout node should trigger a rerender
+- [ ] rename 'prerender' to 'precalculate'
+- [ ] update algorithms to calculate widths of all children at once
+- [ ] abstract layout calculations from actual layout node system - it's just a bunch of math
+  - [ ] basic tests
+- [ ] adding/removing a layout node should trigger a rerender
   - make Elements.tree private? this would be the only way to really ensure this happens
-- I could probably iterate through things once instead of twice, once for each axis
-- text color config
-- "space between" gap style
+- [ ] I could probably iterate through things once instead of twice, once for each axis
+- [ ] text color config
+- [ ] "space between" gap style
   - child_gap will need to be an enum, "Fixed" and "SpaceBetween"
-- UI components
-  - buttons
+- [ ] UI components
+  - [ ] buttons
     - (This will probably be the done when I do the "interactive layout_nodes" thing ^^^)
-  - text inputs
-  - radios
+  - [ ] text inputs
+  - [ ] radios
 
 ## Building
 

@@ -1,8 +1,6 @@
 use macroquad::prelude::*;
 use macroquad::window::{next_frame, Conf};
 
-use once_cell::sync::OnceCell;
-
 mod constants;
 mod game;
 mod map;
@@ -12,7 +10,7 @@ pub mod types;
 mod utils;
 
 use crate::game::{
-  lifecycle::{prerender, render, run_event_handlers, update},
+  lifecycle::{render, run_event_handlers, update},
   Game,
 };
 
@@ -39,7 +37,7 @@ async fn main() {
   loop {
     update(&mut game);
     run_event_handlers(&mut game);
-    prerender(&mut game);
+    // prerender(&mut game);
     render(&game);
 
     next_frame().await

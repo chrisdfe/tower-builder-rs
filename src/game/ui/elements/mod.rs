@@ -19,7 +19,7 @@ pub use element_input::*;
 pub mod types;
 pub use types::*;
 
-mod prerender;
+pub mod prerender;
 pub use prerender::prerender;
 
 /// Factory functions for creating `Elements`s

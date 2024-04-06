@@ -82,11 +82,11 @@ pub fn create_debug_stretch_to_fill_node_with_children(
           ..Default::default()
         },
         children: vec![
-          create_childless_debug_stretch_to_fill_node(1),
+          // create_childless_debug_stretch_to_fill_node(1),
           create_childless_debug_stretch_to_fill_node(1),
           create_room_definition_buttons_with_wrapper(),
           create_childless_debug_stretch_to_fill_node(1),
-          create_childless_debug_stretch_to_fill_node(1),
+          // create_childless_debug_stretch_to_fill_node(1),
         ],
       },
       create_childless_debug_stretch_to_fill_node(1),
