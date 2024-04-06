@@ -118,9 +118,9 @@ fn calculate_sibling_group_for_axis(
 
         // Do the actual calculation here
         let outer_size = {
-          ((parent_content_size - non_expand_to_fill_siblings_size)
+          (((parent_content_size - non_expand_to_fill_siblings_size)
             - (child_gap * (sibling_id_group.len() - 1) as u32))
-            / (total_expand_to_fill_sibling_weights)
+            / total_expand_to_fill_sibling_weights)
             * weight
         };
 
