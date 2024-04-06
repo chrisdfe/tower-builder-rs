@@ -118,10 +118,11 @@ fn calculate_sibling_group_for_axis(
 
         // Do the actual calculation here
         let outer_size = {
-          (((parent_content_size - non_expand_to_fill_siblings_size)
-            - (child_gap * (sibling_id_group.len() - 1) as u32))
-            / total_expand_to_fill_sibling_weights)
-            * weight
+          let total_available_expand_to_fill_space = (parent_content_size
+            - non_expand_to_fill_siblings_size)
+            - (child_gap * (sibling_id_group.len() - 1) as u32);
+
+          (total_available_expand_to_fill_space / total_expand_to_fill_sibling_weights) * weight
         };
 
         let content_size = outer_size - (sibling.data.config.padding * 2);
