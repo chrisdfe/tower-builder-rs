@@ -2,10 +2,11 @@
 
 ## Layout node system
 
-- stretch to fill layout_nodes
-  - [ ] take primary/off axis into account (e.g off axis will not have siblings)
+- [x] stretch to fill layout_nodes
+  - [x] take primary/off axis into account (e.g off axis will not have siblings)
   - [x] support multiple stretch to fill siblings
-  - [ ] recurse down as well (or does it already do this?)
+  - [x] recurse down as well (or does it already do this?)
+- [ ] remove nodes
 - [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
 - [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
 - [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
@@ -13,10 +14,8 @@
 - [ ] interactive layout_nodes
   - [x] hover states
   - [x] click state
-  - [ ] one of these two types of of click handlers:
-    - callback functions that can mutate bits of game state
-    - or maybe "signals" or "requests", to avoid borrow checking issues?
-- [ ] support for "layers" - i.e a stack of root nodes instead of just 1
+  - [ ] button 'actions' described by enum - e.g "SelectRoomDefinition(id: string)", "RemoveUIElement(id: string)", "AddUIElement(some other enum)"
+- [ ] "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
 - [ ] rename 'prerender' to 'precalculate'
 - [ ] update algorithms to calculate widths of all children at once
