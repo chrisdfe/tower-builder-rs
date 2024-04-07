@@ -5,13 +5,14 @@
 - [ ] interactive layout_nodes
   - [x] hover states
   - [x] click state
-  - [ ] button 'actions' described by enum - e.g "SelectRoomDefinition(id: string)", "RemoveUIElement(id: string)", "AddUIElement(some other enum)"
+  - [x] button 'actions' described by enum - e.g "SelectRoomDefinition(id: string)", "RemoveUIElement(id: string)", "AddUIElement(some other enum)"
 - [ ] remove nodes
 - [x] stretch to fill layout_nodes
   - [x] take primary/off axis into account (e.g off axis will not have siblings)
   - [x] support multiple stretch to fill siblings
   - [x] recurse down as well (or does it already do this?)
 - [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
+- [ ] middleware-like prerender/precalculate "modifiers" to override prerendered values in a clean/abstracted way (like randomizing background/text colors)
 - [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
 - [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
 - [ ] resizability should be configurable on a per-axis basis (right now it's for both)
