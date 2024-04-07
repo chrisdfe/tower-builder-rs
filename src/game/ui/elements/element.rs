@@ -11,7 +11,7 @@ use super::{
 #[derive(Debug, Clone)]
 pub struct Element {
   pub name: String,
-  // text will be ignored for wrapper nodes (i.e if its tree node has children)
+  // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: String,
   pub config: ElementConfig,
   pub calculated: ElementCalculatedProperties,

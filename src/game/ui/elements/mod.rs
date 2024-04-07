@@ -20,3 +20,5 @@ pub mod factories;
 mod element_node_vec;
 
 pub mod interactivity;
+
+pub mod event_handlers;

@@ -1,10 +1,5 @@
-use macroquad::{
-  input::mouse_position,
-  text::{measure_text, TextDimensions},
-  time::get_fps,
-};
+use macroquad::input::mouse_position;
 
-use crate::tower::rooms::validation::RoomValidationContext;
 use crate::{game::Game, map::CoordinatesBox, measurements::Point, utils::screen_point_to_cell};
 
 pub fn update(game: &mut Game) {

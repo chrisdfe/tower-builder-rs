@@ -1,5 +1,3 @@
-use std::collections::VecDeque;
-
 use uuid::Uuid;
 
 use crate::{
@@ -10,13 +8,15 @@ use crate::{
   },
 };
 
-use super::{factories, interactivity::Action, Element};
+use super::{factories, interactivity::EventHandlerQueue, Element};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
 pub struct Elements {
   pub tree: Tree<Element>,
-  // pub event_handler_queue:
+
+  pub event_handler_queue: EventHandlerQueue,
+
   pub hovered_element_id: PrevAndCurrent<Uuid>,
   pub clicked_element_id: PrevAndCurrent<Uuid>,
 }
@@ -38,6 +38,8 @@ impl Elements {
 
     Self {
       tree,
+
+      event_handler_queue: EventHandlerQueue::new(),
 
       hovered_element_id: PrevAndCurrent::new_none(),
       clicked_element_id: PrevAndCurrent::new_none(),
@@ -83,23 +85,4 @@ impl Elements {
       node.data.calculated.clear();
     }
   }
-}
-
-struct EventHandlerQueue {
-  queue: VecDeque<QueuedAction>,
-}
-
-impl EventHandlerQueue {
-  pub fn pop(&mut self) -> Option<QueuedAction> {
-    self.queue.pop_front()
-  }
-
-  pub fn push(&mut self, action: QueuedAction) {
-    self.queue.push_front(action)
-  }
-}
-
-pub struct QueuedAction {
-  pub action: Action,
-  pub node_id: Uuid,
 }

@@ -1,4 +1,8 @@
-#[derive(Debug, Clone, PartialEq)]
+use std::collections::VecDeque;
+
+use uuid::Uuid;
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Action {
   None,
   PrintDebugStatement,
@@ -39,4 +43,31 @@ impl ElementEventHandlers {
       && self.on_mouse_down == Action::None
       && self.on_mouse_up == Action::None
   }
+}
+
+#[derive(Debug, Clone)]
+pub struct EventHandlerQueue {
+  queue: VecDeque<QueuedAction>,
+}
+
+impl EventHandlerQueue {
+  pub fn new() -> Self {
+    Self {
+      queue: VecDeque::new(),
+    }
+  }
+
+  pub fn pop(&mut self) -> Option<QueuedAction> {
+    self.queue.pop_front()
+  }
+
+  pub fn push(&mut self, action: QueuedAction) {
+    self.queue.push_front(action)
+  }
+}
+
+#[derive(Debug, Clone)]
+pub struct QueuedAction {
+  pub action: Action,
+  pub node_id: Uuid,
 }
