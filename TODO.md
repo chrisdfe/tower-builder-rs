@@ -2,19 +2,20 @@
 
 ## Layout node system
 
-- [x] stretch to fill layout_nodes
-  - [x] take primary/off axis into account (e.g off axis will not have siblings)
-  - [x] support multiple stretch to fill siblings
-  - [x] recurse down as well (or does it already do this?)
-- [ ] remove nodes
-- [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
-- [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
-- [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
-- [ ] resizability should be configurable on a per-axis basis (right now it's for both)
 - [ ] interactive layout_nodes
   - [x] hover states
   - [x] click state
   - [ ] button 'actions' described by enum - e.g "SelectRoomDefinition(id: string)", "RemoveUIElement(id: string)", "AddUIElement(some other enum)"
+- [ ] remove nodes
+- [x] stretch to fill layout_nodes
+  - [x] take primary/off axis into account (e.g off axis will not have siblings)
+  - [x] support multiple stretch to fill siblings
+  - [x] recurse down as well (or does it already do this?)
+- [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
+- [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
+- [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
+- [ ] resizability should be configurable on a per-axis basis (right now it's for both)
+
 - [ ] "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
 - [ ] rename 'prerender' to 'precalculate'
@@ -26,8 +27,10 @@
   - make Elements.tree private? this would be the only way to really ensure this happens
 - [ ] I could probably iterate through things once instead of twice, once for each axis
 - [ ] text color config
+- [ ] UI theme
 - [ ] "space between" gap style
   - child_gap will need to be an enum, "Fixed" and "SpaceBetween"
+  - actually this sounds a lot like expand_to_fill with all nodes having a weight of 1
 - [ ] UI components
   - [ ] buttons
     - (This will probably be the done when I do the "interactive layout_nodes" thing ^^^)

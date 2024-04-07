@@ -2,7 +2,10 @@ use lazy_static::lazy_static;
 
 use crate::tower::rooms::definitions::RoomDefinitionId;
 
-use super::{ElementConfig, ElementInput};
+use super::{
+  interactivity::{Action, ElementEventHandlers},
+  ElementConfig, ElementInput,
+};
 // fn set_room_definition(room_definition_id: RoomDefinitionId, ctx: ButtonEventHandlerContext) {
 //   ctx.tools.set_selected_room_definition(
 //     room_definition_id,
@@ -25,7 +28,10 @@ fn create_room_definition_element(
     name,
     config: ElementConfig {
       padding: 10,
-      is_interactive: true,
+      event_handlers: ElementEventHandlers {
+        on_mouse_up: Action::PrintDebugStatement,
+        ..Default::default()
+      },
       ..ElementConfig::default()
     },
     ..Default::default()

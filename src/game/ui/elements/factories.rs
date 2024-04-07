@@ -5,6 +5,7 @@ use crate::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNodeInput;
 
 use super::constants::ROOM_DEFINITION_BUTTONS;
+use super::interactivity::ElementEventHandlers;
 use super::{
   BackgroundColorKind, Element, ElementConfig, ElementInput, Resizability, TwoDimensional,
 };
