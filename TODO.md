@@ -18,6 +18,7 @@
 - [ ] "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
 - [ ] rename 'prerender' to 'precalculate'
+- [x] rename 'element_tree' to 'elements'
 - [ ] update algorithms to calculate widths of all children at once
 - [ ] abstract layout calculations from actual layout node system - it's just a bunch of math
   - [ ] basic tests
