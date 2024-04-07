@@ -7,20 +7,20 @@ mod tools;
 mod ui;
 
 pub fn update(game: &mut Game) {
-  input::update(game);
-  ui::update(game);
-
-  // TODO - reorganize
-  let mut elements_replica = game.ui.elements.clone();
-  elements::prerender::dimensions::prerender(game, &mut elements_replica);
-  elements::prerender::positions::prerender(game, &mut elements_replica);
-  interactivity::update(game);
-  elements::prerender::background::prerender(game, &mut elements_replica);
-
-  timers::update(game);
-  tools::update(game);
-
   // Event handlers
   timers::run_event_handlers(game);
   interactivity::run_event_handlers(game);
+
+  // TODO - do I need to do a prerender here too
+
+  interactivity::update(game);
+  timers::update(game);
+  tools::update(game);
+  input::update(game);
+  ui::update(game);
+
+  let mut elements_replica = game.ui.elements.clone();
+  elements::prerender::dimensions::prerender(game, &mut elements_replica);
+  elements::prerender::positions::prerender(game, &mut elements_replica);
+  elements::prerender::background::prerender(game, &mut elements_replica);
 }

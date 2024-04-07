@@ -116,6 +116,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
       .clone()
   }
 
+  // TODO - don't include element_id
   pub fn get_all_descendant_ids_flat(&self, element_id: Uuid) -> Vec<Uuid> {
     let mut result: Vec<Uuid> = Vec::new();
 
@@ -123,7 +124,9 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     queue.push_back(element_id);
 
     while let Some(id) = queue.pop_front() {
-      result.push(id.clone());
+      if id != element_id {
+        result.push(id.clone());
+      }
 
       let node = self.find_node_by_id(id);
 
@@ -235,7 +238,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
 
     self
       .nodes
-      .retain(|node| element_ids.contains(&node.id));
+      .retain(|node| !element_ids.contains(&node.id));
 
     returned_ids
   }

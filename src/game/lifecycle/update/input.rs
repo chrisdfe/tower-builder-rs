@@ -44,6 +44,20 @@ fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
       game.ui.elements.clear_all_calculated_properties();
     }
 
+    Key2 => {
+      let ids = game
+        .ui
+        .elements
+        .tree
+        .get_all_descendant_ids_flat(game.ui.elements.tree.root_node_id.unwrap());
+      // .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
+
+      println!("ids: {:?}", ids);
+      game.ui.elements.tree.remove_nodes_by_ids(ids);
+
+      game.ui.elements.clear_all_calculated_properties();
+    }
+
     W => game.add_camera_position(Coordinates { x: 0, y: 1 }),
     A => game.add_camera_position(Coordinates { x: -1, y: 0 }),
     S => game.add_camera_position(Coordinates { x: 0, y: -1 }),
