@@ -29,7 +29,7 @@ fn create_room_definition_element(
     config: ElementConfig {
       padding: 10,
       event_handlers: ElementEventHandlers {
-        on_mouse_up: Action::PrintDebugStatement,
+        on_mouse_up: Some(|_| Action::PrintDebugStatement),
         ..Default::default()
       },
       ..ElementConfig::default()

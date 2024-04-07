@@ -6,24 +6,34 @@ use uuid::Uuid;
 pub enum Action {
   None,
   PrintDebugStatement,
-  AddAnotherNode,
+  RemoveAllRootNodeChildren,
+}
+
+pub type ActionCreator = fn(ctx: ActionCreatorCtx) -> Action;
+
+pub struct ActionCreatorCtx {
+  pub node_id: Uuid,
+}
+
+fn none_action_creator(_: ActionCreatorCtx) -> Action {
+  Action::None
 }
 
 #[derive(Debug, Clone)]
 pub struct ElementEventHandlers {
-  pub on_mouse_over: Action,
-  pub on_mouse_out: Action,
-  pub on_mouse_down: Action,
-  pub on_mouse_up: Action,
+  pub on_mouse_over: Option<ActionCreator>,
+  pub on_mouse_out: Option<ActionCreator>,
+  pub on_mouse_down: Option<ActionCreator>,
+  pub on_mouse_up: Option<ActionCreator>,
 }
 
 impl Default for ElementEventHandlers {
   fn default() -> Self {
     Self {
-      on_mouse_over: Action::None,
-      on_mouse_out: Action::None,
-      on_mouse_down: Action::None,
-      on_mouse_up: Action::None,
+      on_mouse_over: None,
+      on_mouse_out: None,
+      on_mouse_down: None,
+      on_mouse_up: None,
     }
   }
 }
@@ -38,10 +48,10 @@ impl ElementEventHandlers {
   }
 
   pub fn is_none(&self) -> bool {
-    self.on_mouse_over == Action::None
-      && self.on_mouse_out == Action::None
-      && self.on_mouse_down == Action::None
-      && self.on_mouse_up == Action::None
+    self.on_mouse_over == None
+      && self.on_mouse_out == None
+      && self.on_mouse_down == None
+      && self.on_mouse_up == None
   }
 }
 
@@ -68,6 +78,6 @@ impl EventHandlerQueue {
 
 #[derive(Debug, Clone)]
 pub struct QueuedAction {
-  pub action: Action,
+  pub action_creator: fn(ActionCreatorCtx) -> Action,
   pub node_id: Uuid,
 }

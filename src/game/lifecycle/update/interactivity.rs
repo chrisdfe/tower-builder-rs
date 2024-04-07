@@ -1,11 +1,15 @@
-use crate::game::{
-  ui::elements::{
-    interactivity::{Action, QueuedAction},
-    Elements,
+use crate::{
+  game::{
+    ui::elements::{
+      interactivity::{self, ActionCreator, ActionCreatorCtx, QueuedAction},
+      Element,
+    },
+    Game,
   },
-  Game,
+  types::tree::TreeNode,
 };
 use macroquad::input::mouse_position;
+use uuid::Uuid;
 
 use crate::measurements::Point;
 
@@ -21,40 +25,22 @@ pub fn update(game: &mut Game) {
       // on mouse over
       let node_id = hovered_element_id.current.unwrap();
 
-      let action = {
-        let node = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id(node_id)
-          .unwrap();
+      let action_creator = {
+        let node = find_node(game, node_id);
         node.data.config.event_handlers.on_mouse_over
       };
 
-      game
-        .ui
-        .elements
-        .event_handler_queue
-        .push(QueuedAction { action, node_id });
+      maybe_enqueue_action(game, action_creator, node_id);
     } else if hovered_element_id.current.is_none() && hovered_element_id.prev.is_some() {
-      // on mouse up
       let node_id = hovered_element_id.prev.unwrap();
-      let action = {
-        let node = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id(node_id)
-          .unwrap();
+
+      let action_creator = {
+        let node = find_node(game, node_id);
         node.data.config.event_handlers.on_mouse_out
       };
 
       // on mouse over
-      game
-        .ui
-        .elements
-        .event_handler_queue
-        .push(QueuedAction { action, node_id });
+      maybe_enqueue_action(game, action_creator, node_id);
     }
   }
 
@@ -63,50 +49,46 @@ pub fn update(game: &mut Game) {
       // on mouse over
       let node_id = hovered_element_id.current.unwrap();
 
-      let action = {
-        let node = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id(node_id)
-          .unwrap();
+      let action_creator = {
+        let node = find_node(game, node_id);
         node.data.config.event_handlers.on_mouse_down
       };
 
-      game
-        .ui
-        .elements
-        .event_handler_queue
-        .push(QueuedAction { action, node_id });
+      maybe_enqueue_action(game, action_creator, node_id);
     } else if clicked_element_id.current.is_none() && clicked_element_id.prev.is_some() {
       // on mouse up
       let node_id = hovered_element_id.prev.unwrap();
 
-      let action = {
-        let node = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id(node_id)
-          .unwrap();
+      let action_creator = {
+        let node = find_node(game, node_id);
         node.data.config.event_handlers.on_mouse_up
       };
 
-      game
-        .ui
-        .elements
-        .event_handler_queue
-        .push(QueuedAction { action, node_id });
+      maybe_enqueue_action(game, action_creator, node_id)
     }
   }
 }
 
 pub fn run_event_handlers(game: &mut Game) {
   while let Some(queued_action) = game.ui.elements.event_handler_queue.pop() {
-    let QueuedAction { action, node_id } = queued_action;
-    println!("action_handler, {:?}, {}", action, node_id);
+    let QueuedAction {
+      action_creator,
+      node_id,
+    } = queued_action;
 
-    // match action {}
+    let action = action_creator(ActionCreatorCtx { node_id });
+    use interactivity::Action::*;
+    match action {
+      None => {
+        // no-op
+      }
+      PrintDebugStatement => {
+        println!("debug statement. {}", node_id);
+      }
+      RemoveAllRootNodeChildren => {
+        println!("removing all root node children");
+      }
+    }
   }
 }
 
@@ -161,4 +143,29 @@ fn calculate_clicked_ui_element(game: &mut Game) {
     .elements
     .clicked_element_id
     .set_maybe_current(new_clicked_id);
+}
+
+/*
+  Local helpers
+*/
+fn find_node(game: &Game, node_id: Uuid) -> &TreeNode<Element> {
+  game
+    .ui
+    .elements
+    .tree
+    .find_node_by_id(node_id)
+    .unwrap()
+}
+
+fn maybe_enqueue_action(game: &mut Game, action_creator: Option<ActionCreator>, node_id: Uuid) {
+  if let Some(action_creator) = action_creator {
+    game
+      .ui
+      .elements
+      .event_handler_queue
+      .push(QueuedAction {
+        action_creator,
+        node_id,
+      });
+  }
 }
