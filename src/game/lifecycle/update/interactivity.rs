@@ -86,7 +86,14 @@ pub fn run_event_handlers(game: &mut Game) {
         println!("debug statement. {}", node_id);
       }
       RemoveAllRootNodeChildren => {
+        let ids = game
+          .ui
+          .elements
+          .tree
+          .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
+        game.ui.elements.tree.remove_nodes_by_ids(ids);
         println!("removing all root node children");
+        game.ui.elements.clear_all_calculated_properties();
       }
     }
   }

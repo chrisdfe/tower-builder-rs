@@ -222,7 +222,14 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
   pub fn remove_nodes_by_ids(&mut self, element_ids: Vec<Uuid>) -> Vec<Uuid> {
     let returned_ids = element_ids
       .iter()
+      // filter out potentially non-existent nodes
       .filter(|id| self.find_node_by_id(**id).is_some())
+      // remove descendants as well
+      .flat_map(|id| {
+        let mut result = vec![*id];
+        result.append(&mut self.get_all_descendant_ids_flat(*id));
+        result
+      })
       .map(|id| id.clone())
       .collect::<Vec<_>>();
 
