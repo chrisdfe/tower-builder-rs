@@ -49,6 +49,7 @@ fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
     return true;
   };
 
+  // hover state
   if game.ui.elements.hovered_element_id.has_changed() {
     if let Some(hovered_element_id) = game.ui.elements.hovered_element_id.current {
       if hovered_element_id == node.id {
@@ -58,6 +59,20 @@ fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
 
     if let Some(unhovered_element_id) = game.ui.elements.hovered_element_id.prev {
       if unhovered_element_id == node.id {
+        return true;
+      }
+    }
+  }
+
+  if game.ui.elements.clicked_element_id.has_changed() {
+    if let Some(clicked_element_id) = game.ui.elements.clicked_element_id.current {
+      if clicked_element_id == node.id {
+        return true;
+      }
+    }
+
+    if let Some(unclicked_element_id) = game.ui.elements.clicked_element_id.prev {
+      if unclicked_element_id == node.id {
         return true;
       }
     }
