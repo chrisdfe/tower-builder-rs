@@ -116,7 +116,7 @@ fn calculate_hovered_ui_element(game: &mut Game) {
     .ui
     .elements
     .hovered_element_id
-    .set_maybe_current(hovered_button_id);
+    .set_current(hovered_button_id);
 }
 
 fn calculate_clicked_ui_element(game: &mut Game) {
@@ -149,7 +149,7 @@ fn calculate_clicked_ui_element(game: &mut Game) {
     .ui
     .elements
     .clicked_element_id
-    .set_maybe_current(new_clicked_id);
+    .set_current(new_clicked_id);
 }
 
 /*

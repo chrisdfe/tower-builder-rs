@@ -19,12 +19,7 @@ impl<T: Clone + PartialEq> PrevAndCurrent<T> {
     }
   }
 
-  pub fn set_current(&mut self, value: T) {
-    self.prev = self.current.clone();
-    self.current = Some(value);
-  }
-
-  pub fn set_maybe_current(&mut self, value: Option<T>) {
+  pub fn set_current(&mut self, value: Option<T>) {
     self.prev = self.current.clone();
     self.current = value;
   }
