@@ -8,12 +8,12 @@ use crate::{
   },
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element};
+use super::{factories, interactivity::EventHandlerQueue, layers::Layers, Element};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
 pub struct Elements {
-  pub tree: Tree<Element>,
+  pub layers: Layers,
 
   pub event_handler_queue: EventHandlerQueue,
 
@@ -23,21 +23,8 @@ pub struct Elements {
 
 impl Elements {
   pub fn new() -> Self {
-    let mut tree = Tree::new();
-
-    // Add root node
-    let root_element_id = tree.add_node(
-      TreeNodeInput {
-        data: factories::create_root_node_element(),
-        children: Vec::new(),
-      },
-      None,
-    );
-
-    tree.root_node_id = Some(root_element_id);
-
     Self {
-      tree,
+      layers: Layers::new(),
 
       event_handler_queue: EventHandlerQueue::new(),
 
