@@ -23,6 +23,18 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     }
   }
 
+  /// Returns an iterator over this tree's nodes
+  /// Note - The order of these nodes aren't guarenteed to be in any specific order
+  pub fn iter(&self) -> impl Iterator<Item = &TreeNode<T>> {
+    self.nodes.iter()
+  }
+
+  /// Returns an iterator that allows modifying each node's value
+  /// Note - The order of these nodes aren't guarenteed to be in any specific order
+  pub fn iter_mut(&mut self) -> impl Iterator<Item = &mut TreeNode<T>> {
+    self.nodes.iter_mut()
+  }
+
   pub fn node_is_leaf_node(&self, id: Uuid) -> bool {
     self.get_children_ids_for_node_id(id).is_empty()
   }

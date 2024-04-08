@@ -1,31 +1,46 @@
-use crate::types::tree::{Tree, TreeNodeInput};
+use uuid::Uuid;
+
+use crate::types::tree::{Tree, TreeNode, TreeNodeInput};
 
 use super::{factories, Element};
 
 #[derive(Debug, Clone)]
 pub struct Layers {
   // I might want to make this a Tree later, but keeping it simple for now
-  pub layers: Vec<Layer>,
+  layers: Vec<Layer>,
 }
 
 impl Layers {
   pub fn new() -> Self {
     Self { layers: Vec::new() }
   }
+
+  pub fn iter(&self) -> impl Iterator<Item = &Layer> {
+    self.layers.iter()
+  }
+
+  pub fn iter_mut(&mut self) -> impl Iterator<Item = &mut Layer> {
+    self.layers.iter_mut()
+  }
+
+  pub fn front(&self) -> Option<&Layer> {
+    self.layers.last()
+  }
 }
 
 #[derive(Debug, Clone)]
 pub struct Layer {
-  title: LayerTitle,
-  element_tree: Tree<Element>,
+  pub title: LayerTitle,
+  // TODO - make private
+  pub tree: Tree<Element>,
 }
 
 impl Layer {
   pub fn new(title: LayerTitle) -> Self {
-    let mut element_tree = Tree::new();
+    let mut tree = Tree::new();
 
     // Add root node
-    let root_element_id = element_tree.add_node(
+    let root_element_id = tree.add_node(
       TreeNodeInput {
         data: factories::create_root_node_element(),
         children: Vec::new(),
@@ -33,13 +48,35 @@ impl Layer {
       None,
     );
 
-    element_tree.root_node_id = Some(root_element_id);
+    tree.root_node_id = Some(root_element_id);
 
-    Self {
-      title,
-      element_tree,
-    }
+    Self { title, tree }
   }
+
+  // /*
+  // Tree passthrough fns
+  // */
+  // pub fn iter(&self) -> impl Iterator<Item = &TreeNode<Element>> {
+  //   self.tree.iter()
+  // }
+
+  // pub fn iter_mut(&mut self) -> impl Iterator<Item = &mut TreeNode<Element>> {
+  //   self.tree.iter_mut()
+  // }
+
+  // pub fn find_node_by_id(&self, id: Uuid) -> Option<&TreeNode<Element>> {
+  //   self.tree.find_node_by_id(id)
+  // }
+
+  // pub fn get_node_ids_grouped_by_depth_bottom_up_flat(&self) -> Vec<Uuid> {
+  //   self
+  //     .tree
+  //     .get_node_ids_grouped_by_depth_bottom_up_flat()
+  // }
+
+  // pub fn get_children_ids_for_node_id(&self, id: Uuid) -> Vec<Uuid> {
+  //   self.tree.get_children_ids_for_node_id(id)
+  // }
 }
 
 #[derive(Debug, Clone)]

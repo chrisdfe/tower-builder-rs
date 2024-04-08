@@ -21,53 +21,50 @@ pub fn update(game: &mut Game) {
   let clicked_element_id = game.ui.elements.clicked_element_id.clone();
 
   // Hover actions
-  if hovered_element_id.has_changed() {
-    match hovered_element_id.as_tuple() {
-      (None, Some(current_id)) => {
-        // on mouse over
-        let action_creator = {
-          let node = find_node(game, *current_id);
-          node.data.config.event_handlers.on_mouse_over
-        };
 
-        maybe_enqueue_action(game, action_creator, *current_id);
-      }
-      (Some(prev_id), None) => {
-        // on mouse out
-        let action_creator = {
-          let node = find_node(game, *prev_id);
-          node.data.config.event_handlers.on_mouse_out
-        };
+  match hovered_element_id.as_tuple() {
+    (None, Some(current_id)) => {
+      // on mouse over
+      let action_creator = {
+        let node = find_node(game, *current_id);
+        node.data.config.event_handlers.on_mouse_over
+      };
 
-        maybe_enqueue_action(game, action_creator, *prev_id);
-      }
-      _ => (),
+      maybe_enqueue_action(game, action_creator, *current_id);
     }
+    (Some(prev_id), None) => {
+      // on mouse out
+      let action_creator = {
+        let node = find_node(game, *prev_id);
+        node.data.config.event_handlers.on_mouse_out
+      };
+
+      maybe_enqueue_action(game, action_creator, *prev_id);
+    }
+    _ => (),
   }
 
   // Click actions
-  if clicked_element_id.has_changed() {
-    match clicked_element_id.as_tuple() {
-      (None, Some(current_id)) => {
-        // on mouse down
-        let action_creator = {
-          let node = find_node(game, *current_id);
-          node.data.config.event_handlers.on_mouse_down
-        };
+  match clicked_element_id.as_tuple() {
+    (None, Some(current_id)) => {
+      // on mouse down
+      let action_creator = {
+        let node = find_node(game, *current_id);
+        node.data.config.event_handlers.on_mouse_down
+      };
 
-        maybe_enqueue_action(game, action_creator, *current_id);
-      }
-      (Some(prev_id), None) => {
-        // on mouse up
-        let action_creator = {
-          let node = find_node(game, *prev_id);
-          node.data.config.event_handlers.on_mouse_up
-        };
-
-        maybe_enqueue_action(game, action_creator, *prev_id);
-      }
-      _ => (),
+      maybe_enqueue_action(game, action_creator, *current_id);
     }
+    (Some(prev_id), None) => {
+      // on mouse up
+      let action_creator = {
+        let node = find_node(game, *prev_id);
+        node.data.config.event_handlers.on_mouse_up
+      };
+
+      maybe_enqueue_action(game, action_creator, *prev_id);
+    }
+    _ => (),
   }
 }
 
@@ -88,14 +85,12 @@ pub fn run_event_handlers(game: &mut Game) {
         println!("debug statement. {}", node_id);
       }
       RemoveAllRootNodeChildren => {
-        let ids = game
-          .ui
-          .elements
-          .tree
-          .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
-        game.ui.elements.tree.remove_nodes_by_ids(ids);
-        println!("removing all root node children");
-        game.ui.elements.clear_all_calculated_properties();
+        for layer in game.ui.elements.layers.iter() {
+          let ids = layer.get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
+          game.ui.elements.tree.remove_nodes_by_ids(ids);
+          println!("removing all root node children");
+          game.ui.elements.clear_all_calculated_properties();
+        }
       }
     }
   }

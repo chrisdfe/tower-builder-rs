@@ -11,39 +11,27 @@ use crate::{
 
 pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
   // Background color
-  for node_id in game
-    .ui
-    .elements
-    .tree
-    .get_node_ids_grouped_by_depth_bottom_up_flat()
-  {
-    let needs_prerender = needs_prerender(&game, node_id);
+  for layer in game.ui.elements.layers.iter() {
+    for node_id in layer
+      .tree
+      .get_node_ids_grouped_by_depth_bottom_up_flat()
+    {
+      if needs_prerender(&game, node_id) {
+        let node = layer.tree.find_node_by_id_mut(node_id).unwrap();
 
-    if needs_prerender {
-      let node = game
-        .ui
-        .elements
-        .tree
-        .find_node_by_id_mut(node_id)
-        .unwrap();
-
-      node.data.calculated.background_color = match node.data.config.background_color {
-        // TODO - transparent
-        BackgroundColorKind::None => Some(RED),
-        BackgroundColorKind::Fixed(color) => Some(color),
-        BackgroundColorKind::Randomized => Some(get_random_color()),
-      };
+        node.data.calculated.background_color = match node.data.config.background_color {
+          // TODO - transparent
+          BackgroundColorKind::None => Some(RED),
+          BackgroundColorKind::Fixed(color) => Some(color),
+          BackgroundColorKind::Randomized => Some(get_random_color()),
+        };
+      }
     }
   }
 }
 
 fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
-  let node = game
-    .ui
-    .elements
-    .tree
-    .find_node_by_id(node_id)
-    .unwrap();
+  let (_, node) = game.ui.elements.find_node_by_id(node_id).unwrap();
 
   if node.data.calculated.background_color.is_none() {
     return true;
