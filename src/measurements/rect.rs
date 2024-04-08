@@ -8,6 +8,17 @@ pub struct Rect {
   pub height: u32,
 }
 
+impl Default for Rect {
+  fn default() -> Self {
+      Self {
+        x: 0 ,
+        y: 0,
+        width: 0,
+        height: 0
+      }
+  }
+}
+
 impl Rect {
   pub fn from_coordinates_and_dimensions(coordinates: &Coordinates, dimensions: &Dimensions) -> Self {
       let Coordinates { x, y } = coordinates.clone();
@@ -19,6 +30,17 @@ impl Rect {
         height,
       }
     }
+ pub fn from_point_and_dimensions(point: &Point, dimensions: &Dimensions) -> Self {
+      let Point { x, y } = point.clone();
+      let Dimensions { width, height } = dimensions.clone();
+      Self {
+        x: x as i32,
+        y: y as i32,
+        width,
+        height,
+      }
+    }
+  
   
   // Rect overlap algorithm taken from
   // https://stackoverflow.com/a/306379

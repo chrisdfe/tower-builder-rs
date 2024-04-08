@@ -2,25 +2,49 @@
 
 ## Layout node system
 
-- stretch to fill
-  - take primary/off axis into account (e.g off axis will not have siblings)
-  - support multiple stretch to fill siblings
-  - recurse down as well (or does it already do this?)
-- interactivity
-  - callback functions that can mutate bits of game state
-    - or maybe "signals" or "requests", to avoid borrow checking issues?
-- rename prerender to precalculate
-- update algorithms to calculate widths of all children at once
-- abstract layout calculations from actual layout node system - it's just a bunch of math
-- adding/removing a layout node should trigger a rerender
-- I could probably iterate through things once instead of twice, once for each axis
-- text color config
-- "space between" gap style
-- child_gap will need to be an enum, "Fixed" and "SpaceBetween"
+- [ ] "layers" - i.e a stack of root nodes instead of just 1
+  - [ ] higher layer = rendered on top & responds to click first
+- [ ] resizability should be configurable on a per-axis basis (right now it's for both)
+- [x] interactive layout_nodes
+  - [x] hover states
+  - [x] click state
+  - [x] button 'actions' described by enum - e.g "SelectRoomDefinition(id: string)", "RemoveUIElement(id: string)", "AddUIElement(some other enum)"
+- [x] remove nodes
+- [x] stretch to fill layout_nodes
+  - [x] take primary/off axis into account (e.g off axis will not have siblings)
+  - [x] support multiple stretch to fill siblings
+  - [x] recurse down as well (or does it already do this?)
+- [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
+- [ ] middleware-like prerender/precalculate "modifiers" to override prerendered values in a clean/abstracted way (like randomizing background/text colors)
+- [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
+- [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
+- [ ] rename 'prerender' to 'precalculate'
+- [x] rename 'element_tree' to 'elements'
+- [ ] update algorithms to calculate widths of all children at once
+- [ ] abstract layout calculations from actual layout node system - it's just a bunch of math
+  - [ ] basic tests
+- [ ] adding/removing a layout node should trigger a rerender
+  - make Elements.tree private? this would be the only way to really ensure this happens
+- [ ] I could probably iterate through things once instead of twice, once for each axis
+- [ ] text color config
+- [ ] UI theme
+- [ ] "space between" gap style
+  - child_gap will need to be an enum, "Fixed" and "SpaceBetween"
+  - actually this sounds a lot like expand_to_fill with all nodes having a weight of 1
+- [ ] UI components
+  - [ ] buttons
+    - (This will probably be the done when I do the "interactive layout_nodes" thing ^^^)
+  - [ ] text inputs
+  - [ ] radios
+
+## Cleanup
+
+- [ ] move measurements mod into types mod
+
+## Route finding
 
 ## Other
 
-- move measurements mod into types mod
 - translate pixel ratio better? (things look small on my monitor)
 - keycode=>command mapping system
 - room/cursor position is still wrong.

@@ -116,6 +116,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
       .clone()
   }
 
+  // TODO - don't include element_id
   pub fn get_all_descendant_ids_flat(&self, element_id: Uuid) -> Vec<Uuid> {
     let mut result: Vec<Uuid> = Vec::new();
 
@@ -123,7 +124,9 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     queue.push_back(element_id);
 
     while let Some(id) = queue.pop_front() {
-      result.push(id.clone());
+      if id != element_id {
+        result.push(id.clone());
+      }
 
       let node = self.find_node_by_id(id);
 
@@ -185,6 +188,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     let TreeNodeInput { children, data } = input;
 
     let node = TreeNode::new(data, parent_id);
+
     let node_id = node.id.clone();
     self.nodes.push(node);
 
@@ -221,13 +225,20 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
   pub fn remove_nodes_by_ids(&mut self, element_ids: Vec<Uuid>) -> Vec<Uuid> {
     let returned_ids = element_ids
       .iter()
+      // filter out potentially non-existent nodes
       .filter(|id| self.find_node_by_id(**id).is_some())
+      // remove descendants as well
+      .flat_map(|id| {
+        let mut result = vec![*id];
+        result.append(&mut self.get_all_descendant_ids_flat(*id));
+        result
+      })
       .map(|id| id.clone())
       .collect::<Vec<_>>();
 
     self
       .nodes
-      .retain(|node| element_ids.contains(&node.id));
+      .retain(|node| !element_ids.contains(&node.id));
 
     returned_ids
   }

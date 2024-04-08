@@ -1,8 +1,6 @@
 use macroquad::prelude::*;
 use macroquad::window::{next_frame, Conf};
 
-use once_cell::sync::OnceCell;
-
 mod constants;
 mod game;
 mod map;
@@ -12,7 +10,7 @@ pub mod types;
 mod utils;
 
 use crate::game::{
-  lifecycle::{prerender, render, run_event_handlers, update},
+  lifecycle::{render, update},
   Game,
 };
 
@@ -20,8 +18,8 @@ fn window_conf() -> Conf {
   Conf {
     window_title: "towerbuilder-rs".to_owned(),
     high_dpi: true,
-    window_width: 1600,
-    window_height: 1200,
+    window_width: 800,
+    window_height: 600,
     ..Default::default()
   }
 }
@@ -38,8 +36,8 @@ async fn main() {
 
   loop {
     update(&mut game);
-    run_event_handlers(&mut game);
-    prerender(&mut game);
+    // run_event_handlers(&mut game);
+    // prerender(&mut game);
     render(&game);
 
     next_frame().await

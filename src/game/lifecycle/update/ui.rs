@@ -1,10 +1,5 @@
-use macroquad::{
-  input::mouse_position,
-  text::{measure_text, TextDimensions},
-  time::get_fps,
-};
+use macroquad::input::mouse_position;
 
-use crate::tower::rooms::validation::RoomValidationContext;
 use crate::{game::Game, map::CoordinatesBox, measurements::Point, utils::screen_point_to_cell};
 
 pub fn update(game: &mut Game) {
@@ -16,27 +11,6 @@ pub fn update(game: &mut Game) {
   //   game.camera_position.y,
   //   get_fps()
   // );
-
-  // Search for hovered button
-  let (mouse_x, mouse_y) = mouse_position();
-
-  let mouse_point = Point {
-    x: mouse_x,
-    y: mouse_y,
-  };
-
-  // let hovered_button = game
-  //   .ui
-  //   .buttons
-  //   .buttons
-  //   .iter()
-  //   .find(|button| button.as_rect().contains_point(&mouse_point));
-
-  // game.ui.buttons.hovered_button_id = if let Some(hovered_button) = hovered_button {
-  //   Some(hovered_button.id.clone())
-  // } else {
-  //   None
-  // };
 
   // TODO - only if !ui.mouse_is_hover_ui()
   // Mouse position
