@@ -20,51 +20,53 @@ pub fn update(game: &mut Game) {
   let hovered_element_id = game.ui.elements.hovered_element_id.clone();
   let clicked_element_id = game.ui.elements.clicked_element_id.clone();
 
+  // Hover actions
   if hovered_element_id.has_changed() {
-    if hovered_element_id.prev.is_none() && hovered_element_id.current.is_some() {
-      // on mouse over
-      let node_id = hovered_element_id.current.unwrap();
+    match hovered_element_id.as_tuple() {
+      (None, Some(current_id)) => {
+        // on mouse over
+        let action_creator = {
+          let node = find_node(game, *current_id);
+          node.data.config.event_handlers.on_mouse_over
+        };
 
-      let action_creator = {
-        let node = find_node(game, node_id);
-        node.data.config.event_handlers.on_mouse_over
-      };
+        maybe_enqueue_action(game, action_creator, *current_id);
+      }
+      (Some(prev_id), None) => {
+        // on mouse out
+        let action_creator = {
+          let node = find_node(game, *prev_id);
+          node.data.config.event_handlers.on_mouse_out
+        };
 
-      maybe_enqueue_action(game, action_creator, node_id);
-    } else if hovered_element_id.current.is_none() && hovered_element_id.prev.is_some() {
-      let node_id = hovered_element_id.prev.unwrap();
-
-      let action_creator = {
-        let node = find_node(game, node_id);
-        node.data.config.event_handlers.on_mouse_out
-      };
-
-      // on mouse over
-      maybe_enqueue_action(game, action_creator, node_id);
+        maybe_enqueue_action(game, action_creator, *prev_id);
+      }
+      _ => (),
     }
   }
 
+  // Click actions
   if clicked_element_id.has_changed() {
-    if clicked_element_id.prev.is_none() && clicked_element_id.current.is_some() {
-      // on mouse over
-      let node_id = hovered_element_id.current.unwrap();
+    match clicked_element_id.as_tuple() {
+      (None, Some(current_id)) => {
+        // on mouse down
+        let action_creator = {
+          let node = find_node(game, *current_id);
+          node.data.config.event_handlers.on_mouse_down
+        };
 
-      let action_creator = {
-        let node = find_node(game, node_id);
-        node.data.config.event_handlers.on_mouse_down
-      };
+        maybe_enqueue_action(game, action_creator, *current_id);
+      }
+      (Some(prev_id), None) => {
+        // on mouse up
+        let action_creator = {
+          let node = find_node(game, *prev_id);
+          node.data.config.event_handlers.on_mouse_up
+        };
 
-      maybe_enqueue_action(game, action_creator, node_id);
-    } else if clicked_element_id.current.is_none() && clicked_element_id.prev.is_some() {
-      // on mouse up
-      let node_id = hovered_element_id.prev.unwrap();
-
-      let action_creator = {
-        let node = find_node(game, node_id);
-        node.data.config.event_handlers.on_mouse_up
-      };
-
-      maybe_enqueue_action(game, action_creator, node_id)
+        maybe_enqueue_action(game, action_creator, *prev_id);
+      }
+      _ => (),
     }
   }
 }

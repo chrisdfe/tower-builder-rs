@@ -24,21 +24,17 @@ impl<T: Clone + PartialEq> PrevAndCurrent<T> {
     self.current = value;
   }
 
+  pub fn as_tuple(&self) -> (&Option<T>, &Option<T>) {
+    (&self.prev, &self.current)
+  }
+
   /// Returns true of prev != current, and returns false if prev == current
   pub fn has_changed(&self) -> bool {
-    if self.current.is_none() && self.prev.is_none() {
-      // Both values are None
-      false
-    } else if self.current.is_some() && self.prev.is_none()
-      || self.current.is_none() && self.prev.is_some()
-    {
-      // Only 1 value is None
-      true
-    } else {
-      // both prev and current have values - use PartialEq to compare
-      let prev = self.prev.as_ref().unwrap();
-      let current = self.current.as_ref().unwrap();
-      prev != current
+    match self.as_tuple() {
+      (None, None) => false,
+      (Some(_), None) => true,
+      (None, Some(_)) => true,
+      (Some(prev), Some(current)) => prev != current,
     }
   }
 }
