@@ -1,14 +1,8 @@
 use uuid::Uuid;
 
-use crate::{
-  measurements::Point,
-  types::{
-    tree::{Tree, TreeNodeInput},
-    PrevAndCurrent,
-  },
-};
+use crate::{measurements::Point, types::PrevAndCurrent};
 
-use super::{factories, interactivity::EventHandlerQueue, layers::Layers, Element};
+use super::{interactivity::EventHandlerQueue, layers::Layers};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -34,7 +28,7 @@ impl Elements {
   }
 
   /// Returns the id of the first matching interactive ui element that screen_point is inside of
-  /// Assumes outer_dimensions ond outer_position on every node is not None
+  /// Assumes outer_dimensions ond outer_position of every node is not None
   pub fn find_interactive_node_at_screen_point(self: &Self, screen_point: &Point) -> Option<Uuid> {
     // Check for overlap from leaf nodes -> up to root to correctly
     let node_ids = self
