@@ -13,7 +13,7 @@ pub mod positions;
  * Performs/caches potentially expensive calculations
  * For now just for layout nodes
  */
-pub fn prerender(game: &mut Game) {
+pub fn _prerender(game: &mut Game) {
   // TODO - only create these if neccessary (build list of needing-prerender ids
   // below and check before iterating)
 

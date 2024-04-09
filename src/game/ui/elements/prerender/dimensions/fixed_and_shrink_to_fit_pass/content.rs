@@ -33,7 +33,7 @@ fn calculate_leaf_node_content_dimensions_for_axis(
   calculation_axis: &Axis,
 ) -> u32 {
   // If a leaf node has neither text nor a fixed size, it collapses to 0x0
-  if node.data.text.len() > 0 {
+  if !node.data.text.is_empty() {
     let TextSettings {
       font,
       font_size,

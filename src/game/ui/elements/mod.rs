@@ -18,7 +18,7 @@ pub mod types;
 pub use types::*;
 
 pub mod prerender;
-pub use prerender::prerender;
+// pub use prerender::prerender;
 
 /// Factory functions for creating `Elements`s
 pub mod factories;

@@ -3,7 +3,7 @@ use crate::game::ui::elements::ContentAlignment;
 pub fn align_within_wrapper(size: u32, wrapper_size: u32, alignment: &ContentAlignment) -> i32 {
   match alignment {
     ContentAlignment::Start => 0,
-    ContentAlignment::Center => (wrapper_size as i32 / 2) - (size as i32 / 2) as i32,
+    ContentAlignment::Center => (wrapper_size as i32 / 2) - (size as i32 / 2),
     ContentAlignment::End => (wrapper_size as i32) - (size as i32),
   }
 }
