@@ -18,7 +18,7 @@ use super::{
 // }
 
 fn create_room_definition_element(
-  room_definition_id: RoomDefinitionId,
+  _room_definition_id: RoomDefinitionId,
   text: String,
 ) -> ElementInput {
   let name = format!("Room definition btn: {}", &text.clone());

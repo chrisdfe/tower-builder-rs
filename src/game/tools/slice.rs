@@ -1,11 +1,10 @@
 use crate::{
-  map::{coordinates_box::CoordinatesBox, Coordinates},
+  map::coordinates_box::CoordinatesBox,
   tower::rooms::{
-    definitions::{RoomDefinition, RoomDefinitionId, ROOM_DEFINITIONS},
+    definitions::{RoomDefinitionId, ROOM_DEFINITIONS},
     validation::RoomValidationContext,
     Room,
   },
-  Game,
 };
 
 pub struct Tools {
@@ -34,7 +33,7 @@ impl Tools {
     }
   }
 
-  pub fn set_selected_room_definition(
+  pub fn _set_selected_room_definition(
     &mut self,
     room_definition_id: RoomDefinitionId,
     selection_box: &CoordinatesBox,

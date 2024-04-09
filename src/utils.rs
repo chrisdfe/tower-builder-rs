@@ -20,7 +20,9 @@ pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {
     )
     // account for camera position
     + game.camera_position.x;
-  let y = (
+
+  // floors go in the opposite direction to screen coordinates
+  let y = -
       ((
         // base point
         point.y as i32
@@ -29,10 +31,9 @@ pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {
         // 
         + (CELL_HEIGHT as i32 / 2)
       )
-      / CELL_HEIGHT as i32)
-      // floors go in the opposite direction to screen coordinates
-      * -1
-    )
+                / CELL_HEIGHT as i32)
+    
+
     // account for camera position
     + game.camera_position.y;
 

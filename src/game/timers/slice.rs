@@ -2,6 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 use super::{Timer, TimerId, TimerListener};
 
+#[derive(Default)]
 pub struct Timers {
   pub timers: HashMap<TimerId, Timer>,
   pub timer_listeners: Vec<Box<dyn TimerListener>>,
@@ -11,21 +12,6 @@ pub struct Timers {
   pub timers_to_update: HashSet<TimerId>,
   pub timers_to_complete: HashSet<TimerId>,
   pub timers_to_remove: HashSet<TimerId>,
-}
-
-impl Default for Timers {
-  fn default() -> Self {
-    Self {
-      timers: HashMap::new(),
-      timer_listeners: Vec::new(),
-
-      timers_to_add: Vec::new(),
-      // cancelled_timer_ids: HashSet::new(),
-      timers_to_update: HashSet::new(),
-      timers_to_complete: HashSet::new(),
-      timers_to_remove: HashSet::new(),
-    }
-  }
 }
 
 impl Timers {

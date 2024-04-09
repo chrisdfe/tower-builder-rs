@@ -51,7 +51,7 @@ pub fn run_event_handlers(game: &mut Game) {
 fn update_updated_timers(game: &mut Game) {
   // Update updated timers
   for timer_id in game.timers.timers_to_update.iter() {
-    let timer = game.timers.timers.get(&timer_id).unwrap();
+    let timer = game.timers.timers.get(timer_id).unwrap();
     game
       .timers
       .timer_listeners

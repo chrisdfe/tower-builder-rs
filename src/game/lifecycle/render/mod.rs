@@ -33,7 +33,7 @@ pub const DEFAULT_TEXT_COLOR: Color = WHITE;
 pub const DEFAULT_FONT_SIZE: u16 = 16;
 pub const DEFAULT_FONT_SCALE: f32 = 1.;
 
-const DEFAULT_FONT_PATH: &'static str = "./fonts/space-mono/SpaceMono-Regular.ttf";
+const DEFAULT_FONT_PATH: &str = "./fonts/space-mono/SpaceMono-Regular.ttf";
 
 static UI_FONT: OnceCell<Font> = OnceCell::new();
 
@@ -158,7 +158,7 @@ fn draw_ground(game: &Game) {
 
 fn draw_rooms(game: &Game) {
   for room in game.world.tower.tower.rooms.iter() {
-    draw_room(&room, None, game);
+    draw_room(room, None, game);
   }
 }
 
@@ -179,7 +179,7 @@ fn draw_room(room: &Room, color_override: Option<Color>, game: &Game) {
   let color = if let Some(color) = color_override {
     color
   } else {
-    let mut color = room.definition().color.clone();
+    let mut color = room.definition().color;
     color.a = if room_is_connected { 1. } else { 0.5 };
     color
   };
@@ -202,7 +202,7 @@ fn draw_room_blueprint(game: &Game) {
   let mut color = if game.tools.blueprint_room.is_valid() {
     game.tools.blueprint_room.definition().color
   } else {
-    RED.clone()
+    RED
   };
 
   color.a = 0.4;
@@ -267,23 +267,22 @@ fn draw_element(element: &Element) {
   let TextDimensions { offset_y, .. } = measure_text(&element.text, font, font_size, font_scale);
 
   // Draw content
-  {
-    draw_text_ex(
-      &element.text,
-      content_position.x,
-      content_position.y + offset_y,
-      TextParams {
-        font,
-        font_size,
-        color: text_color,
-        font_scale,
-        ..Default::default()
-      },
-    )
-  };
+
+  draw_text_ex(
+    &element.text,
+    content_position.x,
+    content_position.y + offset_y,
+    TextParams {
+      font,
+      font_size,
+      color: text_color,
+      font_scale,
+      ..Default::default()
+    },
+  )
 }
 
-fn render_text_custom(text: &String, point: &Point) {
+fn render_text_custom(text: &str, point: &Point) {
   let font = Some(UI_FONT.get().unwrap());
 
   draw_text_ex(
