@@ -35,7 +35,6 @@ fn create_room_definition_element(
       },
       ..ElementConfig::default()
     },
-    ..Default::default()
   }
 }
 

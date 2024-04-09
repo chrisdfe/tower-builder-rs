@@ -2,14 +2,11 @@ use macroquad::color::RED;
 use uuid::Uuid;
 
 use crate::{
-  game::{
-    ui::elements::{BackgroundColorKind, Elements},
-    Game,
-  },
+  game::{ui::elements::BackgroundColorKind, Game},
   utils::get_random_color,
 };
 
-pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
+pub fn prerender(game: &mut Game) {
   // Background color
   for node_id in game
     .ui
@@ -17,7 +14,7 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
     .tree
     .get_node_ids_grouped_by_depth_bottom_up_flat()
   {
-    let needs_prerender = needs_prerender(&game, node_id);
+    let needs_prerender = needs_prerender(game, node_id);
 
     if needs_prerender {
       let node = game

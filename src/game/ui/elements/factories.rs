@@ -5,7 +5,6 @@ use crate::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNodeInput;
 
 use super::constants::ROOM_DEFINITION_BUTTONS;
-use super::interactivity::ElementEventHandlers;
 use super::{
   BackgroundColorKind, Element, ElementConfig, ElementInput, Resizability, TwoDimensional,
 };
@@ -106,7 +105,7 @@ pub fn create_debug_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeN
   ]  
 }
 
-pub fn create_empty_leaf_node() -> ElementInput {
+pub fn _create_empty_leaf_node() -> ElementInput {
   ElementInput {
     name: String::from("empty leaf node"),
     config: ElementConfig {

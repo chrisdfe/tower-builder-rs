@@ -1,9 +1,4 @@
-use macroquad::color::RED;
-
-use crate::{
-  game::{ui::elements::BackgroundColorKind, Game},
-  utils::get_random_color,
-};
+use crate::game::Game;
 
 /// A collection of generic functions to use in reduce/fold algorithms
 mod accumulators;
@@ -26,5 +21,5 @@ pub fn prerender(game: &mut Game) {
 
   dimensions::prerender(game, &mut elements_replica);
   positions::prerender(game, &mut elements_replica);
-  background::prerender(game, &mut elements_replica);
+  background::prerender(game);
 }

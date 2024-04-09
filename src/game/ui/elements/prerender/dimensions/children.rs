@@ -10,9 +10,8 @@ use super::super::accumulators;
 /// Calculates the total dimensions of the node's children.
 /// Assumes those children's outer dimensions have been calculated already
 pub fn calculate(node: &mut TreeNode<Element>, elements_replica: &mut Elements) {
-  let width = calculate_for_axis(node, &Axis::Horizontal, &elements_replica);
-
-  let height = calculate_for_axis(node, &Axis::Vertical, &elements_replica);
+  let width = calculate_for_axis(node, &Axis::Horizontal, elements_replica);
+  let height = calculate_for_axis(node, &Axis::Vertical, elements_replica);
 
   node.data.calculated.children_dimensions = Some(Dimensions { width, height });
 }

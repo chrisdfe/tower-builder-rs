@@ -2,6 +2,7 @@ use std::collections::VecDeque;
 
 use uuid::Uuid;
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Action {
   None,
@@ -15,27 +16,16 @@ pub struct ActionCreatorCtx {
   pub node_id: Uuid,
 }
 
-fn none_action_creator(_: ActionCreatorCtx) -> Action {
+fn _none_action_creator(_: ActionCreatorCtx) -> Action {
   Action::None
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct ElementEventHandlers {
   pub on_mouse_over: Option<ActionCreator>,
   pub on_mouse_out: Option<ActionCreator>,
   pub on_mouse_down: Option<ActionCreator>,
   pub on_mouse_up: Option<ActionCreator>,
-}
-
-impl Default for ElementEventHandlers {
-  fn default() -> Self {
-    Self {
-      on_mouse_over: None,
-      on_mouse_out: None,
-      on_mouse_down: None,
-      on_mouse_up: None,
-    }
-  }
 }
 
 impl ElementEventHandlers {
@@ -48,10 +38,10 @@ impl ElementEventHandlers {
   }
 
   pub fn is_none(&self) -> bool {
-    self.on_mouse_over == None
-      && self.on_mouse_out == None
-      && self.on_mouse_down == None
-      && self.on_mouse_up == None
+    self.on_mouse_over.is_none()
+      && self.on_mouse_out.is_none()
+      && self.on_mouse_down.is_none()
+      && self.on_mouse_up.is_none()
   }
 }
 

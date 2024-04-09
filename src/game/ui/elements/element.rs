@@ -37,7 +37,6 @@ impl Element {
       text,
       config,
       calculated: Default::default(),
-      ..Default::default()
     }
   }
 }
@@ -62,6 +61,7 @@ impl Default for ElementInput {
   }
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone)]
 pub enum BackgroundColorKind {
   None,
@@ -112,7 +112,7 @@ impl ElementConfig {
   }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct ElementCalculatedProperties {
   pub outer_dimensions: Option<Dimensions>,
   pub content_dimensions: Option<Dimensions>,
@@ -122,21 +122,6 @@ pub struct ElementCalculatedProperties {
   pub content_position: Option<Point>,
 
   pub background_color: Option<Color>,
-}
-
-impl Default for ElementCalculatedProperties {
-  fn default() -> Self {
-    Self {
-      outer_dimensions: None,
-      content_dimensions: None,
-      children_dimensions: None,
-
-      outer_position: None,
-      content_position: None,
-
-      background_color: None,
-    }
-  }
 }
 
 impl ElementCalculatedProperties {
@@ -151,7 +136,7 @@ impl ElementCalculatedProperties {
       outer_position: self.outer_position.as_ref().unwrap(),
       content_position: self.content_position.as_ref().unwrap(),
 
-      background_color: &self.background_color.as_ref().unwrap(),
+      background_color: self.background_color.as_ref().unwrap(),
     }
   }
 
@@ -170,12 +155,12 @@ impl ElementCalculatedProperties {
   pub fn outer_as_rect(&self) -> Rect {
     let outer_position = self.outer_position.as_ref().unwrap();
     let outer_dimensions = self.outer_dimensions.as_ref().unwrap();
-    Rect::from_point_and_dimensions(&outer_position, &outer_dimensions)
+    Rect::from_point_and_dimensions(outer_position, outer_dimensions)
   }
 
   /// Gets the calculated outer/content/children dimensions field for the specified axis.
   /// Panics if any of outer/content/children dimensions is None.
-  pub fn get_sizes_for_axis(self: &Self, axis: &Axis) -> (u32, u32, u32) {
+  pub fn get_sizes_for_axis(&self, axis: &Axis) -> (u32, u32, u32) {
     (
       self.get_outer_size_for_axis(axis),
       self.get_content_size_for_axis(axis),
@@ -185,7 +170,7 @@ impl ElementCalculatedProperties {
 
   /// Gets the calculated outer dimensions field for the specified axis.
   /// Panics if outer_dimensions is None.
-  pub fn get_outer_size_for_axis(self: &Self, axis: &Axis) -> u32 {
+  pub fn get_outer_size_for_axis(&self, axis: &Axis) -> u32 {
     self
       .outer_dimensions
       .as_ref()
@@ -195,7 +180,7 @@ impl ElementCalculatedProperties {
 
   /// Gets the calculated content_dimensions field for the specified axis.
   /// Panics if content_dimensions is None.
-  pub fn get_content_size_for_axis(self: &Self, calculation_axis: &Axis) -> u32 {
+  pub fn get_content_size_for_axis(&self, calculation_axis: &Axis) -> u32 {
     self
       .content_dimensions
       .as_ref()
@@ -205,7 +190,7 @@ impl ElementCalculatedProperties {
 
   /// Gets the calculated children_dimensions field for the specified axis.
   /// Panics if children_dimensions is None.
-  pub fn get_children_size_for_axis(self: &Self, calculation_axis: &Axis) -> u32 {
+  pub fn get_children_size_for_axis(&self, calculation_axis: &Axis) -> u32 {
     self
       .children_dimensions
       .as_ref()
@@ -215,22 +200,22 @@ impl ElementCalculatedProperties {
 
   /// Sets the specified axis of outer_dimensions to `value`
   /// panics if outer_dimensions is `None`
-  pub fn set_outer_dimensions_for_axis(self: &mut Self, value: u32, axis: &Axis) {
+  pub fn set_outer_dimensions_for_axis(&mut self, value: u32, axis: &Axis) {
     self
       .outer_dimensions
       .as_mut()
       .unwrap()
-      .set_for_axis(value, &axis);
+      .set_for_axis(value, axis);
   }
 
   /// Sets the specified axis of outer_dimensions to `value`
   /// panics if content_dimensions is `None`
-  pub fn set_content_dimensions_for_axis(self: &mut Self, value: u32, axis: &Axis) {
+  pub fn set_content_dimensions_for_axis(&mut self, value: u32, axis: &Axis) {
     self
       .content_dimensions
       .as_mut()
       .unwrap()
-      .set_for_axis(value, &axis);
+      .set_for_axis(value, axis);
   }
 }
 

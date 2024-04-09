@@ -22,5 +22,5 @@ pub fn update(game: &mut Game) {
   let mut elements_replica = game.ui.elements.clone();
   elements::prerender::dimensions::prerender(game, &mut elements_replica);
   elements::prerender::positions::prerender(game, &mut elements_replica);
-  elements::prerender::background::prerender(game, &mut elements_replica);
+  elements::prerender::background::prerender(game);
 }
