@@ -31,11 +31,10 @@ fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
 
   match key_code {
     Key1 => {
-      let root_node_id = game.ui.elements.tree.root_node_id.unwrap();
+      let layer = game.ui.elements.layers.front().unwrap();
+      let root_node_id = layer.tree.root_node_id.unwrap();
 
-      game
-        .ui
-        .elements
+      layer
         .tree
         .add_nodes(factories::create_debug_stretch_to_fill_node_group(
           root_node_id,
@@ -45,15 +44,13 @@ fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
     }
 
     Key2 => {
-      let ids = game
-        .ui
-        .elements
+      let layer = game.ui.elements.layers.front().unwrap();
+      let ids = layer
         .tree
-        .get_all_descendant_ids_flat(game.ui.elements.tree.root_node_id.unwrap());
-      // .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
+        .get_all_descendant_ids_flat(layer.tree.root_node_id.unwrap());
 
       println!("ids: {:?}", ids);
-      game.ui.elements.tree.remove_nodes_by_ids(ids);
+      layer.tree.remove_nodes_by_ids(ids);
 
       game.ui.elements.clear_all_calculated_properties();
     }

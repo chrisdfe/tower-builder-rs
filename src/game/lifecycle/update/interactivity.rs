@@ -86,8 +86,10 @@ pub fn run_event_handlers(game: &mut Game) {
       }
       RemoveAllRootNodeChildren => {
         for layer in game.ui.elements.layers.iter() {
-          let ids = layer.get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
-          game.ui.elements.tree.remove_nodes_by_ids(ids);
+          let ids = layer
+            .tree
+            .get_children_ids_for_node_id(layer.tree.root_node_id.unwrap());
+          layer.tree.remove_nodes_by_ids(ids);
           println!("removing all root node children");
           game.ui.elements.clear_all_calculated_properties();
         }
@@ -153,12 +155,14 @@ fn calculate_clicked_ui_element(game: &mut Game) {
   Local helpers
 */
 fn find_node(game: &Game, node_id: Uuid) -> &TreeNode<Element> {
-  game
+  let (_, node) = game
     .ui
     .elements
-    .tree
+    .layers
     .find_node_by_id(node_id)
-    .unwrap()
+    .unwrap();
+
+  node
 }
 
 fn maybe_enqueue_action(game: &mut Game, action_creator: Option<ActionCreator>, node_id: Uuid) {

@@ -9,37 +9,35 @@ mod content;
 mod outer;
 
 pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
-  // Calculate root node -> down
-  let sibling_id_groups = game
-    .ui
-    .elements
-    .tree
-    .get_nodes_grouped_by_siblings_top_down()
-    .into_iter()
-    .map(|(_, node_ids)| {
-      game
-        .ui
-        .elements
-        .tree
-        .find_nodes_by_ids(&node_ids)
-        .into_iter()
-        .filter(|element_id| {
-          element_id
-            .data
-            .calculated
-            .outer_position
-            .is_none()
-        })
-        .map(|node| node.id)
-        .collect::<Vec<_>>()
-    })
-    .collect::<Vec<_>>();
+  for layer in game.ui.elements.layers.iter() {
+    // Calculate root node -> down
+    let sibling_id_groups = layer
+      .tree
+      .get_nodes_grouped_by_siblings_top_down()
+      .into_iter()
+      .map(|(_, node_ids)| {
+        layer
+          .tree
+          .find_nodes_by_ids(&node_ids)
+          .into_iter()
+          .filter(|element_id| {
+            element_id
+              .data
+              .calculated
+              .outer_position
+              .is_none()
+          })
+          .map(|node| node.id)
+          .collect::<Vec<_>>()
+      })
+      .collect::<Vec<_>>();
 
-  calculate_sibling_group(
-    sibling_id_groups,
-    &mut game.ui.elements,
-    &mut elements_replica,
-  );
+    calculate_sibling_group(
+      sibling_id_groups,
+      &mut game.ui.elements,
+      &mut elements_replica,
+    );
+  }
 }
 
 pub fn calculate_sibling_group(

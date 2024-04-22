@@ -23,8 +23,43 @@ impl Layers {
     self.layers.iter_mut()
   }
 
+  pub fn back(&self) -> Option<&Layer> {
+    self.layers.first()
+  }
+
   pub fn front(&self) -> Option<&Layer> {
     self.layers.last()
+  }
+
+  pub fn find_node_by_id(&self, id: Uuid) -> Option<(LayerTitle, &TreeNode<Element>)> {
+    for layer in self.iter() {
+      if let Some(node) = layer.tree.find_node_by_id(id) {
+        return Some((layer.title, node));
+      }
+    }
+
+    None
+  }
+
+  pub fn find_node_by_id_mut(&mut self, id: Uuid) -> Option<(LayerTitle, &TreeNode<Element>)> {
+    for layer in self.iter_mut() {
+      if let Some(node) = layer.tree.find_node_by_id(id) {
+        return Some((layer.title, node));
+      }
+    }
+
+    None
+  }
+
+  pub fn get_children_ids_for_node_id(&self, id: Uuid) -> Option<(LayerTitle, Vec<Uuid>)> {
+    for layer in self.iter() {
+      if let Some(_) = layer.tree.find_node_by_id(id) {
+        let ids = layer.tree.get_children_ids_for_node_id(id);
+        return Some((layer.title, ids));
+      }
+    }
+
+    None
   }
 }
 

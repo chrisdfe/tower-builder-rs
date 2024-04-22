@@ -26,7 +26,7 @@ fn calculate_outer_position_for_axis(
   }
 
   let parent_node = elements_replica
-    .tree
+    .layers
     .find_node_by_id(node.parent_id.unwrap())
     .unwrap();
 

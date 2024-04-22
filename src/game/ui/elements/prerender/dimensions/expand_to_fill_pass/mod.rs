@@ -1,7 +1,7 @@
 use uuid::Uuid;
 
+use crate::game::ui::elements::element_node_vec;
 use crate::game::ui::elements::prerender::accumulators;
-use crate::game::ui::elements::{element_node_vec, Resizability};
 use crate::game::ui::elements::{Element, Elements};
 use crate::game::Game;
 use crate::measurements::Axis;
@@ -13,7 +13,6 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
   let sibling_id_groups = game
     .ui
     .elements
-    .tree
     .get_nodes_grouped_by_siblings_top_down();
 
   for (maybe_parent_id, sibling_id_group) in sibling_id_groups {
@@ -48,15 +47,13 @@ fn calculate_sibling_group(
   // recalculate parent children dimensions
   {
     let parent_node_mut = elements_to_calculate
-      .tree
+      .layers
       .find_node_by_id_mut(parent_id)
       .unwrap();
 
     super::children::calculate(parent_node_mut, elements_replica);
 
-    elements_replica
-      .tree
-      .replace_node(parent_node_mut);
+    elements_replica.replace_node(parent_node_mut);
   };
 }
 

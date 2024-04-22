@@ -31,7 +31,12 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
 }
 
 fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
-  let (_, node) = game.ui.elements.find_node_by_id(node_id).unwrap();
+  let (_, node) = game
+    .ui
+    .elements
+    .layers
+    .find_node_by_id(node_id)
+    .unwrap();
 
   if node.data.calculated.background_color.is_none() {
     return true;
