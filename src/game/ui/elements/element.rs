@@ -3,7 +3,7 @@ use macroquad::color::Color;
 use crate::measurements::{Axis, Dimensions, Point, Rect};
 
 use super::{
-  interactivity::ElementEventHandlers,
+  interactivity::{ElementEventHandlers, InteractivityConfig},
   types::{ContentAlignment, Resizability},
   TwoDimensional,
 };
@@ -46,7 +46,6 @@ impl Element {
 pub struct ElementInput {
   // Mostly for debugging reasons
   pub name: String,
-  // pub parent_id: Option<Uuid>,
   pub text: String,
   pub config: ElementConfig,
 }
@@ -55,18 +54,23 @@ impl Default for ElementInput {
   fn default() -> Self {
     Self {
       name: String::from("unnamed node (from input)"),
-      // parent_id: None,
       text: String::from(""),
       config: ElementConfig::default(),
     }
   }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum BackgroundColorKind {
   None,
   Fixed(Color),
   Randomized,
+}
+
+impl Default for BackgroundColorKind {
+  fn default() -> Self {
+    Self::None
+  }
 }
 
 #[derive(Debug, Clone)]
@@ -82,7 +86,7 @@ pub struct ElementConfig {
   pub background_color: BackgroundColorKind,
 
   // Interactivity
-  pub event_handlers: ElementEventHandlers,
+  pub interactivity: Option<InteractivityConfig>,
 }
 
 impl Default for ElementConfig {
@@ -97,18 +101,17 @@ impl Default for ElementConfig {
         vertical: ContentAlignment::Center,
       },
 
-      background_color: BackgroundColorKind::Randomized,
+      // background_color: BackgroundColorKind::Randomized,
+      background_color: BackgroundColorKind::None,
 
-      event_handlers: ElementEventHandlers::new(),
+      interactivity: None,
     }
   }
 }
 
 impl ElementConfig {
   pub fn is_interactive(&self) -> bool {
-    self
-      .event_handlers
-      .has_at_least_one_not_none_handler()
+    self.interactivity.is_some()
   }
 }
 

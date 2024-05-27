@@ -2,6 +2,8 @@ use std::collections::VecDeque;
 
 use uuid::Uuid;
 
+use super::BackgroundColorKind;
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Action {
   None,
@@ -17,6 +19,14 @@ pub struct ActionCreatorCtx {
 
 fn none_action_creator(_: ActionCreatorCtx) -> Action {
   Action::None
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct InteractivityConfig {
+  pub background_color_over: BackgroundColorKind,
+  pub background_color_down: BackgroundColorKind,
+  pub background_color_up: BackgroundColorKind,
+  pub event_handlers: ElementEventHandlers,
 }
 
 #[derive(Debug, Clone)]

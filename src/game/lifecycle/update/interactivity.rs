@@ -27,7 +27,14 @@ pub fn update(game: &mut Game) {
         // on mouse over
         let action_creator = {
           let node = find_node(game, *current_id);
-          node.data.config.event_handlers.on_mouse_over
+          node
+            .data
+            .config
+            .interactivity
+            .as_ref()
+            .unwrap()
+            .event_handlers
+            .on_mouse_over
         };
 
         maybe_enqueue_action(game, action_creator, *current_id);
@@ -36,7 +43,14 @@ pub fn update(game: &mut Game) {
         // on mouse out
         let action_creator = {
           let node = find_node(game, *prev_id);
-          node.data.config.event_handlers.on_mouse_out
+          node
+            .data
+            .config
+            .interactivity
+            .as_ref()
+            .unwrap()
+            .event_handlers
+            .on_mouse_out
         };
 
         maybe_enqueue_action(game, action_creator, *prev_id);
@@ -52,7 +66,14 @@ pub fn update(game: &mut Game) {
         // on mouse down
         let action_creator = {
           let node = find_node(game, *current_id);
-          node.data.config.event_handlers.on_mouse_down
+          node
+            .data
+            .config
+            .interactivity
+            .as_ref()
+            .unwrap()
+            .event_handlers
+            .on_mouse_down
         };
 
         maybe_enqueue_action(game, action_creator, *current_id);
@@ -61,7 +82,14 @@ pub fn update(game: &mut Game) {
         // on mouse up
         let action_creator = {
           let node = find_node(game, *prev_id);
-          node.data.config.event_handlers.on_mouse_up
+          node
+            .data
+            .config
+            .interactivity
+            .as_ref()
+            .unwrap()
+            .event_handlers
+            .on_mouse_up
         };
 
         maybe_enqueue_action(game, action_creator, *prev_id);

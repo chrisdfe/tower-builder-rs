@@ -5,7 +5,6 @@ use crate::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNodeInput;
 
 use super::constants::ROOM_DEFINITION_BUTTONS;
-use super::interactivity::ElementEventHandlers;
 use super::{
   BackgroundColorKind, Element, ElementConfig, ElementInput, Resizability, TwoDimensional,
 };
@@ -95,6 +94,7 @@ pub fn create_debug_stretch_to_fill_node_with_children(
   }
 }
 
+// TODO - debug module
 #[rustfmt::skip]
 pub fn create_debug_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeNodeInput<Element>, Option<Uuid>)> {
   vec![
@@ -139,7 +139,8 @@ pub fn create_root_node_element() -> Element {
         vertical: ContentAlignment::Center,
       },
       resizability: Resizability::Fixed(Dimensions::of_screen()),
-      background_color: BackgroundColorKind::Randomized,
+      // background_color: BackgroundColorKind::Randomized,
+      background_color: BackgroundColorKind::None,
       ..Default::default()
     },
     ..Default::default()

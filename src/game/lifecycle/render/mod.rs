@@ -241,7 +241,6 @@ fn draw_element(element: &Element) {
     let w = outer_dimensions.width as f32;
     let h = outer_dimensions.height as f32;
 
-    // TODO - layout node interactivity
     draw_rectangle(x, y, w, h, *background_color);
   };
 
@@ -251,7 +250,8 @@ fn draw_element(element: &Element) {
     let y = content_position.y;
     let w = content_dimensions.width as f32;
     let h = content_dimensions.height as f32;
-    let debug_content_background_color = Color::from_rgba(255, 255, 255, 100);
+    // let debug_content_background_color = Color::from_rgba(255, 255, 255, 100);
+    let debug_content_background_color = Color::new(0., 0., 0., 0.);
 
     draw_rectangle(x, y, w, h, debug_content_background_color);
   }
