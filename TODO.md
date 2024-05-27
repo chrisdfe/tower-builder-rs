@@ -4,6 +4,7 @@
 
 - [ ] "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
+  - [ ] attempt this again with a different strategy - nodes have 'types': 'Default' or 'Layer'. Layer acts as a layer and has the same dimensions as its parent
 - [ ] resizability should be configurable on a per-axis basis (right now it's for both)
 - [x] interactive layout_nodes
   - [x] hover states
