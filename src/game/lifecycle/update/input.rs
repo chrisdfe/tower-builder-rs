@@ -3,6 +3,7 @@ use macroquad::input::{
 };
 use macroquad::prelude::*;
 
+use crate::game::input::KEY_DOWN_HANDLERS;
 use crate::game::ui::elements::factories;
 use crate::{game::Game, map::Coordinates};
 
@@ -27,48 +28,8 @@ fn handle_input(game: &mut Game) {
 }
 
 fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
-  use KeyCode::*;
-
-  match key_code {
-    Key1 => {
-      let root_node_id = game.ui.elements.tree.root_node_id.unwrap();
-
-      game
-        .ui
-        .elements
-        .tree
-        .add_nodes(factories::create_debug_stretch_to_fill_node_group(
-          root_node_id,
-        ));
-
-      game.ui.elements.clear_all_calculated_properties();
-    }
-
-    Key2 => {
-      let ids = game
-        .ui
-        .elements
-        .tree
-        .get_all_descendant_ids_flat(game.ui.elements.tree.root_node_id.unwrap());
-      // .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
-
-      println!("ids: {:?}", ids);
-      game.ui.elements.tree.remove_nodes_by_ids(ids);
-
-      game.ui.elements.clear_all_calculated_properties();
-    }
-
-    W => game.add_camera_position(Coordinates { x: 0, y: 1 }),
-    A => game.add_camera_position(Coordinates { x: -1, y: 0 }),
-    S => game.add_camera_position(Coordinates { x: 0, y: -1 }),
-    D => game.add_camera_position(Coordinates { x: 1, y: 0 }),
-
-    Up => game.add_camera_position(Coordinates { x: 0, y: 1 }),
-    Left => game.add_camera_position(Coordinates { x: -1, y: 0 }),
-    Down => game.add_camera_position(Coordinates { x: 0, y: -1 }),
-    Right => game.add_camera_position(Coordinates { x: 1, y: 0 }),
-
-    _ => (),
+  if let Some(handler) = KEY_DOWN_HANDLERS.get(&key_code) {
+    handler(game);
   }
 }
 

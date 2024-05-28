@@ -101,7 +101,6 @@ impl Default for ElementConfig {
         vertical: ContentAlignment::Center,
       },
 
-      // background_color: BackgroundColorKind::Randomized,
       background_color: BackgroundColorKind::None,
 
       interactivity: None,

@@ -2,6 +2,7 @@
 
 ## Layout node system
 
+- [ ] an 'update' callback callback for ui elements
 - [ ] "layers" - i.e a stack of root nodes instead of just 1
   - [ ] higher layer = rendered on top & responds to click first
   - [ ] attempt this again with a different strategy - nodes have 'types': 'Default' or 'Layer'. Layer acts as a layer and has the same dimensions as its parent
