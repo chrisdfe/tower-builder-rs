@@ -1,8 +1,44 @@
 use macroquad::input::mouse_position;
 
-use crate::{game::Game, map::CoordinatesBox, measurements::Point, utils::screen_point_to_cell};
+use crate::{
+  game::{ui::elements::UpdateCtx, Game},
+  map::CoordinatesBox,
+  measurements::Point,
+  utils::screen_point_to_cell,
+};
 
 pub fn update(game: &mut Game) {
+  update_selection(game);
+  run_update_handlers(game);
+}
+
+fn run_update_handlers(game: &mut Game) {
+  let ctx = UpdateCtx {
+    world: &game.world,
+    tools: &game.tools,
+    camera_position: &game.camera_position,
+  };
+
+  for element_id in game
+    .ui
+    .elements
+    .tree
+    .get_node_ids_grouped_by_depth_top_down_flat()
+  {
+    let element = game
+      .ui
+      .elements
+      .tree
+      .find_node_by_id_mut(element_id)
+      .unwrap();
+
+    if let Some(on_update) = element.data.config.on_update {
+      on_update(&ctx, &mut element.data);
+    }
+  }
+}
+
+fn update_selection(game: &mut Game) {
   // game.ui.debug_text = format!(
   //   "{},{} | {} {} | {}",
   //   game.ui.current_selected_cell.x,

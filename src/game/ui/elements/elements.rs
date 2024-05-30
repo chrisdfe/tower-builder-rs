@@ -8,7 +8,7 @@ use crate::{
   },
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element};
+use super::{factories, interactivity::EventHandlerQueue, Element, ElementInput};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -29,7 +29,7 @@ impl Elements {
     let root_element_id = tree.add_node(
       TreeNodeInput {
         data: factories::create_root_node_element(),
-        children: Vec::new(),
+        children: vec![factories::debug_text_section::create()],
       },
       None,
     );

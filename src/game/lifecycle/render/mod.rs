@@ -17,7 +17,6 @@ use crate::{
   utils::coordinates_to_screen_point,
 };
 
-mod debug_text;
 mod ui;
 mod world;
 
@@ -74,76 +73,7 @@ pub fn render(game: &Game) {
   draw_room_blueprint(game);
 
   // UI
-  draw_tool_text(game);
-  draw_funds_text(game);
-  draw_population_text(game);
-  draw_clock_text(game);
-  draw_date_text(game);
-
   draw_ui(game);
-}
-
-fn draw_tool_text(game: &Game) {
-  let text = format!("{:?}", game.tools.selected_room_definition_id);
-  let x = 20.;
-  let y = 20.;
-  let position = Point { x, y };
-
-  render_text_custom(&text, &position);
-}
-
-fn draw_funds_text(game: &Game) {
-  let text = format!("funds: {:?}", game.world.wallet.funds);
-  let x = 20.;
-  let y = 40.;
-  let position = Point { x, y };
-
-  render_text_custom(&text, &position);
-}
-
-fn draw_population_text(game: &Game) {
-  let text = format!("population: {:?}", game.world.tower.tower.population());
-  let x = 20.;
-  let y = 60.;
-  let position = Point { x, y };
-
-  render_text_custom(&text, &position);
-}
-
-fn draw_clock_text(game: &Game) {
-  let time = game.world.time.current_time();
-  let padded_hours = if time.hour < 10 {
-    format!("0{}", time.hour)
-  } else {
-    format!("{}", time.hour)
-  };
-
-  let padded_minutes = if time.minute < 10 {
-    format!("0{}", time.minute)
-  } else {
-    format!("{}", time.minute)
-  };
-
-  let text = format!("time: {}:{}", padded_hours, padded_minutes);
-  let x = 20.;
-  let y = 80.;
-  let position = Point { x, y };
-
-  render_text_custom(&text, &position);
-}
-
-fn draw_date_text(game: &Game) {
-  let time = game.world.time.current_time();
-
-  let text = format!(
-    "date: day {}, month {}, year {}",
-    time.day, time.month, time.year
-  );
-  let x = 20.;
-  let y = 100.;
-  let position = Point { x, y };
-
-  render_text_custom(&text, &position);
 }
 
 fn draw_ground(game: &Game) {

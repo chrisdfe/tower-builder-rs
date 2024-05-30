@@ -1,5 +1,3 @@
-use uuid::Uuid;
-
 use crate::game::ui::elements::ContentAlignment;
 use crate::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNodeInput;
@@ -10,6 +8,7 @@ use super::{
 };
 
 pub mod debug;
+pub mod debug_text_section;
 
 pub fn create_room_definition_buttons_with_wrapper() -> TreeNodeInput<Element> {
   TreeNodeInput {
@@ -66,12 +65,14 @@ pub fn create_root_node_element() -> Element {
   let input = ElementInput {
     name: String::from("root node"),
     config: ElementConfig {
-      padding: 30,
+      padding: 10,
       child_gap: 10,
       stack_axis: Axis::Vertical,
       content_alignment: TwoDimensional {
-        horizontal: ContentAlignment::Center,
-        vertical: ContentAlignment::Center,
+        // horizontal: ContentAlignment::Center,
+        horizontal: ContentAlignment::Start,
+        // vertical: ContentAlignment::Center,
+        vertical: ContentAlignment::Start,
       },
       resizability: Resizability::Fixed(Dimensions::of_screen()),
       // background_color: BackgroundColorKind::Randomized,

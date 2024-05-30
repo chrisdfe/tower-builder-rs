@@ -1,9 +1,13 @@
 use macroquad::color::Color;
 
-use crate::measurements::{Axis, Dimensions, Point, Rect};
+use crate::{
+  game::{tools::Tools, world::World, Game},
+  map::Coordinates,
+  measurements::{Axis, Dimensions, Point, Rect},
+};
 
 use super::{
-  interactivity::{ElementEventHandlers, InteractivityConfig},
+  interactivity::InteractivityConfig,
   types::{ContentAlignment, Resizability},
   TwoDimensional,
 };
@@ -73,6 +77,14 @@ impl Default for BackgroundColorKind {
   }
 }
 
+pub struct UpdateCtx<'a> {
+  pub world: &'a World,
+  pub tools: &'a Tools,
+  pub camera_position: &'a Coordinates,
+}
+
+pub type UpdateHandler = fn(ctx: &UpdateCtx, element: &mut Element);
+
 #[derive(Debug, Clone)]
 pub struct ElementConfig {
   // dimensions/position
@@ -87,6 +99,8 @@ pub struct ElementConfig {
 
   // Interactivity
   pub interactivity: Option<InteractivityConfig>,
+
+  pub on_update: Option<UpdateHandler>,
 }
 
 impl Default for ElementConfig {
@@ -102,6 +116,8 @@ impl Default for ElementConfig {
       },
 
       background_color: BackgroundColorKind::None,
+
+      on_update: None,
 
       interactivity: None,
     }

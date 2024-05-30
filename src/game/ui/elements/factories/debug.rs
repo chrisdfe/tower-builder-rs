@@ -1,13 +1,9 @@
 use uuid::Uuid;
 
-use crate::game::ui::elements::ContentAlignment;
-use crate::measurements::{Axis, Dimensions};
+use crate::measurements::Axis;
 use crate::types::tree::TreeNodeInput;
 
-use super::super::constants::ROOM_DEFINITION_BUTTONS;
-use super::super::{
-  BackgroundColorKind, Element, ElementConfig, ElementInput, Resizability, TwoDimensional,
-};
+use super::super::{Element, ElementConfig, Resizability};
 
 pub fn create_childless_stretch_to_fill_node(expand_weight: u32) -> TreeNodeInput<Element> {
   TreeNodeInput {
@@ -62,7 +58,6 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
   }
 }
 
-// TODO - debug module
 #[rustfmt::skip]
 pub fn create_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeNodeInput<Element>, Option<Uuid>)> {
   vec![
