@@ -8,7 +8,6 @@ use super::BackgroundColorKind;
 pub enum Action {
   None,
   PrintDebugStatement,
-  RemoveAllRootNodeChildren,
 }
 
 pub type ActionCreator = fn(ctx: ActionCreatorCtx) -> Action;
@@ -17,42 +16,19 @@ pub struct ActionCreatorCtx {
   pub node_id: Uuid,
 }
 
-fn none_action_creator(_: ActionCreatorCtx) -> Action {
-  Action::None
-}
-
 #[derive(Debug, Clone, Default)]
 pub struct InteractivityConfig {
   pub background_color_over: BackgroundColorKind,
   pub background_color_down: BackgroundColorKind,
   pub background_color_up: BackgroundColorKind,
-  pub event_handlers: ElementEventHandlers,
-}
 
-#[derive(Debug, Clone)]
-pub struct ElementEventHandlers {
   pub on_mouse_over: Option<ActionCreator>,
   pub on_mouse_out: Option<ActionCreator>,
   pub on_mouse_down: Option<ActionCreator>,
   pub on_mouse_up: Option<ActionCreator>,
 }
 
-impl Default for ElementEventHandlers {
-  fn default() -> Self {
-    Self {
-      on_mouse_over: None,
-      on_mouse_out: None,
-      on_mouse_down: None,
-      on_mouse_up: None,
-    }
-  }
-}
-
-impl ElementEventHandlers {
-  pub fn new() -> Self {
-    Default::default()
-  }
-
+impl InteractivityConfig {
   pub fn has_at_least_one_not_none_handler(&self) -> bool {
     !self.is_none()
   }

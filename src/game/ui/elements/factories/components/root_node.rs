@@ -1,6 +1,6 @@
 use crate::{
   game::ui::elements::{
-    BackgroundColorKind, ContentAlignment, Element, Resizability, TwoDimensional,
+    BackgroundColorKind, ContentAlignment, Element, ElementHandle, Resizability, TwoDimensional,
   },
   measurements::{Axis, Dimensions},
   types::tree::TreeNodeInput,
@@ -9,16 +9,20 @@ use crate::{
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
     create_root_node_element(),
-    vec![super::debug_text_panel::create()],
+    vec![
+      super::debug_text_panel::create(),
+      super::tools_panel::create(),
+    ],
   )
 }
 
 fn create_root_node_element() -> Element {
   Element {
     name: String::from("root node"),
+    handle: ElementHandle::RootNode,
+
     padding: 10,
     child_gap: 10,
-
     background_color: BackgroundColorKind::None,
 
     stack_axis: Axis::Vertical,

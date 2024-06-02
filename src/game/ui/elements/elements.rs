@@ -5,7 +5,7 @@ use crate::{
   types::{tree::Tree, PrevAndCurrent},
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element};
+use super::{factories, interactivity::EventHandlerQueue, Element, ElementHandle};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -36,6 +36,24 @@ impl Elements {
     }
   }
 
+  pub fn remove_node_by_handle(self: &mut Self, handle: ElementHandle) {
+    let element = self
+      .tree
+      .nodes
+      .iter()
+      .find(|node| node.data.handle == handle);
+
+    if let Some(element) = element {
+      let mut node_ids_to_remove = vec![element.id];
+
+      let mut descendent_ids = self.tree.get_descendant_ids(element.id);
+
+      node_ids_to_remove.append(&mut descendent_ids);
+
+      self.tree.remove_nodes_by_ids(node_ids_to_remove);
+    }
+  }
+
   /// Returns the id of the first matching interactive ui element that screen_point is inside of
   /// Assumes outer_dimensions ond outer_position on every node is not None
   pub fn find_interactive_node_at_screen_point(self: &Self, screen_point: &Point) -> Option<Uuid> {
@@ -48,7 +66,7 @@ impl Elements {
       .into_iter()
       .map(|node_id| self.tree.find_node_by_id(node_id).unwrap())
       // filter out non-interactive elements
-      .filter(|node| node.data.is_interactive())
+      .filter(|node| node.data.interactivity.is_some())
       // filter out elements that have not been precalculated yet
       .filter(|node| {
         node.data.calculated.outer_position.is_some()

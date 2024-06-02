@@ -1,7 +1,9 @@
+use std::default;
+
 use macroquad::color::Color;
 
 use crate::{
-  game::{tools::Tools, world::World, Game},
+  game::{tools::Tools, world::World},
   map::Coordinates,
   measurements::{Axis, Dimensions, Point, Rect},
 };
@@ -15,6 +17,9 @@ use super::{
 #[derive(Debug, Clone)]
 pub struct Element {
   pub name: String,
+
+  pub handle: ElementHandle,
+
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: String,
 
@@ -41,6 +46,8 @@ impl Default for Element {
     Self {
       name: String::from("untitled node"),
 
+      handle: ElementHandle::None,
+
       padding: 0,
       child_gap: 0,
       resizability: Resizability::ShrinkToFit,
@@ -62,10 +69,13 @@ impl Default for Element {
   }
 }
 
-impl Element {
-  pub fn is_interactive(&self) -> bool {
-    self.interactivity.is_some()
-  }
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub enum ElementHandle {
+  #[default]
+  None,
+  RootNode,
+  ToolsPanel,
+  RoomDefinitionButtons,
 }
 
 #[derive(Debug, Clone, Copy)]

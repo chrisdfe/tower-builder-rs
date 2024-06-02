@@ -1,7 +1,7 @@
 use macroquad::input::KeyCode;
 use std::collections::HashMap;
 
-use crate::map::Coordinates;
+use crate::{game::ui::elements::ElementHandle, map::Coordinates};
 
 use super::super::{ui::elements::factories, Game};
 use lazy_static::lazy_static;
@@ -28,26 +28,19 @@ lazy_static! {
 fn handle_key1_down(game: &mut Game) {
   let root_node_id = game.ui.elements.tree.root_node_id.unwrap();
 
-  game
-    .ui
-    .elements
-    .tree
-    .add_nodes(factories::debug::create_stretch_to_fill_node_group(
-      root_node_id,
-    ));
+  game.ui.elements.tree.add_node(
+    factories::components::tools_panel::create(),
+    Some(root_node_id),
+  );
 
   game.ui.elements.clear_all_calculated_properties();
 }
 
 fn handle_key2_down(game: &mut Game) {
-  let ids = game
+  game
     .ui
     .elements
-    .tree
-    .get_all_descendant_ids_flat(game.ui.elements.tree.root_node_id.unwrap());
-
-  game.ui.elements.tree.remove_nodes_by_ids(ids);
-
+    .remove_node_by_handle(ElementHandle::ToolsPanel);
   game.ui.elements.clear_all_calculated_properties();
 }
 

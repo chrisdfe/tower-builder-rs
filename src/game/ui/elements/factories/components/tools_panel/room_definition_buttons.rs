@@ -19,18 +19,23 @@ pub fn create() -> TreeNodeInput<Element> {
       },
       ..Default::default()
     },
-    ROOM_DEFINITIONS
-      .iter()
-      .map(|(_definition_id, definition)| {
-        TreeNodeInput(
-          Element {
-            name: String::from(format!("room definition button: {}", definition.id)),
-            // TODO - on_click
-            ..Default::default()
-          },
-          Vec::new(),
-        )
-      })
-      .collect::<Vec<_>>(),
+    create_buttons(),
   )
+}
+
+fn create_buttons() -> Vec<TreeNodeInput<Element>> {
+  ROOM_DEFINITIONS
+    .iter()
+    .map(|(_definition_id, definition)| {
+      TreeNodeInput(
+        Element {
+          name: String::from(format!("room definition button: {:?}", definition.id)),
+          text: String::from(format!("{:?}", definition.id)),
+          // TODO - on_click
+          ..Default::default()
+        },
+        Vec::new(),
+      )
+    })
+    .collect::<Vec<_>>()
 }

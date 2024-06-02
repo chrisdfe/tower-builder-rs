@@ -116,8 +116,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
       .clone()
   }
 
-  // TODO - don't include element_id
-  pub fn get_all_descendant_ids_flat(&self, element_id: Uuid) -> Vec<Uuid> {
+  pub fn get_descendant_ids(&self, element_id: Uuid) -> Vec<Uuid> {
     let mut result: Vec<Uuid> = Vec::new();
 
     let mut queue: VecDeque<Uuid> = VecDeque::new();
@@ -230,7 +229,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
       // remove descendants as well
       .flat_map(|id| {
         let mut result = vec![*id];
-        result.append(&mut self.get_all_descendant_ids_flat(*id));
+        result.append(&mut self.get_descendant_ids(*id));
         result
       })
       .map(|id| id.clone())
@@ -243,7 +242,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     returned_ids
   }
   pub fn remove_node(&mut self, node_id: Uuid) {
-    let element_ids_to_remove = self.get_all_descendant_ids_flat(node_id);
+    let element_ids_to_remove = self.get_descendant_ids(node_id);
 
     // Delete node
     self
