@@ -20,5 +20,5 @@ fn calculate_outer_size_for_axis(node: &TreeNode<Element>, calculation_axis: &Ax
     .unwrap()
     .get_length_for_axis(calculation_axis);
 
-  content_length + (node.data.config.padding * 2)
+  content_length + (node.data.padding * 2)
 }

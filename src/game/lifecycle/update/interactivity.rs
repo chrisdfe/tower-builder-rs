@@ -29,7 +29,6 @@ pub fn update(game: &mut Game) {
           let node = find_node(game, *current_id);
           node
             .data
-            .config
             .interactivity
             .as_ref()
             .unwrap()
@@ -45,7 +44,6 @@ pub fn update(game: &mut Game) {
           let node = find_node(game, *prev_id);
           node
             .data
-            .config
             .interactivity
             .as_ref()
             .unwrap()
@@ -68,7 +66,6 @@ pub fn update(game: &mut Game) {
           let node = find_node(game, *current_id);
           node
             .data
-            .config
             .interactivity
             .as_ref()
             .unwrap()
@@ -84,7 +81,6 @@ pub fn update(game: &mut Game) {
           let node = find_node(game, *prev_id);
           node
             .data
-            .config
             .interactivity
             .as_ref()
             .unwrap()

@@ -23,13 +23,13 @@ fn calculate_for_axis(
   elements_replica: &Elements,
 ) -> u32 {
   let children = elements_replica.tree.get_children_for_node(node);
-  let is_for_primary_axis = &node.data.config.stack_axis == calculation_axis;
+  let is_for_primary_axis = &node.data.stack_axis == calculation_axis;
 
   get_outer_sizes_for_axis(&children, calculation_axis)
     .enumerate()
     .fold(0, |acc, (idx, sibling_size)| {
       if is_for_primary_axis {
-        accumulators::sum_siblings_size(acc, sibling_size, node.data.config.child_gap, idx)
+        accumulators::sum_siblings_size(acc, sibling_size, node.data.child_gap, idx)
       } else {
         accumulators::max_sibling_size(acc, sibling_size)
       }

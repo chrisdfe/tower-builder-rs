@@ -45,7 +45,7 @@ fn calculate_outer_position_for_axis(
     calculate_parent_content_alignment_offset_for_axis(parent_node, calculation_axis) as f32;
 
   // Finally, calculate current element's position along relative to siblings
-  result += if &parent_node.data.config.stack_axis == calculation_axis {
+  result += if &parent_node.data.stack_axis == calculation_axis {
     calculate_element_position_on_primary_axis(
       &mut node,
       &parent_node,
@@ -70,7 +70,6 @@ fn calculate_parent_content_alignment_offset_for_axis(
 ) -> i32 {
   let alignment = parent_node
     .data
-    .config
     .content_alignment
     .get_value_for_axis(calculation_axis);
 
@@ -117,7 +116,7 @@ fn calculate_element_position_on_primary_axis(
     .into_iter()
     .fold(0, |acc, sibling_node| {
       let sibling_size = get_outer_size_for_axis(&sibling_node.data, calculation_axis);
-      let margin = &parent_node.data.config.child_gap;
+      let margin = &parent_node.data.child_gap;
 
       acc + sibling_size + margin
     })
@@ -141,7 +140,6 @@ fn calculate_element_position_on_off_axis(
 
   let alignment = parent_node
     .data
-    .config
     .content_alignment
     .get_value_for_axis(calculation_axis);
 

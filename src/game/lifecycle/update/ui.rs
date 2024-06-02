@@ -32,7 +32,7 @@ fn run_update_handlers(game: &mut Game) {
       .find_node_by_id_mut(element_id)
       .unwrap();
 
-    if let Some(on_update) = element.data.config.on_update {
+    if let Some(on_update) = element.data.on_update {
       on_update(&ctx, &mut element.data);
     }
   }

@@ -17,7 +17,22 @@ pub struct Element {
   pub name: String,
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: String,
-  pub config: ElementConfig,
+
+  // dimensions/position
+  pub padding: u32,
+  pub child_gap: u32,
+  pub resizability: Resizability,
+  pub stack_axis: Axis,
+  pub content_alignment: TwoDimensional<ContentAlignment>,
+
+  // Colors
+  pub background_color: BackgroundColorKind,
+
+  // Interactivity
+  pub interactivity: Option<InteractivityConfig>,
+
+  pub on_update: Option<UpdateHandler>,
+
   pub calculated: ElementCalculatedProperties,
 }
 
@@ -25,7 +40,22 @@ impl Default for Element {
   fn default() -> Self {
     Self {
       name: String::from("untitled node"),
-      config: Default::default(),
+
+      padding: 0,
+      child_gap: 0,
+      resizability: Resizability::ShrinkToFit,
+      stack_axis: Axis::Horizontal,
+      content_alignment: TwoDimensional {
+        horizontal: ContentAlignment::Center,
+        vertical: ContentAlignment::Center,
+      },
+
+      background_color: BackgroundColorKind::None,
+
+      on_update: None,
+
+      interactivity: None,
+
       calculated: Default::default(),
       text: String::from(""),
     }
@@ -33,34 +63,8 @@ impl Default for Element {
 }
 
 impl Element {
-  pub fn new(input: ElementInput) -> Element {
-    let ElementInput { name, text, config } = input;
-
-    Element {
-      name,
-      text,
-      config,
-      calculated: Default::default(),
-      ..Default::default()
-    }
-  }
-}
-
-#[derive(Clone)]
-pub struct ElementInput {
-  // Mostly for debugging reasons
-  pub name: String,
-  pub text: String,
-  pub config: ElementConfig,
-}
-
-impl Default for ElementInput {
-  fn default() -> Self {
-    Self {
-      name: String::from("unnamed node (from input)"),
-      text: String::from(""),
-      config: ElementConfig::default(),
-    }
+  pub fn is_interactive(&self) -> bool {
+    self.interactivity.is_some()
   }
 }
 

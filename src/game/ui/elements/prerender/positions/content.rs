@@ -21,5 +21,5 @@ fn calculate_content_position_for_axis(element: &Element, calculation_axis: &Axi
     .unwrap()
     .get_value_for_axis(calculation_axis);
 
-  outer_position + element.config.padding as f32
+  outer_position + element.padding as f32
 }

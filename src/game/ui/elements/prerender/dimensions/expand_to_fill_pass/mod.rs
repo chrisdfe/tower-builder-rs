@@ -1,7 +1,7 @@
 use uuid::Uuid;
 
+use crate::game::ui::elements::element_node_vec;
 use crate::game::ui::elements::prerender::accumulators;
-use crate::game::ui::elements::{element_node_vec, Resizability};
 use crate::game::ui::elements::{Element, Elements};
 use crate::game::Game;
 use crate::measurements::Axis;
@@ -80,13 +80,12 @@ fn calculate_sibling_group_for_axis(
     .map(|sibling| {
       sibling
         .data
-        .config
         .resizability
         .extract_expand_to_fill_weight()
     })
     .fold(0, accumulators::sum);
 
-  let primary_axis = parent_node.data.config.stack_axis.clone();
+  let primary_axis = parent_node.data.stack_axis.clone();
   let is_on_primary_axis = primary_axis == *calculation_axis;
 
   let (_, parent_content_size, parent_children_size) = parent_node
@@ -111,10 +110,9 @@ fn calculate_sibling_group_for_axis(
   let calculated_sizes = expand_to_fill_siblings
     .into_iter()
     .map(|sibling| {
-      let child_gap = parent_node.data.config.child_gap;
+      let child_gap = parent_node.data.child_gap;
       let weight = sibling
         .data
-        .config
         .resizability
         .extract_expand_to_fill_weight();
 
@@ -129,7 +127,7 @@ fn calculate_sibling_group_for_axis(
         parent_content_size
       };
 
-      let content_size = outer_size - (sibling.data.config.padding * 2);
+      let content_size = outer_size - (sibling.data.padding * 2);
 
       (sibling.id, outer_size, content_size)
     })
@@ -165,11 +163,5 @@ fn group_siblings_by_expand_to_fill<'a>(
     .tree
     .find_nodes_by_ids(sibling_id_group)
     .into_iter()
-    .partition(|sibling| {
-      sibling
-        .data
-        .config
-        .resizability
-        .is_expand_to_fill()
-    })
+    .partition(|sibling| sibling.data.resizability.is_expand_to_fill())
 }

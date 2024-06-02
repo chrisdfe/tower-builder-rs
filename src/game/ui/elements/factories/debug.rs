@@ -1,9 +1,9 @@
 use uuid::Uuid;
 
 use crate::game::ui::elements::{ContentAlignment, TwoDimensional};
+use crate::measurements::Axis;
 use crate::measurements::Dimensions;
 use crate::types::tree::TreeNodeInput;
-use crate::{game::ui::elements::ElementInput, measurements::Axis};
 
 use super::super::{Element, ElementConfig, Resizability};
 
@@ -11,11 +11,8 @@ pub fn create_childless_stretch_to_fill_node(expand_weight: u32) -> TreeNodeInpu
   TreeNodeInput {
     data: Element {
       name: String::from("debug stretch_to_fill node"),
-      config: ElementConfig {
-        padding: 10,
-        resizability: Resizability::ExpandToFill(expand_weight),
-        ..Default::default()
-      },
+      padding: 10,
+      resizability: Resizability::ExpandToFill(expand_weight),
       ..Default::default()
     },
     children: Vec::new(),
@@ -26,12 +23,9 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
   TreeNodeInput {
     data: Element {
       name: String::from("debug stretch_to_fill node with children"),
-      config: ElementConfig {
-        padding: 10,
-        resizability: Resizability::ExpandToFill(expand_weight),
-        stack_axis: Axis::Vertical,
-        ..Default::default()
-      },
+      padding: 10,
+      resizability: Resizability::ExpandToFill(expand_weight),
+      stack_axis: Axis::Vertical,
       ..Default::default()
     },
     children: vec![
@@ -39,12 +33,9 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
       TreeNodeInput {
         data: Element {
           name: String::from("debug stretch_to_fill node with children"),
-          config: ElementConfig {
-            padding: 10,
-            resizability: Resizability::ExpandToFill(expand_weight),
-            stack_axis: Axis::Horizontal,
-            ..Default::default()
-          },
+          padding: 10,
+          resizability: Resizability::ExpandToFill(expand_weight),
+          stack_axis: Axis::Horizontal,
           ..Default::default()
         },
         children: vec![
@@ -54,12 +45,9 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
             data: Element {
               name: String::from("expanding node"),
               text: String::from("expanding node."),
-              config: ElementConfig {
-                padding: 10,
-                resizability: Resizability::ExpandToFill(expand_weight),
-                stack_axis: Axis::Horizontal,
-                ..Default::default()
-              },
+              padding: 10,
+              resizability: Resizability::ExpandToFill(expand_weight),
+              stack_axis: Axis::Horizontal,
               ..Default::default()
             },
             children: Vec::new(),
@@ -84,10 +72,10 @@ pub fn create_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeNodeInp
   ]  
 }
 
-pub fn create_empty_leaf_node() -> ElementInput {
-  ElementInput {
-    name: String::from("empty leaf node"),
-    config: ElementConfig {
+pub fn create_empty_leaf_node() -> TreeNodeInput<Element> {
+  TreeNodeInput {
+    data: Element {
+      name: String::from("empty leaf node"),
       padding: 10,
       child_gap: 10,
       stack_axis: Axis::Horizontal,
@@ -101,6 +89,6 @@ pub fn create_empty_leaf_node() -> ElementInput {
       },
       ..Default::default()
     },
-    ..Default::default()
+    children: Vec::new(),
   }
 }

@@ -10,14 +10,11 @@ pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput {
     data: Element {
       name: String::from("debug text section"),
-      config: ElementConfig {
-        padding: 2,
-        stack_axis: Axis::Vertical,
-        content_alignment: TwoDimensional {
-          horizontal: ContentAlignment::Start,
-          vertical: ContentAlignment::Start,
-        },
-        ..Default::default()
+      padding: 2,
+      stack_axis: Axis::Vertical,
+      content_alignment: TwoDimensional {
+        horizontal: ContentAlignment::Start,
+        vertical: ContentAlignment::Start,
       },
       ..Default::default()
     },
@@ -47,11 +44,8 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
   .map(|(text, on_update)| TreeNodeInput {
     data: Element {
       name: String::from(text),
-      config: ElementConfig {
-        padding: 2,
-        on_update: Some(on_update),
-        ..Default::default()
-      },
+      padding: 2,
+      on_update: Some(on_update),
       ..Default::default()
     },
     children: vec![],

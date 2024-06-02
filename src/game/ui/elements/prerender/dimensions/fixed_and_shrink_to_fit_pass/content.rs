@@ -48,9 +48,9 @@ fn calculate_leaf_node_content_dimensions_for_axis(
     }
   } else {
     use Resizability::*;
-    match &node.data.config.resizability {
+    match &node.data.resizability {
       Fixed(dimensions) => {
-        dimensions.get_length_for_axis(calculation_axis) - (node.data.config.padding * 2)
+        dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
       }
       ShrinkToFit => 0,
       ExpandToFill(_) => 0,
@@ -62,9 +62,9 @@ fn calculate_wrapper_node_content_dimensions_for_axis(
   node: &mut TreeNode<Element>,
   calculation_axis: &Axis,
 ) -> u32 {
-  match &node.data.config.resizability {
+  match &node.data.resizability {
     Resizability::Fixed(dimensions) => {
-      dimensions.get_length_for_axis(calculation_axis) - (node.data.config.padding * 2)
+      dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
     }
     Resizability::ShrinkToFit => {
       // Assumes children has been calculated

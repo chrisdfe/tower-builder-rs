@@ -22,16 +22,15 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
 
     if needs_prerender {
       let (base_background_color, is_interactive) = {
-        let config = &game
+        let element = &game
           .ui
           .elements
           .tree
           .find_node_by_id_mut(node_id)
           .unwrap()
-          .data
-          .config;
+          .data;
 
-        (config.background_color, config.is_interactive())
+        (element.background_color, element.interactivity.is_some())
       };
 
       let background_color = if is_interactive {
@@ -108,20 +107,19 @@ fn get_interactive_color(game: &Game, node_id: Uuid) -> BackgroundColorKind {
     .find_node_by_id(node_id)
     .unwrap();
 
-  let config = &node.data.config;
-  let interactivity_config = config.interactivity.as_ref().unwrap();
+  let interactivity = &node.data.interactivity.as_ref().unwrap();
 
   // hover state
   if game.ui.elements.hovered_element_id.has_changed() {
     if let Some(hovered_element_id) = game.ui.elements.hovered_element_id.current {
       if hovered_element_id == node.id {
-        return interactivity_config.background_color_over.clone();
+        return interactivity.background_color_over.clone();
       }
     }
 
     if let Some(unhovered_element_id) = game.ui.elements.hovered_element_id.prev {
       if unhovered_element_id == node.id {
-        return node.data.config.background_color.clone();
+        return node.data.background_color.clone();
       }
     }
   }
@@ -129,16 +127,16 @@ fn get_interactive_color(game: &Game, node_id: Uuid) -> BackgroundColorKind {
   if game.ui.elements.clicked_element_id.has_changed() {
     if let Some(clicked_element_id) = game.ui.elements.clicked_element_id.current {
       if clicked_element_id == node.id {
-        return interactivity_config.background_color_down.clone();
+        return interactivity.background_color_down.clone();
       }
     }
 
     if let Some(unclicked_element_id) = game.ui.elements.clicked_element_id.prev {
       if unclicked_element_id == node.id {
-        return interactivity_config.background_color_up.clone();
+        return interactivity.background_color_up.clone();
       }
     }
   }
 
-  BackgroundColorKind::Fixed(RED)
+  BackgroundColorKind::Fixed(Color::new(1., 1., 1., 0.))
 }

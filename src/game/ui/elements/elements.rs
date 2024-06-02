@@ -48,7 +48,7 @@ impl Elements {
       .into_iter()
       .map(|node_id| self.tree.find_node_by_id(node_id).unwrap())
       // filter out non-interactive elements
-      .filter(|node| node.data.config.is_interactive())
+      .filter(|node| node.data.is_interactive())
       // filter out elements that have not been precalculated yet
       .filter(|node| {
         node.data.calculated.outer_position.is_some()
