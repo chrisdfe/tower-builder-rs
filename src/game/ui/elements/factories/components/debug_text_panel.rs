@@ -1,14 +1,12 @@
 use crate::{
-  game::ui::elements::{
-    ContentAlignment, Element, ElementConfig, TwoDimensional, UpdateCtx, UpdateHandler,
-  },
+  game::ui::elements::{ContentAlignment, Element, TwoDimensional, UpdateCtx, UpdateHandler},
   measurements::Axis,
   types::tree::TreeNodeInput,
 };
 
 pub fn create() -> TreeNodeInput<Element> {
-  TreeNodeInput {
-    data: Element {
+  TreeNodeInput(
+    Element {
       name: String::from("debug text section"),
       padding: 2,
       stack_axis: Axis::Vertical,
@@ -18,8 +16,8 @@ pub fn create() -> TreeNodeInput<Element> {
       },
       ..Default::default()
     },
-    children: get_children(),
-  }
+    get_children(),
+  )
 }
 
 fn get_children() -> Vec<TreeNodeInput<Element>> {
@@ -41,14 +39,16 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
     ),
   ]
   .into_iter()
-  .map(|(text, on_update)| TreeNodeInput {
-    data: Element {
-      name: String::from(text),
-      padding: 2,
-      on_update: Some(on_update),
-      ..Default::default()
-    },
-    children: vec![],
+  .map(|(text, on_update)| {
+    TreeNodeInput(
+      Element {
+        name: String::from(text),
+        padding: 2,
+        on_update: Some(on_update),
+        ..Default::default()
+      },
+      Vec::new(),
+    )
   })
   .collect::<Vec<_>>()
 }

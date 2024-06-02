@@ -185,7 +185,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
 
   //  TODO - return value should return children ids too probably
   pub fn add_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
-    let TreeNodeInput { children, data } = input;
+    let TreeNodeInput(data, children) = input;
 
     let node = TreeNode::new(data, parent_id);
 

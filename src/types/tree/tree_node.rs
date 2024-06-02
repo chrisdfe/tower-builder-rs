@@ -24,3 +24,6 @@ impl<T: Clone + std::fmt::Debug> TreeNode<T> {
     }
   }
 }
+
+// (node, children)
+pub struct TreeNodeInput<T>(pub T, pub Vec<TreeNodeInput<T>>);

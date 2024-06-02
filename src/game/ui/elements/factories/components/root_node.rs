@@ -7,10 +7,10 @@ use crate::{
 };
 
 pub fn create() -> TreeNodeInput<Element> {
-  TreeNodeInput {
-    data: create_root_node_element(),
-    children: vec![super::debug_text_panel::create()],
-  }
+  TreeNodeInput(
+    create_root_node_element(),
+    vec![super::debug_text_panel::create()],
+  )
 }
 
 fn create_root_node_element() -> Element {

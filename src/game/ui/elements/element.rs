@@ -90,51 +90,6 @@ pub struct UpdateCtx<'a> {
 pub type UpdateHandler = fn(ctx: &UpdateCtx, element: &mut Element);
 
 #[derive(Debug, Clone)]
-pub struct ElementConfig {
-  // dimensions/position
-  pub padding: u32,
-  pub child_gap: u32,
-  pub resizability: Resizability,
-  pub stack_axis: Axis,
-  pub content_alignment: TwoDimensional<ContentAlignment>,
-
-  // Colors
-  pub background_color: BackgroundColorKind,
-
-  // Interactivity
-  pub interactivity: Option<InteractivityConfig>,
-
-  pub on_update: Option<UpdateHandler>,
-}
-
-impl Default for ElementConfig {
-  fn default() -> Self {
-    Self {
-      padding: 0,
-      child_gap: 0,
-      resizability: Resizability::ShrinkToFit,
-      stack_axis: Axis::Horizontal,
-      content_alignment: TwoDimensional {
-        horizontal: ContentAlignment::Center,
-        vertical: ContentAlignment::Center,
-      },
-
-      background_color: BackgroundColorKind::None,
-
-      on_update: None,
-
-      interactivity: None,
-    }
-  }
-}
-
-impl ElementConfig {
-  pub fn is_interactive(&self) -> bool {
-    self.interactivity.is_some()
-  }
-}
-
-#[derive(Debug, Clone)]
 pub struct ElementCalculatedProperties {
   pub outer_dimensions: Option<Dimensions>,
   pub content_dimensions: Option<Dimensions>,
