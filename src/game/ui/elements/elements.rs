@@ -8,7 +8,7 @@ use crate::{
   },
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element, ElementInput};
+use super::{factories, interactivity::EventHandlerQueue, Element};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -26,13 +26,7 @@ impl Elements {
     let mut tree = Tree::new();
 
     // Add root node
-    let root_element_id = tree.add_node(
-      TreeNodeInput {
-        data: factories::create_root_node_element(),
-        children: vec![factories::debug_text_section::create()],
-      },
-      None,
-    );
+    let root_element_id = tree.add_node(factories::create_root_node(), None);
 
     tree.root_node_id = Some(root_element_id);
 

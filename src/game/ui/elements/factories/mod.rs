@@ -7,8 +7,8 @@ use super::{
   BackgroundColorKind, Element, ElementConfig, ElementInput, Resizability, TwoDimensional,
 };
 
+pub mod components;
 pub mod debug;
-pub mod debug_text_section;
 
 pub fn create_room_definition_buttons_with_wrapper() -> TreeNodeInput<Element> {
   TreeNodeInput {
@@ -58,6 +58,13 @@ pub fn create_empty_leaf_node() -> ElementInput {
       ..Default::default()
     },
     ..Default::default()
+  }
+}
+
+pub fn create_root_node() -> TreeNodeInput<Element> {
+  TreeNodeInput {
+    data: create_root_node_element(),
+    children: vec![components::debug_text_panel::create()],
   }
 }
 
