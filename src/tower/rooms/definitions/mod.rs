@@ -74,6 +74,12 @@ impl Default for RoomDefinitionId {
   }
 }
 
+impl std::fmt::Display for RoomDefinitionId {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}", self)
+  }
+}
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum RoomResizability {
   None,
