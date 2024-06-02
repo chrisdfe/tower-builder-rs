@@ -2,10 +2,7 @@ use uuid::Uuid;
 
 use crate::{
   measurements::Point,
-  types::{
-    tree::{Tree, TreeNodeInput},
-    PrevAndCurrent,
-  },
+  types::{tree::Tree, PrevAndCurrent},
 };
 
 use super::{factories, interactivity::EventHandlerQueue, Element};
@@ -25,9 +22,8 @@ impl Elements {
   pub fn new() -> Self {
     let mut tree = Tree::new();
 
-    // Add root node
-    let root_element_id = tree.add_node(factories::create_root_node(), None);
-
+    let root_element_id = tree.add_node(factories::components::root_node::create(), None);
+    // TODO - should this be the default behavior in Tree if parent_id is None?
     tree.root_node_id = Some(root_element_id);
 
     Self {
@@ -43,7 +39,7 @@ impl Elements {
   /// Returns the id of the first matching interactive ui element that screen_point is inside of
   /// Assumes outer_dimensions ond outer_position on every node is not None
   pub fn find_interactive_node_at_screen_point(self: &Self, screen_point: &Point) -> Option<Uuid> {
-    // Check for overlap from leaf nodes -> up to root to correctly
+    // Check for overlap from leaf nodes -> up to root
     let node_ids = self
       .tree
       .get_node_ids_grouped_by_depth_bottom_up_flat();

@@ -1,7 +1,9 @@
 use uuid::Uuid;
 
-use crate::measurements::Axis;
+use crate::game::ui::elements::{ContentAlignment, TwoDimensional};
+use crate::measurements::Dimensions;
 use crate::types::tree::TreeNodeInput;
+use crate::{game::ui::elements::ElementInput, measurements::Axis};
 
 use super::super::{Element, ElementConfig, Resizability};
 
@@ -48,7 +50,20 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
         children: vec![
           // create_childless_stretch_to_fill_node(1),
           create_childless_stretch_to_fill_node(1),
-          super::create_room_definition_buttons_with_wrapper(),
+          TreeNodeInput {
+            data: Element {
+              name: String::from("expanding node"),
+              text: String::from("expanding node."),
+              config: ElementConfig {
+                padding: 10,
+                resizability: Resizability::ExpandToFill(expand_weight),
+                stack_axis: Axis::Horizontal,
+                ..Default::default()
+              },
+              ..Default::default()
+            },
+            children: Vec::new(),
+          },
           create_childless_stretch_to_fill_node(1),
           // create_childless_stretch_to_fill_node(1),
         ],
@@ -67,4 +82,25 @@ pub fn create_stretch_to_fill_node_group(root_node_id: Uuid) -> Vec<(TreeNodeInp
     // (create_room_definition_buttons_with_wrapper(), Some(root_node_id)),
     (create_childless_stretch_to_fill_node(1), Some(root_node_id)),
   ]  
+}
+
+pub fn create_empty_leaf_node() -> ElementInput {
+  ElementInput {
+    name: String::from("empty leaf node"),
+    config: ElementConfig {
+      padding: 10,
+      child_gap: 10,
+      stack_axis: Axis::Horizontal,
+      resizability: Resizability::Fixed(Dimensions {
+        width: 300,
+        height: 200,
+      }),
+      content_alignment: TwoDimensional {
+        horizontal: ContentAlignment::Center,
+        vertical: ContentAlignment::Start,
+      },
+      ..Default::default()
+    },
+    ..Default::default()
+  }
 }
