@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::str::FromStr;
 
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
@@ -71,6 +72,24 @@ pub enum RoomDefinitionId {
 impl Default for RoomDefinitionId {
   fn default() -> Self {
     Self::Lobby
+  }
+}
+
+impl FromStr for RoomDefinitionId {
+  type Err = ();
+
+  fn from_str(input: &str) -> Result<Self, Self::Err> {
+    match input {
+      "Floor" => Ok(Self::Floor),
+      "Lobby" => Ok(Self::Lobby),
+      "LobbyLarge" => Ok(Self::LobbyLarge),
+      "Office" => Ok(Self::Office),
+      "Condo" => Ok(Self::Condo),
+      "HotelSingle" => Ok(Self::HotelSingle),
+      "Stairs" => Ok(Self::Stairs),
+      "ElevatorSingle" => Ok(Self::ElevatorSingle),
+      _ => Err(()),
+    }
   }
 }
 

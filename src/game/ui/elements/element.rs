@@ -1,4 +1,4 @@
-use std::default;
+use std::{collections::HashMap, default};
 
 use macroquad::color::Color;
 
@@ -13,6 +13,13 @@ use super::{
   types::{ContentAlignment, Resizability},
   TwoDimensional,
 };
+
+#[derive(Debug, Clone)]
+pub enum ElementData {
+  None,
+  // TODO - this seems pretty horrible
+  HashMap(HashMap<&'static str, String>),
+}
 
 #[derive(Debug, Clone)]
 pub struct Element {
@@ -39,6 +46,8 @@ pub struct Element {
   pub on_update: Option<UpdateHandler>,
 
   pub calculated: ElementCalculatedProperties,
+
+  pub data: ElementData,
 }
 
 impl Default for Element {
@@ -65,6 +74,8 @@ impl Default for Element {
 
       calculated: Default::default(),
       text: String::from(""),
+
+      data: ElementData::None,
     }
   }
 }

@@ -98,7 +98,11 @@ pub fn run_event_handlers(game: &mut Game) {
       node_id,
     } = queued_action;
 
-    let action = action_creator(ActionCreatorCtx { node_id });
+    let tree_node = game.ui.elements.tree.find_node_by_id(node_id);
+    // TODO - don't unwrap
+    let element = &tree_node.unwrap().data;
+
+    let action = action_creator(ActionCreatorCtx { element: &element });
     use interactivity::Action::*;
     match action {
       None => {
@@ -106,6 +110,13 @@ pub fn run_event_handlers(game: &mut Game) {
       }
       PrintDebugStatement => {
         println!("debug statement. {}", node_id);
+      }
+      SetSelectedRoomDefinition(definition_id) => {
+        game.tools.selected_room_definition_id = definition_id;
+        println!(
+          "selected_room_definition is now: {:?}",
+          game.tools.selected_room_definition_id
+        );
       }
     }
     // RemoveAllRootNodeChildren => {
