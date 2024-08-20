@@ -21,7 +21,7 @@ pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {
       / CELL_WIDTH as i32
     )
     // account for camera position
-    + game.camera_position.x;
+    + game.world.camera.camera_position.x;
   let y = (
       ((
         // base point
@@ -36,7 +36,7 @@ pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {
       * -1
     )
     // account for camera position
-    + game.camera_position.y;
+    + game.world.camera.camera_position.y;
 
   Coordinates { x, y }
 }
@@ -48,7 +48,7 @@ pub fn coordinates_to_screen_point(cell: &Coordinates, game: &Game) -> Point {
     //-
     (cell.x as f32 * CELL_WIDTH as f32)
     //-
-    - (game.camera_position.x as f32 * CELL_WIDTH as f32)
+    - (game.world.camera.camera_position.x as f32 * CELL_WIDTH as f32)
     //-
     + (screen_width() / 2.)
     //-
@@ -58,7 +58,7 @@ pub fn coordinates_to_screen_point(cell: &Coordinates, game: &Game) -> Point {
     //-
     (cell.y as f32 * -1. * CELL_HEIGHT as f32)
     //-
-    + (game.camera_position.y as f32 * CELL_HEIGHT as f32)
+    + (game.world.camera.camera_position.y as f32 * CELL_HEIGHT as f32)
     //-
     + (screen_height() / 2.)
     //-

@@ -3,8 +3,8 @@ use std::{collections::HashMap, default};
 use macroquad::color::Color;
 
 use crate::{
+  game::slices::{tools, world},
   types::map::Coordinates,
-  game::slices::{tools::Tools, world},
   types::measurements::{Axis, Dimensions, Point, Rect},
 };
 
@@ -102,9 +102,11 @@ impl Default for BackgroundColorKind {
   }
 }
 
+// TODO - this is a bit of an encapsulation issue
+// Maybe a generic instead or something?
 pub struct UpdateCtx<'a> {
   pub world: &'a world::Slice,
-  pub tools: &'a Tools,
+  pub tools: &'a tools::Slice,
   pub camera_position: &'a Coordinates,
 }
 

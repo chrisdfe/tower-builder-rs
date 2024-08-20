@@ -5,18 +5,16 @@ use crate::{
   types::map::Coordinates,
 };
 
-use super::slices::{input, timers, tools::Tools, ui::Ui, world};
+use super::slices::{input, timers, tools, ui, world};
 
+// TODO - serialize
 pub struct Game {
   pub timers: timers::Slice,
 
-  // TODO - serialize
   pub input: input::Slice,
   pub world: world::Slice,
-  pub ui: Ui,
-  pub tools: Tools,
-
-  pub camera_position: Coordinates,
+  pub ui: ui::Slice,
+  pub tools: tools::Slice,
 }
 
 impl Default for Game {
@@ -26,10 +24,8 @@ impl Default for Game {
       timers: timers::Slice::new(),
 
       world: world::Slice::new(),
-      ui: Ui::new(),
-      tools: Tools::new(),
-
-      camera_position: Coordinates::zero(),
+      ui: ui::Slice::new(),
+      tools: tools::Slice::new(),
     }
   }
 }
@@ -85,10 +81,5 @@ impl Game {
       //   .get_first_validation_error_message()
       //   .to_string();
     }
-  }
-
-  pub fn add_camera_position(&mut self, coordinates: Coordinates) {
-    self.camera_position.x += coordinates.x;
-    self.camera_position.y += coordinates.y;
   }
 }

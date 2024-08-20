@@ -45,33 +45,57 @@ fn handle_key2_down(game: &mut Game) {
 }
 
 fn handle_w_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 0, y: 1 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 0, y: 1 })
 }
 
 fn handle_a_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: -1, y: 0 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: -1, y: 0 })
 }
 
 fn handle_s_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 0, y: -1 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 0, y: -1 })
 }
 
 fn handle_d_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 1, y: 0 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 1, y: 0 })
 }
 
 fn handle_up_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 0, y: 1 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 0, y: 1 })
 }
 
 fn handle_left_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: -1, y: 0 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: -1, y: 0 })
 }
 
 fn handle_down_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 0, y: -1 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 0, y: -1 })
 }
 
 fn handle_right_down(game: &mut Game) {
-  game.add_camera_position(Coordinates { x: 1, y: 0 })
+  game
+    .world
+    .camera
+    .add_camera_position(Coordinates { x: 1, y: 0 })
 }

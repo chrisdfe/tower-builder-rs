@@ -1,8 +1,8 @@
 use macroquad::input::mouse_position;
 
 use crate::{
-  types::map::CoordinatesBox,
   game::{slices::ui::elements::UpdateCtx, Game},
+  types::map::CoordinatesBox,
   types::measurements::Point,
   utils::screen_point_to_cell,
 };
@@ -27,7 +27,7 @@ fn run_update_handlers(game: &mut Game) {
   let ctx = UpdateCtx {
     world: &game.world,
     tools: &game.tools,
-    camera_position: &game.camera_position,
+    camera_position: &game.world.camera.camera_position,
   };
 
   for element_id in game

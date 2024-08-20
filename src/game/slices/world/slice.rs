@@ -1,12 +1,13 @@
 use serde::{Deserialize, Serialize};
 
-use super::{time, tower, wallet};
+use super::{camera, time, tower, wallet};
 
 #[derive(Serialize, Deserialize)]
 pub struct Slice {
   pub time: time::Slice,
   pub tower: tower::Slice,
   pub wallet: wallet::Slice,
+  pub camera: camera::Slice,
 }
 
 impl Default for Slice {
@@ -21,6 +22,7 @@ impl Slice {
       time: time::Slice::new(),
       tower: tower::Slice::new(),
       wallet: wallet::Slice::new(),
+      camera: camera::Slice::new(),
     }
   }
 }

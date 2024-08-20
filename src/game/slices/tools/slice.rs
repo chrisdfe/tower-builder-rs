@@ -1,25 +1,25 @@
 use crate::{
-  types::map::coordinates_box::CoordinatesBox,
   game::slices::world::tower::rooms::{
     definitions::{RoomDefinitionId, ROOM_DEFINITIONS},
     validation::RoomValidationContext,
     Room,
   },
+  types::map::coordinates_box::CoordinatesBox,
 };
 
-pub struct Tools {
+pub struct Slice {
   pub selected_room_definition_id: RoomDefinitionId,
 
   pub blueprint_room: Room,
 }
 
-impl Default for Tools {
+impl Default for Slice {
   fn default() -> Self {
-    Tools::new()
+    Slice::new()
   }
 }
 
-impl Tools {
+impl Slice {
   pub fn new() -> Self {
     let selected_room_definition_id = RoomDefinitionId::Lobby;
 
