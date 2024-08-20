@@ -2,7 +2,7 @@ use crate::{
   game::slices::ui::elements::{
     BackgroundColorKind, ContentAlignment, Element, ElementHandle, Resizability, TwoDimensional,
   },
-  measurements::{Axis, Dimensions},
+  types::measurements::{Axis, Dimensions},
   types::tree::TreeNodeInput,
 };
 

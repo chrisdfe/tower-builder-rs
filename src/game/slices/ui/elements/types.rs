@@ -1,4 +1,4 @@
-use crate::measurements::{Axis, Dimensions};
+use crate::types::measurements::{Axis, Dimensions};
 
 #[derive(Debug, Clone)]
 pub struct TwoDimensional<T> {

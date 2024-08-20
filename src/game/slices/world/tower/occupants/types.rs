@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::map::Coordinates;
+use crate::types::map::Coordinates;
 
 #[derive(PartialEq, Serialize, Deserialize)]
 pub struct Occupant {

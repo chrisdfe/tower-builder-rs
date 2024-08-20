@@ -1,6 +1,6 @@
 use macroquad::text::measure_text;
 
-use crate::measurements::{Axis, Dimensions};
+use crate::types::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNode;
 
 use crate::game::slices::ui::elements::Resizability;

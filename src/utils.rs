@@ -3,7 +3,9 @@ use macroquad::rand::RandomRange;
 use macroquad::window::{screen_height, screen_width};
 
 use crate::constants::{CELL_HEIGHT, CELL_WIDTH};
-use crate::{map::Coordinates, measurements::Point, Game};
+use crate::game::Game;
+use crate::types::map::Coordinates;
+use crate::types::measurements::Point;
 
 // TODO - put in point or coordinates
 pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {

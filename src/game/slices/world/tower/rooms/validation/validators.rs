@@ -1,4 +1,4 @@
-use crate::{game::slices::world::tower::Room, map::coordinates::Coordinates};
+use crate::{types::map::coordinates::Coordinates, game::slices::world::tower::Room};
 
 use super::super::definitions::RoomDefinitionId;
 use super::{

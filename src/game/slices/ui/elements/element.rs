@@ -3,9 +3,9 @@ use std::{collections::HashMap, default};
 use macroquad::color::Color;
 
 use crate::{
+  types::map::Coordinates,
   game::slices::{tools::Tools, world},
-  map::Coordinates,
-  measurements::{Axis, Dimensions, Point, Rect},
+  types::measurements::{Axis, Dimensions, Point, Rect},
 };
 
 use super::{

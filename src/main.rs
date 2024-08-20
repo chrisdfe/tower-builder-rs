@@ -3,8 +3,6 @@ use macroquad::window::{next_frame, Conf};
 
 mod constants;
 mod game;
-mod map;
-mod measurements;
 pub mod types;
 mod utils;
 

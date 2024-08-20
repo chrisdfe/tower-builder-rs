@@ -2,7 +2,7 @@ use std::ops::Range;
 
 use serde::{Deserialize, Serialize};
 
-use crate::measurements::{Dimensions, Rect};
+use crate::types::measurements::{Dimensions, Rect};
 
 use super::Coordinates;
 

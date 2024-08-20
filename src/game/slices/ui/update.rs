@@ -1,9 +1,9 @@
 use macroquad::input::mouse_position;
 
 use crate::{
+  types::map::CoordinatesBox,
   game::{slices::ui::elements::UpdateCtx, Game},
-  map::CoordinatesBox,
-  measurements::Point,
+  types::measurements::Point,
   utils::screen_point_to_cell,
 };
 

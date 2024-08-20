@@ -2,7 +2,7 @@ use crate::{
   game::slices::world::tower::rooms::{
     definitions::ROOM_DEFINITIONS, validation::RoomValidationContext,
   },
-  map::Coordinates,
+  types::map::Coordinates,
 };
 
 use super::slices::{input, timers, tools::Tools, ui::Ui, world};

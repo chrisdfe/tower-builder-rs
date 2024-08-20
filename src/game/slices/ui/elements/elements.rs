@@ -1,7 +1,7 @@
 use uuid::Uuid;
 
 use crate::{
-  measurements::Point,
+  types::measurements::Point,
   types::{tree::Tree, PrevAndCurrent},
 };
 

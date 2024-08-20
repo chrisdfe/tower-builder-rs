@@ -1,8 +1,8 @@
 use uuid::Uuid;
 
 use crate::game::slices::ui::elements::{ContentAlignment, TwoDimensional};
-use crate::measurements::Axis;
-use crate::measurements::Dimensions;
+use crate::types::measurements::Axis;
+use crate::types::measurements::Dimensions;
 use crate::types::tree::TreeNodeInput;
 
 use super::super::{Element, Resizability};

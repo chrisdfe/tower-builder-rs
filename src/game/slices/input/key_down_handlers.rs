@@ -1,7 +1,7 @@
 use macroquad::input::KeyCode;
 use std::collections::HashMap;
 
-use crate::{game::slices::ui::elements::ElementHandle, map::Coordinates};
+use crate::{game::slices::ui::elements::ElementHandle, types::map::Coordinates};
 
 use crate::game::{slices::ui::elements::factories, Game};
 use lazy_static::lazy_static;

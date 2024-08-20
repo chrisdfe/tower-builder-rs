@@ -1,11 +1,11 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+use crate::types::map::coordinates_box::CoordinatesBox;
 use crate::game::slices::world::tower::rooms::definitions::RoomResizability;
-use crate::map::coordinates_box::CoordinatesBox;
 use crate::{
-  map::Coordinates,
-  measurements::Dimensions,
+  types::map::Coordinates,
+  types::measurements::Dimensions,
   utils::{comma_seperate_number_vec, round_to_nearest},
 };
 

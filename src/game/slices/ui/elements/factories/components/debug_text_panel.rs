@@ -1,6 +1,8 @@
 use crate::{
-  game::slices::ui::elements::{ContentAlignment, Element, TwoDimensional, UpdateCtx, UpdateHandler},
-  measurements::Axis,
+  game::slices::ui::elements::{
+    ContentAlignment, Element, TwoDimensional, UpdateCtx, UpdateHandler,
+  },
+  types::measurements::Axis,
   types::tree::TreeNodeInput,
 };
 

@@ -1,4 +1,4 @@
-use crate::map::{Coordinates, CoordinatesBox};
+use crate::types::map::{Coordinates, CoordinatesBox};
 
 pub struct Selection {
   pub selection_box: CoordinatesBox,

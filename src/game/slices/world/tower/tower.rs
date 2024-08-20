@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::map::{coordinates_box::CoordinatesBox, Coordinates};
+use crate::types::map::{Coordinates, CoordinatesBox};
 
 use super::{
   occupants::Occupant,

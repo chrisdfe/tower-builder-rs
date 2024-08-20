@@ -4,10 +4,10 @@ use crate::game::slices::timers::{
   should_run_tick_at_infrequency, Timer, TimerCallbackContext, TimerId, TimerListener,
   TimerListenerId,
 };
+use crate::types::map::Coordinates;
 use crate::game::slices::world::time::constants::TICKS_ELAPSED_PER_DAY;
 use crate::game::slices::world::tower::rooms::{Room, RoomType};
 use crate::game::slices::world::tower::Occupant;
-use crate::map::Coordinates;
 
 // Daily
 // TODO - only on weekdays

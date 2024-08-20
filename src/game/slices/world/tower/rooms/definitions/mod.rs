@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 pub(self) use crate::game::slices::world::tower::rooms::validation::{
   validators, with_base_room_validators, RoomValidator,
 };
-pub(self) use crate::measurements::Dimensions;
+pub(self) use crate::types::measurements::Dimensions;
 pub(self) use macroquad::color::Color;
 
 mod condo;

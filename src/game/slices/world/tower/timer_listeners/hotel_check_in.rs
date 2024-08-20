@@ -3,8 +3,7 @@ use uuid::Uuid;
 use crate::game::slices::timers::{
   Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId,
 };
-use crate::map::Coordinates;
-
+use crate::types::map::Coordinates;
 use crate::game::slices::world::tower::rooms::{Room, RoomType};
 use crate::game::slices::world::tower::Occupant;
 

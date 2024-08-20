@@ -9,11 +9,11 @@ use once_cell::sync::OnceCell;
 
 use crate::game::slices::ui::elements::UnwrappedElementCalculatedProperties;
 use crate::game::slices::world::tower::Room;
-use crate::map::Coordinates;
+use crate::types::map::Coordinates;
 use crate::{
   constants::{CELL_HEIGHT, CELL_WIDTH},
   game::{slices::ui::elements::Element, Game},
-  measurements::Point,
+  types::measurements::Point,
   utils::coordinates_to_screen_point,
 };
 

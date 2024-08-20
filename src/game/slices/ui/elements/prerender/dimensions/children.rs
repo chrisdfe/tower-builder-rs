@@ -1,4 +1,4 @@
-use crate::measurements::{Axis, Dimensions};
+use crate::types::measurements::{Axis, Dimensions};
 
 use crate::game::slices::ui::elements::element_node_vec::get_outer_sizes_for_axis;
 use crate::game::slices::ui::elements::Element;

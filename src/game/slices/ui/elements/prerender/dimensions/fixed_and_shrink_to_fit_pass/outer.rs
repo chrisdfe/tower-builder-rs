@@ -1,4 +1,4 @@
-use crate::measurements::{Axis, Dimensions};
+use crate::types::measurements::{Axis, Dimensions};
 
 use crate::game::slices::ui::elements::Element;
 use crate::types::tree::TreeNode;

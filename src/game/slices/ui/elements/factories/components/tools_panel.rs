@@ -7,7 +7,7 @@ use crate::{
     BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, TwoDimensional,
   },
   game::slices::world::tower::rooms::definitions::RoomDefinitionId,
-  measurements::Axis,
+  types::measurements::Axis,
   types::tree::TreeNodeInput,
 };
 

@@ -1,5 +1,5 @@
 use super::{Dimensions, Point};
-use crate::map::Coordinates;
+use crate::types::map::Coordinates;
 
 pub struct Rect {
   pub x: i32,
