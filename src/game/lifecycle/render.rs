@@ -17,9 +17,6 @@ use crate::{
   utils::coordinates_to_screen_point,
 };
 
-mod ui;
-mod world;
-
 // Helpful JS to convert 0-255 rgb to what we need here
 // "118, 16, 70, 255".split(',').map(n => parseInt(n, 10)).map(n => n/255).map(n => Math.round(n * 1000) / 1000).join(', ')
 

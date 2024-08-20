@@ -4,6 +4,12 @@ use elements::Elements;
 pub mod selection;
 use selection::Selection;
 
+mod update;
+pub use update::update;
+
+mod events;
+pub use events::run_event_handlers;
+
 pub struct Ui {
   pub elements: Elements,
   pub selection: Selection,
