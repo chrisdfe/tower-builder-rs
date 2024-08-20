@@ -1,10 +1,6 @@
 mod game;
 
-pub mod input;
 pub mod lifecycle;
-pub mod timers;
-pub mod tools;
-pub mod ui;
-pub mod world;
+pub(self) mod slices;
 
 pub use game::Game;

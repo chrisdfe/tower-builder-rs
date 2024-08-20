@@ -1,9 +1,11 @@
 use crate::{
-  game::world::tower::rooms::{definitions::ROOM_DEFINITIONS, validation::RoomValidationContext},
+  game::slices::world::tower::rooms::{
+    definitions::ROOM_DEFINITIONS, validation::RoomValidationContext,
+  },
   map::Coordinates,
 };
 
-use super::{input, timers, tools::Tools, ui::Ui, world};
+use super::slices::{input, timers, tools::Tools, ui::Ui, world};
 
 pub struct Game {
   pub timers: timers::Slice,

@@ -1,9 +1,9 @@
-use crate::game::{ui::elements, Game};
+use crate::game::{slices::ui::elements, Game};
 
-use crate::game::input;
-use crate::game::timers;
-use crate::game::tools;
-use crate::game::ui;
+use crate::game::slices::input;
+use crate::game::slices::timers;
+use crate::game::slices::tools;
+use crate::game::slices::ui;
 
 pub fn update(game: &mut Game) {
   // Event handlers

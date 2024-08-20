@@ -35,8 +35,6 @@ async fn main() {
 
   loop {
     update(&mut game);
-    // run_event_handlers(&mut game);
-    // prerender(&mut game);
     render(&game);
 
     next_frame().await
