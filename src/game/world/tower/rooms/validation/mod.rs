@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::game::world::tower::{Room, Tower};
 use crate::game::world::wallet;
-use crate::tower::{Room, Tower};
 
 pub mod validators;
 

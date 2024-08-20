@@ -5,10 +5,10 @@ use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
 // Re-export for ease of use in RoomDefinition modules
-pub(self) use crate::measurements::Dimensions;
-pub(self) use crate::tower::rooms::validation::{
+pub(self) use crate::game::world::tower::rooms::validation::{
   validators, with_base_room_validators, RoomValidator,
 };
+pub(self) use crate::measurements::Dimensions;
 pub(self) use macroquad::color::Color;
 
 mod condo;

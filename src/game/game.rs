@@ -1,6 +1,6 @@
 use crate::{
+  game::world::tower::rooms::{definitions::ROOM_DEFINITIONS, validation::RoomValidationContext},
   map::Coordinates,
-  tower::rooms::{definitions::ROOM_DEFINITIONS, validation::RoomValidationContext},
 };
 
 use super::{input, timers, tools::Tools, ui::Ui, world};

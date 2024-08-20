@@ -3,8 +3,8 @@ use uuid::Uuid;
 use crate::game::timers::{Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId};
 use crate::map::Coordinates;
 
-use crate::tower::rooms::{Room, RoomType};
-use crate::tower::Occupant;
+use crate::game::world::tower::rooms::{Room, RoomType};
+use crate::game::world::tower::Occupant;
 
 // 6pm
 const HOTEL_CHECK_IN_TIME: u32 = 18;

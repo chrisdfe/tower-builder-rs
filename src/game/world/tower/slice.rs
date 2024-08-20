@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use super::timer_listeners;
 use crate::game::timers;
-use crate::tower::Tower;
+use crate::game::world::tower::Tower;
 
 #[derive(Serialize, Deserialize)]
 pub struct Slice {

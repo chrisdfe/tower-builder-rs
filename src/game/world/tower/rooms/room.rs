@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+use crate::game::world::tower::rooms::definitions::RoomResizability;
 use crate::map::coordinates_box::CoordinatesBox;
-use crate::tower::rooms::definitions::RoomResizability;
 use crate::{
   map::Coordinates,
   measurements::Dimensions,

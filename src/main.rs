@@ -5,7 +5,6 @@ mod constants;
 mod game;
 mod map;
 mod measurements;
-mod tower;
 pub mod types;
 mod utils;
 

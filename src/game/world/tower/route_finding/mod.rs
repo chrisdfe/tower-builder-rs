@@ -1,8 +1,6 @@
 use uuid::Uuid;
 
-use crate::tower::{Room, Tower};
-
-use super::rooms::RoomType;
+use crate::game::world::tower::Tower;
 
 #[derive(Debug, Clone)]
 pub struct RouteNode {

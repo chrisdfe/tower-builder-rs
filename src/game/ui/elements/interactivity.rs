@@ -3,7 +3,7 @@ use std::collections::VecDeque;
 use macroquad::color::*;
 use uuid::Uuid;
 
-use crate::tower::rooms::definitions::RoomDefinitionId;
+use crate::game::world::tower::rooms::definitions::RoomDefinitionId;
 
 use super::{BackgroundColorKind, Element};
 

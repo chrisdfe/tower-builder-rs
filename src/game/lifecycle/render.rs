@@ -8,8 +8,8 @@ use macroquad::{
 use once_cell::sync::OnceCell;
 
 use crate::game::ui::elements::UnwrappedElementCalculatedProperties;
+use crate::game::world::tower::Room;
 use crate::map::Coordinates;
-use crate::tower::Room;
 use crate::{
   constants::{CELL_HEIGHT, CELL_WIDTH},
   game::{ui::elements::Element, Game},

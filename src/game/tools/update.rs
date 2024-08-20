@@ -1,5 +1,5 @@
+use crate::game::world::tower::rooms::validation::RoomValidationContext;
 use crate::game::Game;
-use crate::tower::rooms::validation::RoomValidationContext;
 
 pub fn update(game: &mut Game) {
   if game.ui.selection.selected_cell_has_changed() {

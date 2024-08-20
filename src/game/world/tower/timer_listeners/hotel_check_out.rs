@@ -2,7 +2,7 @@ use uuid::Uuid;
 
 use crate::game::timers::{Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId};
 
-use crate::tower::rooms::{Room, RoomType};
+use crate::game::world::tower::rooms::{Room, RoomType};
 
 // 8am
 const HOTEL_CHECK_OUT_TIME: u32 = 8;

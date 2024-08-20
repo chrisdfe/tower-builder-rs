@@ -5,9 +5,9 @@ use crate::game::timers::{
   TimerListenerId,
 };
 use crate::game::world::time::constants::TICKS_ELAPSED_PER_DAY;
+use crate::game::world::tower::rooms::{Room, RoomType};
+use crate::game::world::tower::Occupant;
 use crate::map::Coordinates;
-use crate::tower::rooms::{Room, RoomType};
-use crate::tower::Occupant;
 
 // Daily
 // TODO - only on weekdays

@@ -6,14 +6,14 @@ use crate::{
   game::ui::elements::{
     BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, TwoDimensional,
   },
+  game::world::tower::rooms::definitions::RoomDefinitionId,
   measurements::Axis,
-  tower::rooms::definitions::RoomDefinitionId,
   types::tree::TreeNodeInput,
 };
 
 use crate::{
   game::ui::elements::interactivity::{Action, ActionCreatorCtx, InteractivityConfig},
-  tower::rooms::definitions::ROOM_DEFINITIONS,
+  game::world::tower::rooms::definitions::ROOM_DEFINITIONS,
 };
 
 const DEFINITION_DATA_KEY: &str = "definition";

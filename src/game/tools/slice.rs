@@ -1,10 +1,10 @@
 use crate::{
-  map::coordinates_box::CoordinatesBox,
-  tower::rooms::{
+  game::world::tower::rooms::{
     definitions::{RoomDefinitionId, ROOM_DEFINITIONS},
     validation::RoomValidationContext,
     Room,
   },
+  map::coordinates_box::CoordinatesBox,
 };
 
 pub struct Tools {

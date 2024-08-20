@@ -1,4 +1,4 @@
-use crate::{map::coordinates::Coordinates, tower::Room};
+use crate::{game::world::tower::Room, map::coordinates::Coordinates};
 
 use super::super::definitions::RoomDefinitionId;
 use super::{

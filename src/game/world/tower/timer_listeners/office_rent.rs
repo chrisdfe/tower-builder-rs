@@ -4,7 +4,7 @@ use crate::game::timers::{
 };
 use crate::game::world::time::constants::TICKS_ELAPSED_PER_MONTH;
 
-use crate::tower::rooms::{Room, RoomType};
+use crate::game::world::tower::rooms::{Room, RoomType};
 
 // Monthly
 const INFREQUENCY: u64 = TICKS_ELAPSED_PER_MONTH as u64;

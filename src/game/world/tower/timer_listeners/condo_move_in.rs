@@ -4,9 +4,9 @@ use crate::game::timers::{
   should_run_tick_at_infrequency, Timer, TimerCallbackContext, TimerId, TimerListener,
   TimerListenerId,
 };
+use crate::game::world::tower::rooms::{Room, RoomType};
+use crate::game::world::tower::Occupant;
 use crate::map::Coordinates;
-use crate::tower::rooms::{Room, RoomType};
-use crate::tower::Occupant;
 
 const INFREQUENCY: u64 = 5;
 
