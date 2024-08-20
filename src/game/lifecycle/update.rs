@@ -18,9 +18,7 @@ pub fn update(game: &mut Game) {
   tools::update(game);
   ui::update(game);
 
-  // TODO - move elewhere
-  let mut elements_replica = game.ui.elements.clone();
-  elements::prerender::dimensions::prerender(game, &mut elements_replica);
-  elements::prerender::positions::prerender(game, &mut elements_replica);
-  elements::prerender::background::prerender(game, &mut elements_replica);
+  // TODO - prerender first?
+  // TODO - render, not prerender
+  elements::prerender(game);
 }
