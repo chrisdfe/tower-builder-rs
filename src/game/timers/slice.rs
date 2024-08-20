@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 use super::{Timer, TimerId, TimerListener};
 
-pub struct Timers {
+pub struct Slice {
   pub timers: HashMap<TimerId, Timer>,
   pub timer_listeners: Vec<Box<dyn TimerListener>>,
 
@@ -13,7 +13,7 @@ pub struct Timers {
   pub timers_to_remove: HashSet<TimerId>,
 }
 
-impl Default for Timers {
+impl Default for Slice {
   fn default() -> Self {
     Self {
       timers: HashMap::new(),
@@ -28,7 +28,7 @@ impl Default for Timers {
   }
 }
 
-impl Timers {
+impl Slice {
   pub fn new() -> Self {
     Default::default()
   }

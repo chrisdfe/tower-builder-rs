@@ -3,7 +3,7 @@ use std::{collections::HashMap, default};
 use macroquad::color::Color;
 
 use crate::{
-  game::{tools::Tools, world::World},
+  game::{tools::Tools, world},
   map::Coordinates,
   measurements::{Axis, Dimensions, Point, Rect},
 };
@@ -103,7 +103,7 @@ impl Default for BackgroundColorKind {
 }
 
 pub struct UpdateCtx<'a> {
-  pub world: &'a World,
+  pub world: &'a world::Slice,
   pub tools: &'a Tools,
   pub camera_position: &'a Coordinates,
 }

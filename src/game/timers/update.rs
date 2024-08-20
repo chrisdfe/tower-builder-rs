@@ -1,7 +1,5 @@
 use macroquad::prelude::*;
-use std::collections::HashSet;
 
-use crate::game::timers::TimerCallbackContext;
 use crate::game::{timers::TimerLoopType, Game};
 
 pub fn update(game: &mut Game) {

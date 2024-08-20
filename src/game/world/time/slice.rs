@@ -1,17 +1,17 @@
 use serde::{Deserialize, Serialize};
 
 use crate::game::timers::{
-  Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId, TimerLoopType, Timers,
+  self, Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId, TimerLoopType,
 };
 
 use super::{constants::*, types::Time};
 
 #[derive(Serialize, Deserialize)]
-pub struct TimeSlice {
+pub struct Slice {
   pub tick: u64,
 }
 
-impl TimeSlice {
+impl Slice {
   pub fn new() -> Self {
     Self { tick: 0 }
   }
@@ -20,7 +20,7 @@ impl TimeSlice {
     Time::from_minutes(self.tick * MINUTES_ELAPSED_PER_TICK as u64)
   }
 
-  pub fn register_timers(&self, timers_slice: &mut Timers) {
+  pub fn register_timers(&self, timers_slice: &mut timers::Slice) {
     timers_slice.add_timer(Timer {
       id: TimerId::Tick,
       length: TICK_INTERVAL_S,

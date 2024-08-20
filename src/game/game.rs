@@ -3,29 +3,27 @@ use crate::{
   tower::rooms::{definitions::ROOM_DEFINITIONS, validation::RoomValidationContext},
 };
 
-use super::{timers::Timers, tools::Tools, ui::Ui, world::World};
+use super::{input, timers, tools::Tools, ui::Ui, world};
 
 pub struct Game {
-  pub timers: Timers,
+  pub timers: timers::Slice,
 
   // TODO - serialize
-  pub world: World,
+  pub input: input::Slice,
+  pub world: world::Slice,
   pub ui: Ui,
   pub tools: Tools,
 
   pub camera_position: Coordinates,
-
-  pub left_mouse_is_down: bool,
 }
 
 impl Default for Game {
   fn default() -> Self {
     Self {
-      // TODO - put in Input
-      left_mouse_is_down: false,
+      input: input::Slice::new(),
+      timers: timers::Slice::new(),
 
-      timers: Timers::new(),
-      world: World::new(),
+      world: world::Slice::new(),
       ui: Ui::new(),
       tools: Tools::new(),
 

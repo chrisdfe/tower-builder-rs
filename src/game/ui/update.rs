@@ -9,7 +9,7 @@ use crate::{
 
 use crate::{
   game::ui::elements::{
-    interactivity::{self, ActionCreator, ActionCreatorCtx, QueuedAction},
+    interactivity::{ActionCreator, QueuedAction},
     Element,
   },
   types::tree::TreeNode,
@@ -74,7 +74,7 @@ fn update_selection(game: &mut Game) {
   };
 
   if game.ui.selection.selected_cell_has_changed() {
-    if game.left_mouse_is_down {
+    if game.input.left_mouse_is_down {
       game.ui.selection.selection_box_end = game.ui.selection.current_selected_cell.clone();
       game.ui.selection.selection_box = CoordinatesBox::from_start_and_end_coords(
         &game.ui.selection.selection_box_start,
@@ -165,47 +165,6 @@ pub fn update_interactivity(game: &mut Game) {
   }
 }
 
-pub fn run_event_handlers(game: &mut Game) {
-  while let Some(queued_action) = game.ui.elements.event_handler_queue.pop() {
-    let QueuedAction {
-      action_creator,
-      node_id,
-    } = queued_action;
-
-    let tree_node = game.ui.elements.tree.find_node_by_id(node_id);
-    // TODO - don't unwrap
-    let element = &tree_node.unwrap().data;
-
-    let action = action_creator(ActionCreatorCtx { element: &element });
-    use interactivity::Action::*;
-    match action {
-      None => {
-        // no-op
-      }
-      PrintDebugStatement => {
-        println!("debug statement. {}", node_id);
-      }
-      SetSelectedRoomDefinition(definition_id) => {
-        game.tools.selected_room_definition_id = definition_id;
-        println!(
-          "selected_room_definition is now: {:?}",
-          game.tools.selected_room_definition_id
-        );
-      }
-    }
-    // RemoveAllRootNodeChildren => {
-    //   let ids = game
-    //     .ui
-    //     .elements
-    //     .tree
-    //     .get_children_ids_for_node_id(game.ui.elements.tree.root_node_id.unwrap());
-    //   game.ui.elements.tree.remove_nodes_by_ids(ids);
-    //   println!("removing all root node children");
-    //   game.ui.elements.clear_all_calculated_properties();
-    // }
-  }
-}
-
 fn calculate_hovered_ui_element(game: &mut Game) {
   let (mouse_x, mouse_y) = mouse_position();
 
@@ -229,7 +188,7 @@ fn calculate_hovered_ui_element(game: &mut Game) {
 fn calculate_clicked_ui_element(game: &mut Game) {
   let new_clicked_id = if let Some(current_id) = game.ui.elements.clicked_element_id.current {
     // Check if we should transition to unclicked
-    if game.left_mouse_is_down {
+    if game.input.left_mouse_is_down {
       // remain clicked
       Some(current_id)
     } else {
@@ -239,7 +198,7 @@ fn calculate_clicked_ui_element(game: &mut Game) {
   } else {
     // Check if we should transition to clicked
     if let Some(hovered_ui_element) = game.ui.elements.hovered_element_id.current {
-      if game.left_mouse_is_down {
+      if game.input.left_mouse_is_down {
         // Transition to clicked
         Some(hovered_ui_element)
       } else {

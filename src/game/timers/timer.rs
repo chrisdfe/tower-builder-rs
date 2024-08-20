@@ -32,10 +32,3 @@ impl Default for Timer {
     }
   }
 }
-
-// impl Timer {
-//   pub fn normalized_value(&self) -> f32 {
-//     use macroquad::prelude::clamp;
-//     clamp(self.current_value / self.length, 0., 1.)
-//   }
-// }

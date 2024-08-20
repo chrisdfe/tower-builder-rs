@@ -4,8 +4,7 @@ use macroquad::input::{
 use macroquad::prelude::*;
 
 use crate::game::input::KEY_DOWN_HANDLERS;
-use crate::game::ui::elements::factories;
-use crate::{game::Game, map::Coordinates};
+use crate::game::Game;
 
 pub fn update(game: &mut Game) {
   handle_input(game);
@@ -19,11 +18,17 @@ fn handle_input(game: &mut Game) {
 
   // Mouse buttons
   if is_mouse_button_pressed(MouseButton::Left) {
-    handle_left_button_pressed(game);
+    game.input.left_mouse_is_down = true;
+    game.input.left_mouse_has_just_been_pressed = true;
+  } else {
+    game.input.left_mouse_has_just_been_pressed = false;
   }
 
   if is_mouse_button_released(MouseButton::Left) {
-    handle_left_button_released(game);
+    game.input.left_mouse_is_down = false;
+    game.input.left_mouse_has_just_been_released = true;
+  } else {
+    game.input.left_mouse_has_just_been_released = false;
   }
 }
 
@@ -34,8 +39,6 @@ fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
 }
 
 fn handle_left_button_pressed(game: &mut Game) {
-  game.left_mouse_is_down = true;
-
   // if let None = game.ui.buttons.hovered_button_id {
   //   game.ui.selection_box_start = game.ui.current_selected_cell.clone();
   //   game.ui.selection_box = CoordinatesBox::at_coords(&game.ui.selection_box_start)
@@ -43,8 +46,6 @@ fn handle_left_button_pressed(game: &mut Game) {
 }
 
 fn handle_left_button_released(game: &mut Game) {
-  game.left_mouse_is_down = false;
-
   // if let Some(hovered_button_id) = game.ui.buttons.hovered_button_id {
   //   game.ui.buttons.clicked_button_id = Some(hovered_button_id);
   // } else {

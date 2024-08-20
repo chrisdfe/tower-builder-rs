@@ -1,4 +1,4 @@
-use crate::game::world::{TimeSlice, TowerSlice, WalletSlice};
+use crate::game::world::{time, tower, wallet};
 
 use super::{Timer, TimerId};
 
@@ -36,7 +36,7 @@ pub fn should_run_tick_at_infrequency(infrequency: u64, ctx: TimerCallbackContex
 // TODO - maybe return value should be 'should_cancel'
 // pub type TimerCallback = fn(&Timer, TimerCallbackContext) -> ();
 pub struct TimerCallbackContext<'a> {
-  pub time: &'a mut TimeSlice,
-  pub tower: &'a mut TowerSlice,
-  pub wallet: &'a mut WalletSlice,
+  pub time: &'a mut time::Slice,
+  pub tower: &'a mut tower::Slice,
+  pub wallet: &'a mut wallet::Slice,
 }

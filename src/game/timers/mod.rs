@@ -1,5 +1,5 @@
 mod slice;
-pub use slice::Timers;
+pub use slice::Slice;
 
 mod timer;
 pub use timer::*;

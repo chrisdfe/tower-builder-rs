@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::game::world::WalletSlice;
+use crate::game::world::wallet;
 use crate::tower::{Room, Tower};
 
 pub mod validators;
@@ -26,7 +26,7 @@ pub type RoomValidator = fn(room: &Room, ctx: &RoomValidationContext) -> RoomVal
 
 pub struct RoomValidationContext<'a> {
   pub tower: &'a Tower,
-  pub wallet: &'a WalletSlice,
+  pub wallet: &'a wallet::Slice,
 }
 
 pub const BASE_ROOM_VALIDATORS: [RoomValidator; 3] = [
