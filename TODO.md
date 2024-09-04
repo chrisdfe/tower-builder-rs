@@ -2,6 +2,7 @@
 
 ## Layout node system
 
+- [ ] put game.ui.selection into game.tools
 - [ ] removing ui elements + children by name or id
   - [ ] or 'handle'? enum
 - [ ] use default padding + child gap everywhere

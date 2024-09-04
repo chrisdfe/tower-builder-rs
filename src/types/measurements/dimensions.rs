@@ -32,6 +32,12 @@ impl std::ops::AddAssign for Dimensions {
   }
 }
 
+impl std::fmt::Display for Dimensions {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}x{}", self.width, self.height)
+  }
+}
+
 impl Dimensions {
   pub fn zero() -> Self {
     Self {

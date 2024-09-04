@@ -1,6 +1,8 @@
+use crate::game::slices::world::tower::rooms::validation::RoomValidationContext;
 use crate::game::Game;
 
 use crate::game::slices::ui::elements::interactivity::{self, ActionCreatorCtx, QueuedAction};
+use crate::types::map::CoordinatesBox;
 
 pub fn run_event_handlers(game: &mut Game) {
   while let Some(queued_action) = game.ui.elements.event_handler_queue.pop() {
@@ -22,8 +24,21 @@ pub fn run_event_handlers(game: &mut Game) {
       PrintDebugStatement => {
         println!("debug statement. {}", node_id);
       }
-      SetSelectedRoomDefinition(definition_id) => {
-        game.tools.selected_room_definition_id = definition_id;
+      SetSelectedRoomDefinition(room_definition_id) => {
+        // game.tools.selected_room_definition_id = definition_id;
+        // TODO
+        game.tools.set_selected_room_definition(
+          room_definition_id,
+          // TODO - work this out
+
+          // Is this even neccessary???
+          // game.tools.selection_box,
+          &CoordinatesBox::at_coords(&game.ui.selection.current_selected_cell),
+          RoomValidationContext {
+            tower: &game.world.tower.tower,
+            wallet: &game.world.wallet,
+          },
+        );
         println!(
           "selected_room_definition is now: {:?}",
           game.tools.selected_room_definition_id

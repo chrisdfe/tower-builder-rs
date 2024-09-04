@@ -2,6 +2,7 @@ use super::{Elements, Selection};
 
 pub struct Slice {
   pub elements: Elements,
+  // TODO - this should go in tools
   pub selection: Selection,
 }
 

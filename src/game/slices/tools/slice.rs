@@ -37,11 +37,16 @@ impl Slice {
     &mut self,
     room_definition_id: RoomDefinitionId,
     selection_box: &CoordinatesBox,
+    // TODO - rename this
     ctx: RoomValidationContext,
   ) {
     self.selected_room_definition_id = room_definition_id;
     let selected_room_definition = ROOM_DEFINITIONS.get(&room_definition_id).unwrap();
     self.blueprint_room = Room::from(selected_room_definition);
+    println!(
+      "self.blueprint_room definition: {:?}",
+      self.blueprint_room.definition()
+    );
     self
       .blueprint_room
       .calculate_coordinates_box(selection_box);
