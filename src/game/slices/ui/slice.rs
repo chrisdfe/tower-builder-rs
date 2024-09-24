@@ -1,9 +1,7 @@
-use super::{Elements, Selection};
+use super::Elements;
 
 pub struct Slice {
   pub elements: Elements,
-  // TODO - this should go in tools
-  pub selection: Selection,
 }
 
 impl Default for Slice {
@@ -16,7 +14,6 @@ impl Slice {
   pub fn new() -> Self {
     Self {
       elements: Elements::new(),
-      selection: Selection::new(),
     }
   }
 

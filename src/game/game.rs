@@ -57,7 +57,7 @@ impl Game {
         ROOM_DEFINITIONS
           .get(&self.tools.selected_room_definition_id)
           .unwrap(),
-        &self.ui.selection.selection_box,
+        &self.tools.selection.selection_box,
       );
 
       self

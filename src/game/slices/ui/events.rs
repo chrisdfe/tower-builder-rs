@@ -33,7 +33,7 @@ pub fn run_event_handlers(game: &mut Game) {
 
           // Is this even neccessary???
           // game.tools.selection_box,
-          &CoordinatesBox::at_coords(&game.ui.selection.current_selected_cell),
+          &CoordinatesBox::at_coords(&game.tools.selection.current_selected_cell),
           RoomValidationContext {
             tower: &game.world.tower.tower,
             wallet: &game.world.wallet,

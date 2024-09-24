@@ -1,9 +1,6 @@
 pub mod elements;
 use elements::Elements;
 
-pub mod selection;
-use selection::Selection;
-
 mod update;
 pub use update::update;
 

@@ -7,8 +7,12 @@ use crate::{
   types::map::coordinates_box::CoordinatesBox,
 };
 
+use super::Selection;
+
 pub struct Slice {
   pub selected_room_definition_id: RoomDefinitionId,
+
+  pub selection: Selection,
 
   pub blueprint_room: Room,
 }
@@ -30,6 +34,7 @@ impl Slice {
         room.calculate_coordinates_box(&CoordinatesBox::zero());
         room
       },
+      selection: Selection::new(),
     }
   }
 
