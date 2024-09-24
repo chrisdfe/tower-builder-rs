@@ -5,6 +5,7 @@ use macroquad::prelude::*;
 
 use crate::game::slices::input::KEY_DOWN_HANDLERS;
 use crate::game::Game;
+use crate::types::map::CoordinatesBox;
 
 pub fn update(game: &mut Game) {
   handle_input(game);
@@ -20,6 +21,7 @@ fn handle_input(game: &mut Game) {
   if is_mouse_button_pressed(MouseButton::Left) {
     game.input.left_mouse_is_down = true;
     game.input.left_mouse_has_just_been_pressed = true;
+    handle_left_button_pressed(game);
   } else {
     game.input.left_mouse_has_just_been_pressed = false;
   }
@@ -27,6 +29,7 @@ fn handle_input(game: &mut Game) {
   if is_mouse_button_released(MouseButton::Left) {
     game.input.left_mouse_is_down = false;
     game.input.left_mouse_has_just_been_released = true;
+    handle_left_button_released(game);
   } else {
     game.input.left_mouse_has_just_been_released = false;
   }
@@ -40,23 +43,21 @@ fn handle_key_pressed(game: &mut Game, key_code: KeyCode) {
 
 fn handle_left_button_pressed(game: &mut Game) {
   // if let None = game.ui.buttons.hovered_button_id {
-  //   game.ui.selection_box_start = game.ui.current_selected_cell.clone();
-  //   game.ui.selection_box = CoordinatesBox::at_coords(&game.ui.selection_box_start)
-  // }
+  if !game.ui.mouse_is_over_ui() {
+    game
+      .tools
+      .selection
+      .start_selection_box_at_current_cell();
+  }
 }
 
 fn handle_left_button_released(game: &mut Game) {
   // if let Some(hovered_button_id) = game.ui.buttons.hovered_button_id {
-  //   game.ui.buttons.clicked_button_id = Some(hovered_button_id);
+  // game.ui.buttons.clicked_button_id = Some(hovered_button_id);
   // } else {
-  //   game.try_to_build_blueprint_room();
-
-  //   game.ui.selection_box = CoordinatesBox::at_coords(&game.ui.current_selected_cell);
-  //   game
-  //     .tools
-  //     .blueprint_room
-  //     .calculate_coordinates_box(&game.ui.selection_box);
-  // }
+  if !game.ui.mouse_is_over_ui() {
+    game.try_to_build_blueprint_room();
+  }
 }
 
 /*

@@ -57,7 +57,7 @@ impl Game {
         ROOM_DEFINITIONS
           .get(&self.tools.selected_room_definition_id)
           .unwrap(),
-        &self.tools.selection.selection_box,
+        &self.tools.selection.selection_box(),
       );
 
       self
@@ -81,5 +81,17 @@ impl Game {
       //   .get_first_validation_error_message()
       //   .to_string();
     }
+
+    // Reset selection box
+    self
+      .tools
+      .selection
+      .start_selection_box_at_current_cell();
+
+    // reset blueprint
+    self
+      .tools
+      .blueprint_room
+      .calculate_coordinates_box(&self.tools.selection.selection_box());
   }
 }

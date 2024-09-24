@@ -115,10 +115,10 @@ impl Room {
     self.coordinates_box =
       CoordinatesBox::from_bottom_left_coords_and_dimensions(&coordinates, &rounded_dimensions);
     // println!("setting coordinates box to: {:?}", self.coordinates_box);
-    println!(
-      "coordinates box dimensions: {:?}",
-      self.coordinates_box.dimensions()
-    );
+    // println!(
+    //   "coordinates box dimensions: {:?}",
+    //   self.coordinates_box.dimensions()
+    // );
   }
 
   pub fn validate(&mut self, ctx: RoomValidationContext) {
