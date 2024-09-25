@@ -134,7 +134,7 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
 
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
-  element: &Element,
+  _: &Element,
 ) -> ElementUpdateAction {
   let text = if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
     //

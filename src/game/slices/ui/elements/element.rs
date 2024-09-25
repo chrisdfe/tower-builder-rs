@@ -1,10 +1,9 @@
-use std::{collections::HashMap, default};
+use std::collections::HashMap;
 
 use macroquad::color::Color;
 
 use crate::{
   game::slices::{tools, ui, world},
-  types::map::Coordinates,
   types::measurements::{Axis, Dimensions, Point, Rect},
 };
 
@@ -50,7 +49,7 @@ pub struct Element {
   // Interactivity
   pub interactivity: Option<InteractivityConfig>,
 
-  // TODO - 'needs update' too
+  // TODO - should be renamed to 'needs update' or 'get update action' or something
   pub on_update: Option<UpdateHandler>,
 
   pub calculated: ElementCalculatedProperties,

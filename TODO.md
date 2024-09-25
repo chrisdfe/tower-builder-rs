@@ -2,9 +2,11 @@
 
 ## Layout node system
 
-- [ ] put game.ui.selection into game.tools
-- [ ] removing ui elements + children by name or id
-  - [ ] or 'handle'? enum
+- [ ] empty string = element of zero height
+- [ ] updating text should flip a "needs recalculation" flag
+- [x] put game.ui.selection into game.tools
+- [x] removing ui elements + children by name or id
+  - [x] or 'handle'? enum
 - [ ] use default padding + child gap everywhere
 - [x] an 'update' callback callback for ui elements
 - [ ] "layers" - i.e a stack of root nodes instead of just 1
