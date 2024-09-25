@@ -2,6 +2,7 @@
 
 ## Layout node system
 
+- [ ] put calculated prerendered stuff in a different place to Element?
 - [ ] empty string = element of zero height
 - [ ] updating text should flip a "needs recalculation" flag
 - [x] put game.ui.selection into game.tools

@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use super::{camera, time, tower, wallet};
 
+use serde::{Deserialize, Serialize};
+
 #[derive(Serialize, Deserialize)]
 pub struct Slice {
   pub time: time::Slice,
