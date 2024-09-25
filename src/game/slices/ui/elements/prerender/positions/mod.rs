@@ -23,13 +23,14 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
         .tree
         .find_nodes_by_ids(&node_ids)
         .into_iter()
-        .filter(|element_id| {
-          element_id
-            .data
-            .calculated
-            .outer_position
-            .is_none()
-        })
+        // TODO - a 'need_prerender' flag
+        // .filter(|element_id| {
+        //   element_id
+        //     .data
+        //     .calculated
+        //     .outer_position
+        //     .is_none()
+        // })
         .map(|node| node.id)
         .collect::<Vec<_>>()
     })

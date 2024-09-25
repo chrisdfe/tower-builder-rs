@@ -94,6 +94,8 @@ pub enum ElementHandle {
   None,
   RootNode,
   ToolsPanel,
+
+  DebugTextPanel,
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]

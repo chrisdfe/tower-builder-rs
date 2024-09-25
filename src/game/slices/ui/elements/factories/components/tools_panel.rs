@@ -73,18 +73,20 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 
           tags: vec![ElementTag::RoomDefinitionButton],
 
-          resizability: Resizability::Fixed(Dimensions {
-            width: 20,
-            height: 20,
-          }),
+          // resizability: Resizability::Fixed(Dimensions {
+          //   width: 20,
+          //   height: 20,
+          // }),
           interactivity: Some(InteractivityConfig {
             on_mouse_up: Some(on_room_definition_button_click),
             ..Default::default()
           }),
+
           data: ElementData::HashMap(HashMap::from([(
             DEFINITION_DATA_KEY,
             format!("{:?}", definition.id),
           )])),
+
           ..Default::default()
         },
         Vec::new(),

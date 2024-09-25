@@ -21,7 +21,6 @@ pub mod positions;
 pub fn prerender(game: &mut Game) {
   // TODO - only create these if neccessary (build list of needing-prerender ids
   // below and check before iterating)
-
   let mut elements_replica = game.ui.elements.clone();
 
   dimensions::prerender(game, &mut elements_replica);

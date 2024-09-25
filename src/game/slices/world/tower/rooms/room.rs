@@ -63,9 +63,6 @@ impl Room {
 
   pub fn calculate_coordinates_box(&mut self, selection_box: &CoordinatesBox) {
     let definition = self.definition();
-    // println!("calculating coordinates box");
-    // println!("definition:");
-    // println!("{:?}", definition);
 
     let rounded_dimensions = {
       use std::cmp::max;
@@ -114,11 +111,6 @@ impl Room {
 
     self.coordinates_box =
       CoordinatesBox::from_bottom_left_coords_and_dimensions(&coordinates, &rounded_dimensions);
-    // println!("setting coordinates box to: {:?}", self.coordinates_box);
-    // println!(
-    //   "coordinates box dimensions: {:?}",
-    //   self.coordinates_box.dimensions()
-    // );
   }
 
   pub fn validate(&mut self, ctx: RoomValidationContext) {

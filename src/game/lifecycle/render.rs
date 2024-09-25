@@ -94,9 +94,6 @@ fn draw_room(room: &Room, color_override: Option<Color>, game: &Game) {
   let w = room.coordinates_box.dimensions().width as f32 * (CELL_WIDTH as f32);
   let h = room.coordinates_box.dimensions().height as f32 * (CELL_HEIGHT as f32) * -1.;
 
-  // println!("room.coordinates_box.dimensions(): {}", room.coordinates_box.dimensions());
-  // println!("w: {}, h: {}", w, h);
-
   let Point { x, y } =
     coordinates_to_screen_point(&room.coordinates_box.bottom_left_coordinates(), game);
 

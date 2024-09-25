@@ -2,8 +2,8 @@ use macroquad::color::BLACK;
 
 use crate::{
   game::slices::ui::elements::{
-    BackgroundColorKind, ContentAlignment, Element, ElementData, ElementTag, ElementUpdateAction,
-    ElementUpdateCtx, Resizability, TwoDimensional, UpdateHandler,
+    BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
+    ElementUpdateAction, ElementUpdateCtx, Resizability, TwoDimensional, UpdateHandler,
   },
   types::{
     measurements::{Axis, Dimensions},
@@ -17,6 +17,7 @@ pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
       name: String::from("debug text section"),
+      handle: ElementHandle::DebugTextPanel,
       padding: 2,
       stack_axis: Axis::Vertical,
       content_alignment: TwoDimensional {
@@ -59,10 +60,11 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
         name: String::from(text),
         padding: 2,
         on_update: Some(on_update),
-        resizability: Resizability::Fixed(Dimensions {
-          width: 100,
-          height: 40,
-        }),
+
+        // resizability: Resizability::Fixed(Dimensions {
+        //   width: 100,
+        //   height: 40,
+        // }),
         ..Default::default()
       },
       Vec::new(),
@@ -134,9 +136,9 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
 
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
-  _: &Element,
+  element: &Element,
 ) -> ElementUpdateAction {
-  let text = if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
+  if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
     //
     if current_hovered_element
       .tags
@@ -144,22 +146,19 @@ fn update_text_with_current_hovered_room_definition_button(
     {
       match &current_hovered_element.data {
         ElementData::HashMap(hash_map) => {
-          println!("hash_map: {:?}", hash_map);
           if let Some(definition_data) = hash_map.get(DEFINITION_DATA_KEY) {
-            String::from(definition_data)
-          } else {
-            String::from("nothing")
+            return ElementUpdateAction::UpdateText(String::from(definition_data));
           }
         }
-        _ => String::from("nothing"),
+        _ => (),
       }
-    } else {
-      String::from("nothing")
     }
-  } else {
-    String::from("nothing")
   };
-  //
 
-  ElementUpdateAction::UpdateText(text)
+  // Not hovering over element - clear text if it is not empty
+  if element.text.len() > 0 {
+    return ElementUpdateAction::UpdateText(String::from(""));
+  }
+
+  ElementUpdateAction::None
 }
