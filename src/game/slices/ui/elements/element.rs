@@ -3,7 +3,7 @@ use std::{collections::HashMap, default};
 use macroquad::color::Color;
 
 use crate::{
-  game::slices::{tools, world},
+  game::slices::{tools, ui, world},
   types::map::Coordinates,
   types::measurements::{Axis, Dimensions, Point, Rect},
 };
@@ -22,10 +22,17 @@ pub enum ElementData {
 }
 
 #[derive(Debug, Clone)]
+pub enum ElementUpdateAction {
+  None,
+  UpdateText(String),
+}
+
+#[derive(Debug, Clone)]
 pub struct Element {
   pub name: String,
 
   pub handle: ElementHandle,
+  pub tags: Vec<ElementTag>,
 
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: String,
@@ -43,6 +50,7 @@ pub struct Element {
   // Interactivity
   pub interactivity: Option<InteractivityConfig>,
 
+  // TODO - 'needs update' too
   pub on_update: Option<UpdateHandler>,
 
   pub calculated: ElementCalculatedProperties,
@@ -56,6 +64,7 @@ impl Default for Element {
       name: String::from("untitled node"),
 
       handle: ElementHandle::None,
+      tags: Vec::new(),
 
       padding: 0,
       child_gap: 0,
@@ -86,7 +95,12 @@ pub enum ElementHandle {
   None,
   RootNode,
   ToolsPanel,
-  RoomDefinitionButtons,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub enum ElementTag {
+  #[default]
+  RoomDefinitionButton,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -104,13 +118,13 @@ impl Default for BackgroundColorKind {
 
 // TODO - this is a bit of an encapsulation issue
 // Maybe a generic instead or something?
-pub struct UpdateCtx<'a> {
+pub struct ElementUpdateCtx<'a> {
   pub world: &'a world::Slice,
   pub tools: &'a tools::Slice,
-  pub camera_position: &'a Coordinates,
+  pub ui: &'a ui::Slice,
 }
 
-pub type UpdateHandler = fn(ctx: &UpdateCtx, element: &mut Element);
+pub type UpdateHandler = fn(ctx: &ElementUpdateCtx, element: &Element) -> ElementUpdateAction;
 
 #[derive(Debug, Clone)]
 pub struct ElementCalculatedProperties {

@@ -15,7 +15,7 @@ fn window_conf() -> Conf {
   Conf {
     window_title: "towerbuilder-rs".to_owned(),
     high_dpi: true,
-    window_width: 1600,
+    window_width: 1900,
     window_height: 1200,
     ..Default::default()
   }

@@ -1,11 +1,12 @@
 use uuid::Uuid;
 
-use crate::{
-  types::measurements::Point,
-  types::{tree::Tree, PrevAndCurrent},
+use crate::types::{
+  measurements::Point,
+  tree::{Tree, TreeNode},
+  PrevAndCurrent,
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element, ElementHandle};
+use super::{factories, interactivity::EventHandlerQueue, Element, ElementHandle, ElementTag};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -36,12 +37,49 @@ impl Elements {
     }
   }
 
-  pub fn remove_node_by_handle(self: &mut Self, handle: ElementHandle) {
-    let element = self
+  pub fn get_current_hovered_element(&self) -> Option<&Element> {
+    if let Some(id) = self.hovered_element_id.current {
+      if let Some(node) = self.tree.find_node_by_id(id) {
+        Some(&node.data)
+      } else {
+        None
+      }
+    } else {
+      None
+    }
+  }
+
+  pub fn get_current_clicked_element(&self) -> Option<&Element> {
+    if let Some(id) = self.hovered_element_id.current {
+      if let Some(node) = self.tree.find_node_by_id(id) {
+        Some(&node.data)
+      } else {
+        None
+      }
+    } else {
+      None
+    }
+  }
+
+  pub fn find_node_by_handle(&self, handle: ElementHandle) -> Option<&TreeNode<Element>> {
+    self
       .tree
       .nodes
       .iter()
-      .find(|node| node.data.handle == handle);
+      .find(|node| node.data.handle == handle)
+  }
+
+  pub fn find_nodes_by_tag(&self, tag: ElementTag) -> Vec<&TreeNode<Element>> {
+    self
+      .tree
+      .nodes
+      .iter()
+      .filter(|node| node.data.tags.contains(&tag))
+      .collect::<_>()
+  }
+
+  pub fn remove_node_by_handle(&mut self, handle: ElementHandle) {
+    let element = self.find_node_by_handle(handle);
 
     if let Some(element) = element {
       let mut node_ids_to_remove = vec![element.id];

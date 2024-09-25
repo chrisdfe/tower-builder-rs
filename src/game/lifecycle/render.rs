@@ -26,7 +26,7 @@ pub const BG_COLOR: Color = Color::new(0.075, 0.094, 0.067, 1.);
 pub const GROUND_COLOR: Color = Color::new(0.357, 0.055, 0.082, 1.);
 
 pub const DEFAULT_TEXT_COLOR: Color = WHITE;
-pub const DEFAULT_FONT_SIZE: u16 = 16;
+pub const DEFAULT_FONT_SIZE: u16 = 14;
 pub const DEFAULT_FONT_SCALE: f32 = 1.;
 
 const DEFAULT_FONT_PATH: &'static str = "./fonts/space-mono/SpaceMono-Regular.ttf";

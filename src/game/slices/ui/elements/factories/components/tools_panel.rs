@@ -3,12 +3,17 @@ use std::{collections::HashMap, str::FromStr};
 use macroquad::color::RED;
 
 use crate::{
-  game::slices::ui::elements::{
-    BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, TwoDimensional,
+  game::slices::{
+    ui::elements::{
+      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
+      ElementUpdateAction, ElementUpdateCtx, Resizability, TwoDimensional,
+    },
+    world::tower::rooms::definitions::RoomDefinitionId,
   },
-  game::slices::world::tower::rooms::definitions::RoomDefinitionId,
-  types::measurements::Axis,
-  types::tree::TreeNodeInput,
+  types::{
+    measurements::{Axis, Dimensions},
+    tree::TreeNodeInput,
+  },
 };
 
 use crate::{
@@ -16,7 +21,7 @@ use crate::{
   game::slices::world::tower::rooms::definitions::ROOM_DEFINITIONS,
 };
 
-const DEFINITION_DATA_KEY: &str = "definition";
+pub const DEFINITION_DATA_KEY: &str = "definition";
 
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
@@ -65,6 +70,13 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
           name: String::from(format!("room definition button: {:?}", definition.id)),
           text: String::from(format!("{:?}", definition.id)),
           padding: 10,
+
+          tags: vec![ElementTag::RoomDefinitionButton],
+
+          resizability: Resizability::Fixed(Dimensions {
+            width: 20,
+            height: 20,
+          }),
           interactivity: Some(InteractivityConfig {
             on_mouse_up: Some(on_room_definition_button_click),
             ..Default::default()

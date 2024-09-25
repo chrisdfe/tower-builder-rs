@@ -1,7 +1,7 @@
 use macroquad::input::mouse_position;
 
 use crate::{
-  game::{slices::ui::elements::UpdateCtx, Game},
+  game::{slices::ui::elements::ElementUpdateCtx, Game},
   types::measurements::Point,
 };
 
@@ -14,6 +14,8 @@ use crate::{
 };
 use uuid::Uuid;
 
+use super::elements::ElementUpdateAction;
+
 pub fn update(game: &mut Game) {
   run_update_handlers(game);
   update_interactivity(game);
@@ -21,12 +23,16 @@ pub fn update(game: &mut Game) {
 }
 
 fn run_update_handlers(game: &mut Game) {
-  let ctx = UpdateCtx {
+  let ctx = ElementUpdateCtx {
     world: &game.world,
     tools: &game.tools,
-    camera_position: &game.world.camera.camera_position,
+    ui: &game.ui,
   };
 
+  // TODO - I'm probably going to need to change how this works
+  let mut mutations: Vec<(Uuid, ElementUpdateAction)> = Vec::new();
+
+  // run on_updates
   for element_id in game
     .ui
     .elements
@@ -37,11 +43,36 @@ fn run_update_handlers(game: &mut Game) {
       .ui
       .elements
       .tree
-      .find_node_by_id_mut(element_id)
+      .find_node_by_id(element_id)
       .unwrap();
 
     if let Some(on_update) = element.data.on_update {
-      on_update(&ctx, &mut element.data);
+      let action = on_update(&ctx, &element.data);
+
+      match action {
+        ElementUpdateAction::None => (),
+        _ => mutations.push((element_id, action)),
+      };
+    }
+  }
+
+  // Run mutations
+  for (element_id, action) in mutations.into_iter() {
+    use ElementUpdateAction::*;
+
+    //
+    match action {
+      UpdateText(text) => {
+        let element = game
+          .ui
+          .elements
+          .tree
+          .find_node_by_id_mut(element_id)
+          .unwrap();
+
+        element.data.text = text;
+      }
+      _ => (),
     }
   }
 }
