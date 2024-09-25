@@ -227,5 +227,5 @@ fn render_text_custom(text: &String, point: &Point) {
       font_scale: DEFAULT_FONT_SCALE,
       ..Default::default()
     },
-  )
+  );
 }

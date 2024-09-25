@@ -1,9 +1,10 @@
+use macroquad::color::BLACK;
+
 use crate::{
   game::slices::ui::elements::{
-    ContentAlignment, Element, TwoDimensional, UpdateCtx, UpdateHandler,
+    BackgroundColorKind, ContentAlignment, Element, TwoDimensional, UpdateCtx, UpdateHandler,
   },
-  types::measurements::Axis,
-  types::tree::TreeNodeInput,
+  types::{measurements::Axis, tree::TreeNodeInput},
 };
 
 pub fn create() -> TreeNodeInput<Element> {
@@ -16,6 +17,7 @@ pub fn create() -> TreeNodeInput<Element> {
         horizontal: ContentAlignment::Start,
         vertical: ContentAlignment::Start,
       },
+      background_color: BackgroundColorKind::Fixed(BLACK),
       ..Default::default()
     },
     get_children(),
