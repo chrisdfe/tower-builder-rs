@@ -68,7 +68,9 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
       TreeNodeInput(
         Element {
           name: String::from(format!("room definition button: {:?}", definition.id)),
+
           text: String::from(format!("{:?}", definition.id)),
+
           padding: 10,
 
           tags: vec![ElementTag::RoomDefinitionButton],
