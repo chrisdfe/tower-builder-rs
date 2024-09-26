@@ -6,7 +6,7 @@ use crate::types::{
   PrevAndCurrent,
 };
 
-use super::{factories, interactivity::EventHandlerQueue, Element, ElementHandle, ElementTag};
+use super::{components, interactivity::EventHandlerQueue, Element, ElementHandle, ElementTag};
 
 // TODO - implement Iterator
 #[derive(Debug, Clone)]
@@ -23,7 +23,7 @@ impl Elements {
   pub fn new() -> Self {
     let mut tree = Tree::new();
 
-    let root_element_id = tree.add_node(factories::components::root_node::create(), None);
+    let root_element_id = tree.add_node(components::root_node::create(), None);
     // TODO - should this be the default behavior in Tree if parent_id is None?
     tree.root_node_id = Some(root_element_id);
 

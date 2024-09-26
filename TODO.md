@@ -2,6 +2,9 @@
 
 ## Layout node system
 
+- [ ] "active"/"selected" buttons - selected tool button, selected roomd definition
+- [ ] multiple tools - normal, build, destroy
+- [ ] screens (start screen, etc)
 - [ ] factories/components could just be components/
 - [ ] put calculated prerendered stuff in a different place to Element?
 - [ ] empty string = element of zero height

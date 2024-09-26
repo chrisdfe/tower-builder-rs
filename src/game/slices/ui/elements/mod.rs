@@ -14,7 +14,7 @@ pub mod prerender;
 pub use prerender::prerender;
 
 /// Factory functions for creating `Elements`s
-pub mod factories;
+pub mod components;
 
 /// Generic helpers for `Vec<&TreeNode<Element>>`s
 mod element_node_vec;

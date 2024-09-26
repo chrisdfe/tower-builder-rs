@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 use crate::{game::slices::ui::elements::ElementHandle, types::map::Coordinates};
 
-use crate::game::{slices::ui::elements::factories, Game};
+use crate::game::{slices::ui::elements::components, Game};
 use lazy_static::lazy_static;
 
 use KeyCode::*;
@@ -28,10 +28,11 @@ lazy_static! {
 fn handle_key1_down(game: &mut Game) {
   let root_node_id = game.ui.elements.tree.root_node_id.unwrap();
 
-  game.ui.elements.tree.add_node(
-    factories::components::tools_panel::create(),
-    Some(root_node_id),
-  );
+  game
+    .ui
+    .elements
+    .tree
+    .add_node(components::tools_panel::create(), Some(root_node_id));
 
   game.ui.elements.clear_all_calculated_properties();
 }
