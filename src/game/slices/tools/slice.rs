@@ -9,35 +9,12 @@ use crate::{
 
 use super::Selection;
 
-pub struct Slice {
+pub struct BuildTool {
   pub selected_room_definition_id: RoomDefinitionId,
-
-  pub selection: Selection,
-
   pub blueprint_room: Room,
 }
 
-impl Default for Slice {
-  fn default() -> Self {
-    Slice::new()
-  }
-}
-
-impl Slice {
-  pub fn new() -> Self {
-    let selected_room_definition_id = RoomDefinitionId::Lobby;
-
-    Self {
-      selected_room_definition_id,
-      blueprint_room: {
-        let mut room = Room::from(&ROOM_DEFINITIONS[&selected_room_definition_id]);
-        room.calculate_coordinates_box(&CoordinatesBox::zero());
-        room
-      },
-      selection: Selection::new(),
-    }
-  }
-
+impl BuildTool {
   pub fn set_selected_room_definition(
     &mut self,
     room_definition_id: RoomDefinitionId,
@@ -54,5 +31,43 @@ impl Slice {
       .calculate_coordinates_box(selection_box);
 
     self.blueprint_room.validate(ctx)
+  }
+}
+
+pub struct DestroyTool;
+
+// TODO - maybe need to restructure this to avoid resetting the selected room definition
+//        whenever switching between tools
+pub enum Tool {
+  None,
+  Build(BuildTool),
+  Destroy(DestroyTool),
+}
+
+pub struct Slice {
+  pub selection: Selection,
+  pub tool: Tool,
+}
+
+impl Default for Slice {
+  fn default() -> Self {
+    Slice::new()
+  }
+}
+
+impl Slice {
+  pub fn new() -> Self {
+    let selected_room_definition_id = RoomDefinitionId::Lobby;
+
+    Self {
+      tool: Tool::None,
+      // selected_room_definition_id,
+      // blueprint_room: {
+      //   let mut room = Room::from(&ROOM_DEFINITIONS[&selected_room_definition_id]);
+      //   room.calculate_coordinates_box(&CoordinatesBox::zero());
+      //   room
+      // },
+      selection: Selection::new(),
+    }
   }
 }

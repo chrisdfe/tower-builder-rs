@@ -2,6 +2,7 @@ use macroquad::color::BLACK;
 
 use crate::{
   game::slices::{
+    tools::Tool,
     ui::elements::{
       BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
       ElementUpdateAction, ElementUpdateCtx, TwoDimensional, UpdateHandler,
@@ -11,7 +12,7 @@ use crate::{
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::tools_panel::DEFINITION_DATA_KEY;
+use super::tools_panel::build_tool_panel::DEFINITION_DATA_KEY;
 
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
@@ -73,10 +74,14 @@ fn update_text_with_selected_room_definition(
   ctx: &ElementUpdateCtx,
   _: &Element,
 ) -> ElementUpdateAction {
-  let text = format!(
-    "room definition: {:?}",
-    ctx.tools.selected_room_definition_id
-  );
+  let text = if let Tool::Build(build_tool) = &ctx.tools.tool {
+    format!(
+      "room definition: {:?}",
+      build_tool.selected_room_definition_id
+    )
+  } else {
+    String::from("nothing.")
+  };
 
   ElementUpdateAction::UpdateText(text)
 }
@@ -148,9 +153,10 @@ fn update_text_with_current_hovered_room_definition_button(
     }
   };
 
-  // TODO - when there are different tools then this will have to be changed.
-  ElementUpdateAction::UpdateText(format!("{:?}", ctx.tools.selected_room_definition_id))
-
-  // Not hovering over element - clear text if it is not empty
-  // ElementUpdateAction::UpdateText(String::from(""))
+  if let Tool::Build(build_tool) = &ctx.tools.tool {
+    // TODO - when there are different tools then this will have to be changed.
+    ElementUpdateAction::UpdateText(format!("{:?}", &build_tool.selected_room_definition_id))
+  } else {
+    ElementUpdateAction::UpdateText(String::from(""))
+  }
 }

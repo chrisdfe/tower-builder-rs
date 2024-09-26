@@ -11,7 +11,7 @@ pub fn create() -> TreeNodeInput<Element> {
     create_root_node_element(),
     vec![
       super::debug_text_panel::create(),
-      super::tools_panel::create(),
+      super::tools_panel::tools_panel::create(),
     ],
   )
 }

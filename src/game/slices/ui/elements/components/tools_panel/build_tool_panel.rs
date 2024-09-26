@@ -41,6 +41,7 @@ pub fn create() -> TreeNodeInput<Element> {
   )
 }
 
+// TODO - do I need this?
 pub fn create_wrapper() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {

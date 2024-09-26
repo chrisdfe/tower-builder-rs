@@ -28,11 +28,10 @@ lazy_static! {
 fn handle_key1_down(game: &mut Game) {
   let root_node_id = game.ui.elements.tree.root_node_id.unwrap();
 
-  game
-    .ui
-    .elements
-    .tree
-    .add_node(components::tools_panel::create(), Some(root_node_id));
+  game.ui.elements.tree.add_node(
+    components::tools_panel::tools_panel::create(),
+    Some(root_node_id),
+  );
 
   game.ui.elements.clear_all_calculated_properties();
 }

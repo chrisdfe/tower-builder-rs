@@ -7,6 +7,7 @@ use macroquad::{
 };
 use once_cell::sync::OnceCell;
 
+use crate::game::slices::tools::Tool;
 use crate::game::slices::ui::elements::UnwrappedElementCalculatedProperties;
 use crate::game::slices::world::tower::Room;
 use crate::types::map::Coordinates;
@@ -126,15 +127,17 @@ fn draw_room_blueprint(game: &Game) {
     return;
   }
 
-  let mut color = if game.tools.blueprint_room.is_valid() {
-    game.tools.blueprint_room.definition().color
-  } else {
-    RED.clone()
-  };
+  if let Tool::Build(build_tool) = &game.tools.tool {
+    let mut color = if build_tool.blueprint_room.is_valid() {
+      build_tool.blueprint_room.definition().color
+    } else {
+      RED.clone()
+    };
 
-  color.a = 0.4;
+    color.a = 0.4;
 
-  draw_room(&game.tools.blueprint_room, Some(color), game);
+    draw_room(&build_tool.blueprint_room, Some(color), game);
+  }
 }
 
 fn draw_ui(game: &Game) {
