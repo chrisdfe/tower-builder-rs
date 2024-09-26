@@ -5,7 +5,6 @@ use crate::game::slices::ui::elements::Element;
 
 pub fn calculate_for_element(node: &mut TreeNode<Element>) {
   let x = calculate_content_position_for_axis(&node.data, &Axis::Horizontal);
-
   let y = calculate_content_position_for_axis(&node.data, &Axis::Vertical);
 
   let content_position = Point { x, y };

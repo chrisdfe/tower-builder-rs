@@ -5,7 +5,7 @@ use crate::types::tree::TreeNode;
 
 use crate::game::slices::ui::elements::Resizability;
 
-use crate::game::lifecycle::render::{get_text_settings, TextSettings};
+use crate::game::lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE};
 use crate::game::slices::ui::elements::{Element, Elements};
 
 pub fn calculate(node: &mut TreeNode<Element>, elements_replica: &mut Elements) {
@@ -33,18 +33,18 @@ fn calculate_leaf_node_content_dimensions_for_axis(
   calculation_axis: &Axis,
 ) -> u32 {
   // If a leaf node has neither text nor a fixed size, it collapses to 0x0
-  if node.data.text.len() > 0 {
+  if let Some(text) = &node.data.text {
     let TextSettings {
       font,
       font_size,
       font_scale,
       ..
     } = get_text_settings();
-    let text_dimensions = measure_text(&node.data.text, font, font_size, font_scale);
+    let text_dimensions = measure_text(text, font, font_size, font_scale);
 
     match calculation_axis {
       Axis::Horizontal => text_dimensions.width as u32,
-      Axis::Vertical => text_dimensions.height as u32,
+      Axis::Vertical => std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32),
     }
   } else {
     use Resizability::*;

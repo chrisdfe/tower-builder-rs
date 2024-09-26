@@ -6,14 +6,11 @@ use crate::{
   game::slices::{
     ui::elements::{
       BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
-      ElementUpdateAction, ElementUpdateCtx, Resizability, TwoDimensional,
+      TwoDimensional,
     },
     world::tower::rooms::definitions::RoomDefinitionId,
   },
-  types::{
-    measurements::{Axis, Dimensions},
-    tree::TreeNodeInput,
-  },
+  types::{measurements::Axis, tree::TreeNodeInput},
 };
 
 use crate::{
@@ -69,7 +66,7 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
         Element {
           name: String::from(format!("room definition button: {:?}", definition.id)),
 
-          text: String::from(format!("{:?}", definition.id)),
+          text: Some(String::from(format!("{:?}", definition.id))),
 
           padding: 10,
 

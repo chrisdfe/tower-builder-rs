@@ -44,7 +44,7 @@ pub fn create_stretch_to_fill_node_with_children(expand_weight: u32) -> TreeNode
           TreeNodeInput(
             Element {
               name: String::from("expanding node"),
-              text: String::from("expanding node."),
+              text: Some(String::from("expanding node.")),
               padding: 10,
               resizability: Resizability::ExpandToFill(expand_weight),
               stack_axis: Axis::Horizontal,

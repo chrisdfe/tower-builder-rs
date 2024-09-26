@@ -1,14 +1,14 @@
 use macroquad::color::BLACK;
 
 use crate::{
-  game::slices::ui::elements::{
-    BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
-    ElementUpdateAction, ElementUpdateCtx, Resizability, TwoDimensional, UpdateHandler,
+  game::slices::{
+    ui::elements::{
+      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
+      ElementUpdateAction, ElementUpdateCtx, TwoDimensional, UpdateHandler,
+    },
+    world::tower::rooms::definitions::RoomDefinitionId,
   },
-  types::{
-    measurements::{Axis, Dimensions},
-    tree::TreeNodeInput,
-  },
+  types::{measurements::Axis, tree::TreeNodeInput},
 };
 
 use super::tools_panel::DEFINITION_DATA_KEY;
@@ -61,10 +61,6 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
         padding: 2,
         on_update: Some(on_update),
 
-        // resizability: Resizability::Fixed(Dimensions {
-        //   width: 100,
-        //   height: 40,
-        // }),
         ..Default::default()
       },
       Vec::new(),
@@ -134,31 +130,27 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
   ElementUpdateAction::UpdateText(text)
 }
 
+// TODO - probably don't do UpdateText unless it needs updating
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
   element: &Element,
 ) -> ElementUpdateAction {
   if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
-    //
     if current_hovered_element
       .tags
       .contains(&ElementTag::RoomDefinitionButton)
     {
-      match &current_hovered_element.data {
-        ElementData::HashMap(hash_map) => {
-          if let Some(definition_data) = hash_map.get(DEFINITION_DATA_KEY) {
-            return ElementUpdateAction::UpdateText(String::from(definition_data));
-          }
+      if let ElementData::HashMap(hash_map) = &current_hovered_element.data {
+        if let Some(definition_data) = hash_map.get(DEFINITION_DATA_KEY) {
+          return ElementUpdateAction::UpdateText(String::from(definition_data));
         }
-        _ => (),
       }
     }
   };
 
-  // Not hovering over element - clear text if it is not empty
-  if element.text.len() > 0 {
-    return ElementUpdateAction::UpdateText(String::from(""));
-  }
+  // TODO - when there are different tools then this will have to be changed.
+  ElementUpdateAction::UpdateText(format!("{:?}", ctx.tools.selected_room_definition_id))
 
-  ElementUpdateAction::None
+  // Not hovering over element - clear text if it is not empty
+  // ElementUpdateAction::UpdateText(String::from(""))
 }

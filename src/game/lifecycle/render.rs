@@ -183,20 +183,21 @@ fn draw_element(element: &Element) {
     draw_rectangle(x, y, w, h, debug_content_background_color);
   }
 
-  let TextSettings {
-    font,
-    text_color,
-    font_size,
-    font_scale,
-  } = get_text_settings();
+  if let Some(text) = &element.text {
+    let TextSettings {
+      font,
+      text_color,
+      font_size,
+      font_scale,
+    } = get_text_settings();
 
-  // TODO - prerender offset_y
-  let TextDimensions { offset_y, .. } = measure_text(&element.text, font, font_size, font_scale);
+    // TODO - prerender offset_y
+    let TextDimensions { offset_y, .. } = measure_text(text, font, font_size, font_scale);
 
-  // Draw content
-  {
+    // Draw content
+
     draw_text_ex(
-      &element.text,
+      text,
       content_position.x,
       content_position.y + offset_y,
       TextParams {
@@ -206,8 +207,8 @@ fn draw_element(element: &Element) {
         font_scale,
         ..Default::default()
       },
-    )
-  };
+    );
+  }
 }
 
 fn render_text_custom(text: &String, point: &Point) {

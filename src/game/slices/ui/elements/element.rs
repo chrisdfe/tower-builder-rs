@@ -34,7 +34,7 @@ pub struct Element {
   pub tags: Vec<ElementTag>,
 
   // text will be ignored for wrapper nodes (i.e if its node has children)
-  pub text: String,
+  pub text: Option<String>,
 
   // dimensions/position
   pub padding: u32,
@@ -81,7 +81,7 @@ impl Default for Element {
       interactivity: None,
 
       calculated: Default::default(),
-      text: String::from(""),
+      text: None,
 
       data: ElementData::None,
     }

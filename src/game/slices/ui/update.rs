@@ -70,7 +70,7 @@ fn run_update_handlers(game: &mut Game) {
           .find_node_by_id_mut(element_id)
           .unwrap();
 
-        element.data.text = text;
+        element.data.text = Some(text);
       }
       _ => (),
     }

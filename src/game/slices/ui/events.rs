@@ -39,10 +39,6 @@ pub fn run_event_handlers(game: &mut Game) {
             wallet: &game.world.wallet,
           },
         );
-        println!(
-          "selected_room_definition is now: {:?}",
-          game.tools.selected_room_definition_id
-        );
       }
     }
     // RemoveAllRootNodeChildren => {
