@@ -150,7 +150,16 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
 
 // TODO - only update if needed
 fn update_text_with_current_tool(ctx: &ElementUpdateCtx, element: &Element) -> ElementUpdateAction {
-  format!("has changed: {}", ctx.tools.tool_has_changed());
+  // println!(
+  //   "has changed: {}, element.text is empty string: {}",
+  //   ctx.tools.tool_has_changed(),
+  //   element.text == Some(String::from(""))
+  // );
+  println!(
+    "tool - prev: {:?}, current: {:?}",
+    ctx.tools.current_tool(),
+    ctx.tools.prev_tool()
+  );
 
   if element.text == Some(String::from("")) || ctx.tools.tool_has_changed() {
     let text = format!("Tool: {:#?}", ctx.tools.current_tool());

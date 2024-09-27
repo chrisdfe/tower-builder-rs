@@ -93,6 +93,10 @@ impl Slice {
     self.tool.tick();
   }
 
+  pub fn prev_tool(&self) -> &Tool {
+    &self.tool.prev
+  }
+
   pub fn current_tool(&self) -> &Tool {
     &self.tool.current
   }
