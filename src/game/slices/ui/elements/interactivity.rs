@@ -3,16 +3,16 @@ use std::collections::VecDeque;
 use macroquad::color::*;
 use uuid::Uuid;
 
-use crate::game::slices::world::tower::rooms::definitions::RoomDefinitionId;
+use crate::game::slices::{tools::Tool, world::tower::rooms::definitions::RoomDefinitionId};
 
 use super::{BackgroundColorKind, Element};
 
 // TODO - this being here couples game logic with UI framework logic, I should probably move it
-#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Action {
   None,
   PrintDebugStatement,
   SetSelectedRoomDefinition(RoomDefinitionId),
+  SetCurrentTool(Tool),
 }
 
 pub type ActionCreator = fn(ctx: ActionCreatorCtx) -> Action;

@@ -14,7 +14,20 @@ pub struct BuildTool {
   pub blueprint_room: Room,
 }
 
+impl Default for BuildTool {
+  fn default() -> Self {
+    Self {
+      selected_room_definition_id: RoomDefinitionId::Lobby,
+      blueprint_room: Room::new(),
+    }
+  }
+}
+
 impl BuildTool {
+  pub fn new() -> Self {
+    Default::default()
+  }
+
   pub fn set_selected_room_definition(
     &mut self,
     room_definition_id: RoomDefinitionId,
@@ -36,17 +49,20 @@ impl BuildTool {
 
 pub struct DestroyTool;
 
-// TODO - maybe need to restructure this to avoid resetting the selected room definition
-//        whenever switching between tools
+#[derive(Debug)]
 pub enum Tool {
   None,
-  Build(BuildTool),
-  Destroy(DestroyTool),
+  Build,
+  Destroy,
 }
 
 pub struct Slice {
   pub selection: Selection,
-  pub tool: Tool,
+
+  current_tool: Tool,
+
+  pub build_tool: BuildTool,
+  pub destroy_tool: DestroyTool,
 }
 
 impl Default for Slice {
@@ -60,7 +76,9 @@ impl Slice {
     let selected_room_definition_id = RoomDefinitionId::Lobby;
 
     Self {
-      tool: Tool::None,
+      current_tool: Tool::None,
+      build_tool: BuildTool::new(),
+      destroy_tool: DestroyTool,
       // selected_room_definition_id,
       // blueprint_room: {
       //   let mut room = Room::from(&ROOM_DEFINITIONS[&selected_room_definition_id]);
@@ -69,5 +87,14 @@ impl Slice {
       // },
       selection: Selection::new(),
     }
+  }
+
+  // Not neccessary right now but feels correct
+  pub fn current_tool(&self) -> &Tool {
+    &self.current_tool
+  }
+
+  pub fn set_current_tool(&mut self, tool: Tool) {
+    self.current_tool = tool
   }
 }

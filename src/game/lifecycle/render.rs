@@ -127,16 +127,21 @@ fn draw_room_blueprint(game: &Game) {
     return;
   }
 
-  if let Tool::Build(build_tool) = &game.tools.tool {
-    let mut color = if build_tool.blueprint_room.is_valid() {
-      build_tool.blueprint_room.definition().color
+  if let Tool::Build = &game.tools.current_tool() {
+    let mut color = if game.tools.build_tool.blueprint_room.is_valid() {
+      game
+        .tools
+        .build_tool
+        .blueprint_room
+        .definition()
+        .color
     } else {
       RED.clone()
     };
 
     color.a = 0.4;
 
-    draw_room(&build_tool.blueprint_room, Some(color), game);
+    draw_room(&game.tools.build_tool.blueprint_room, Some(color), game);
   }
 }
 

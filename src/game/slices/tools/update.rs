@@ -7,13 +7,17 @@ use super::slice::Tool;
 
 pub fn update(game: &mut Game) {
   if game.tools.selection.selected_cell_has_changed() {
-    match &mut game.tools.tool {
-      Tool::Build(build_tool) => {
-        build_tool
+    match &mut game.tools.current_tool() {
+      Tool::Build => {
+        game
+          .tools
+          .build_tool
           .blueprint_room
           .calculate_coordinates_box(&game.tools.selection.selection_box());
 
-        build_tool
+        game
+          .tools
+          .build_tool
           .blueprint_room
           .validate(RoomValidationContext {
             tower: &game.world.tower.tower,

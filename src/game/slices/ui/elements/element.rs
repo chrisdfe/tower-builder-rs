@@ -101,7 +101,9 @@ pub enum ElementHandle {
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub enum ElementTag {
   #[default]
+  None,
   RoomDefinitionButton,
+  ToolButton,
 }
 
 #[derive(Debug, Clone, Copy)]

@@ -56,11 +56,11 @@ impl Game {
   }
 
   pub fn try_to_build_blueprint_room(&mut self) {
-    if let Tool::Build(build_tool) = &mut self.tools.tool {
-      if build_tool.blueprint_room.is_valid() {
+    if let Tool::Build = &mut self.tools.current_tool() {
+      if self.tools.build_tool.blueprint_room.is_valid() {
         self.world.tower.tower.build_room(
           ROOM_DEFINITIONS
-            .get(&mut build_tool.selected_room_definition_id)
+            .get(&mut self.tools.build_tool.selected_room_definition_id)
             .unwrap(),
           &self.tools.selection.selection_box(),
         );
@@ -68,10 +68,12 @@ impl Game {
         self
           .world
           .wallet
-          .subtract_funds(build_tool.blueprint_room.price());
+          .subtract_funds(self.tools.build_tool.blueprint_room.price());
 
         // Re-validate after build to prevent placing 2 rooms in the same place
-        build_tool
+        self
+          .tools
+          .build_tool
           .blueprint_room
           .validate(RoomValidationContext {
             tower: &self.world.tower.tower,
@@ -93,7 +95,9 @@ impl Game {
         .start_selection_box_at_current_cell();
 
       // reset blueprint
-      build_tool
+      self
+        .tools
+        .build_tool
         .blueprint_room
         .calculate_coordinates_box(&self.tools.selection.selection_box());
     }

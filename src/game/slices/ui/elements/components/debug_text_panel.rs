@@ -14,7 +14,7 @@ use crate::{
 
 use super::tools_panel::build_tool_panel::DEFINITION_DATA_KEY;
 
-pub fn create() -> TreeNodeInput<Element> {
+pub fn create_node_input() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
       name: String::from("debug text section"),
@@ -34,10 +34,6 @@ pub fn create() -> TreeNodeInput<Element> {
 
 fn get_children() -> Vec<TreeNodeInput<Element>> {
   vec![
-    (
-      "selected room definition text node",
-      update_text_with_selected_room_definition as UpdateHandler,
-    ),
     ("funds text node", update_text_with_funds as UpdateHandler),
     (
       "population text node",
@@ -48,6 +44,14 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
     (
       "camera position node",
       update_text_with_camera_position as UpdateHandler,
+    ),
+    (
+      "current tool node",
+      update_text_with_current_tool as UpdateHandler,
+    ),
+    (
+      "selected room definition text node",
+      update_text_with_selected_room_definition as UpdateHandler,
     ),
     (
       "current hovered room definition button node",
@@ -74,10 +78,10 @@ fn update_text_with_selected_room_definition(
   ctx: &ElementUpdateCtx,
   _: &Element,
 ) -> ElementUpdateAction {
-  let text = if let Tool::Build(build_tool) = &ctx.tools.tool {
+  let text = if let Tool::Build = &ctx.tools.current_tool() {
     format!(
       "room definition: {:?}",
-      build_tool.selected_room_definition_id
+      ctx.tools.build_tool.selected_room_definition_id
     )
   } else {
     String::from("nothing.")
@@ -135,10 +139,17 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
   ElementUpdateAction::UpdateText(text)
 }
 
+// TODO - only update if needed
+fn update_text_with_current_tool(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+  let text = format!("Tool: {:#?}", ctx.tools.current_tool());
+  //
+  ElementUpdateAction::UpdateText(text)
+}
+
 // TODO - probably don't do UpdateText unless it needs updating
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
-  element: &Element,
+  _: &Element,
 ) -> ElementUpdateAction {
   if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
     if current_hovered_element
@@ -153,9 +164,12 @@ fn update_text_with_current_hovered_room_definition_button(
     }
   };
 
-  if let Tool::Build(build_tool) = &ctx.tools.tool {
+  if let Tool::Build = &ctx.tools.current_tool() {
     // TODO - when there are different tools then this will have to be changed.
-    ElementUpdateAction::UpdateText(format!("{:?}", &build_tool.selected_room_definition_id))
+    ElementUpdateAction::UpdateText(format!(
+      "{:?}",
+      &ctx.tools.build_tool.selected_room_definition_id
+    ))
   } else {
     ElementUpdateAction::UpdateText(String::from(""))
   }

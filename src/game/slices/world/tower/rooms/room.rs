@@ -47,6 +47,10 @@ impl From<&RoomDefinition> for Room {
 }
 
 impl Room {
+  pub fn new() -> Self {
+    Self::default()
+  }
+
   pub fn definition(&self) -> &'static RoomDefinition {
     ROOM_DEFINITIONS.get(&self.definition_id).unwrap()
   }

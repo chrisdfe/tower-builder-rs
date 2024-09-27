@@ -1,3 +1,5 @@
+use macroquad::color::GREEN;
+
 use crate::{
   game::slices::ui::elements::{
     BackgroundColorKind, ContentAlignment, Element, ElementHandle, Resizability, TwoDimensional,
@@ -10,8 +12,9 @@ pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
     create_root_node_element(),
     vec![
-      super::debug_text_panel::create(),
-      super::tools_panel::tools_panel::create(),
+      super::debug_text_panel::create_node_input(),
+      super::spacers::expand_to_fill::create_node_input(),
+      super::tools_panel::tools_panel::create_node_input(),
     ],
   )
 }
