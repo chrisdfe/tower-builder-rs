@@ -4,7 +4,7 @@ use crate::{
     validation::RoomValidationContext,
     Room,
   },
-  types::map::coordinates_box::CoordinatesBox,
+  types::{map::coordinates_box::CoordinatesBox, PrevAndCurrent},
 };
 
 use super::Selection;
@@ -49,7 +49,7 @@ impl BuildTool {
 
 pub struct DestroyTool;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Tool {
   None,
   Build,
@@ -59,7 +59,7 @@ pub enum Tool {
 pub struct Slice {
   pub selection: Selection,
 
-  current_tool: Tool,
+  tool: PrevAndCurrent<Tool>,
 
   pub build_tool: BuildTool,
   pub destroy_tool: DestroyTool,
@@ -76,7 +76,7 @@ impl Slice {
     let selected_room_definition_id = RoomDefinitionId::Lobby;
 
     Self {
-      current_tool: Tool::None,
+      tool: PrevAndCurrent::new(Tool::None),
       build_tool: BuildTool::new(),
       destroy_tool: DestroyTool,
       // selected_room_definition_id,
@@ -89,12 +89,20 @@ impl Slice {
     }
   }
 
-  // Not neccessary right now but feels correct
+  pub fn tick(&mut self) {
+    self.tool.tick();
+  }
+
   pub fn current_tool(&self) -> &Tool {
-    &self.current_tool
+    &self.tool.current
+  }
+
+  // TODO - 'process' every tick
+  pub fn tool_has_changed(&self) -> bool {
+    self.tool.has_changed()
   }
 
   pub fn set_current_tool(&mut self, tool: Tool) {
-    self.current_tool = tool
+    self.tool.set_current(tool);
   }
 }

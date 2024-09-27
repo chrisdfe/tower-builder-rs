@@ -73,10 +73,6 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 
           tags: vec![ElementTag::RoomDefinitionButton],
 
-          // resizability: Resizability::Fixed(Dimensions {
-          //   width: 20,
-          //   height: 20,
-          // }),
           interactivity: Some(InteractivityConfig {
             on_mouse_up: Some(on_room_definition_button_click),
             ..Default::default()

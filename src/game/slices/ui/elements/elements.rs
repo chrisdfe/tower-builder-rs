@@ -15,8 +15,8 @@ pub struct Elements {
 
   pub event_handler_queue: EventHandlerQueue,
 
-  pub hovered_element_id: PrevAndCurrent<Uuid>,
-  pub clicked_element_id: PrevAndCurrent<Uuid>,
+  pub hovered_element_id: PrevAndCurrent<Option<Uuid>>,
+  pub clicked_element_id: PrevAndCurrent<Option<Uuid>>,
 }
 
 impl Elements {
@@ -32,8 +32,8 @@ impl Elements {
 
       event_handler_queue: EventHandlerQueue::new(),
 
-      hovered_element_id: PrevAndCurrent::new_none(),
-      clicked_element_id: PrevAndCurrent::new_none(),
+      hovered_element_id: PrevAndCurrent::new(None),
+      clicked_element_id: PrevAndCurrent::new(None),
     }
   }
 

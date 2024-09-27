@@ -2,6 +2,7 @@
 
 ## Layout node system
 
+- [ ] "tick" before every "update" - to advance all PrevAndCurrents
 - [ ] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
 - [ ] screens (start screen, etc)

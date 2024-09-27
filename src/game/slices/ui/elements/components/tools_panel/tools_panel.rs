@@ -26,7 +26,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       child_gap: 10,
 
       background_color: BackgroundColorKind::Fixed(BLUE),
-      stack_axis: Axis::Vertical,
+      stack_axis: Axis::Horizontal,
 
       content_alignment: TwoDimensional {
         horizontal: ContentAlignment::Center,
