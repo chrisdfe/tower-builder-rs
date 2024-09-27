@@ -103,8 +103,6 @@ impl Slice {
   }
 
   pub fn set_current_tool(&mut self, tool: Tool) {
-    println!("setting current tool to {:?}", tool);
-
     self.tool.set_current(tool);
   }
 }

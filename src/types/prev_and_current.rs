@@ -7,8 +7,8 @@ pub struct PrevAndCurrent<T: Clone + Copy + std::fmt::Debug + PartialEq> {
 impl<T: Clone + Copy + std::fmt::Debug + PartialEq> PrevAndCurrent<T> {
   pub fn new(current: T) -> Self {
     Self {
-      prev: current,
-      current: current,
+      prev: current.clone(),
+      current: current.clone(),
     }
   }
 
@@ -17,12 +17,8 @@ impl<T: Clone + Copy + std::fmt::Debug + PartialEq> PrevAndCurrent<T> {
   }
 
   pub fn set_current(&mut self, value: T) {
-    if self.current != value {
-      self.prev = self.current.clone();
-      println!("self.prev: {:?}", self.prev);
-      self.current = value;
-      println!("self.current: {:?}", self.current);
-    }
+    self.prev = self.current.clone();
+    self.current = value;
   }
 
   pub fn as_tuple(&self) -> (&T, &T) {

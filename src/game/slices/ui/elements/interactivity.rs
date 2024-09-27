@@ -73,6 +73,10 @@ impl EventHandlerQueue {
     }
   }
 
+  pub fn len(&self) -> usize {
+    self.queue.len()
+  }
+
   pub fn pop(&mut self) -> Option<QueuedAction> {
     self.queue.pop_front()
   }
