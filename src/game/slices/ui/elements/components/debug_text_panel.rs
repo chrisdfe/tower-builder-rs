@@ -34,13 +34,22 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
 fn get_children() -> Vec<TreeNodeInput<Element>> {
   vec![
-    ("funds text node", update_text_with_funds as UpdateHandler),
+    (
+      "funds text node", //
+      update_text_with_funds as UpdateHandler,
+    ),
     (
       "population text node",
       update_text_with_population as UpdateHandler,
     ),
-    ("clock text node", update_text_with_clock as UpdateHandler),
-    ("date text node", update_text_with_date as UpdateHandler),
+    (
+      "clock text node", //
+      update_text_with_clock as UpdateHandler,
+    ),
+    (
+      "date text node", //
+      update_text_with_date as UpdateHandler,
+    ),
     (
       "camera position node",
       update_text_with_camera_position as UpdateHandler,
@@ -140,10 +149,15 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
 }
 
 // TODO - only update if needed
-fn update_text_with_current_tool(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
-  let text = format!("Tool: {:#?}", ctx.tools.current_tool());
-  //
-  ElementUpdateAction::UpdateText(text)
+fn update_text_with_current_tool(ctx: &ElementUpdateCtx, element: &Element) -> ElementUpdateAction {
+  format!("has changed: {}", ctx.tools.tool_has_changed());
+
+  if element.text == Some(String::from("")) || ctx.tools.tool_has_changed() {
+    let text = format!("Tool: {:#?}", ctx.tools.current_tool());
+    ElementUpdateAction::UpdateText(text)
+  } else {
+    ElementUpdateAction::None
+  }
 }
 
 // TODO - probably don't do UpdateText unless it needs updating

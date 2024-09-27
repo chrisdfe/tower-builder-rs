@@ -47,7 +47,6 @@ pub fn run_event_handlers(game: &mut Game) {
         }
       }
       SetCurrentTool(tool) => {
-        // TODO
         game.tools.set_current_tool(tool);
       }
     }

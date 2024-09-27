@@ -11,7 +11,11 @@ pub fn update(game: &mut Game) {
   timers::run_event_handlers(game);
   ui::run_event_handlers(game);
 
-  // TODO - do I need to do a prerender here too
+  // Tick = increment PrevAndNext
+  // game.input.tick();
+  // game.timers.tick();
+  game.tools.tick();
+  // game.ui.tick();
 
   // Update
   input::update(game);
