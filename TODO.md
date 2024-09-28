@@ -2,11 +2,6 @@
 
 ## Layout node system
 
-- [x] "tick" before every "update" - to advance all PrevAndCurrents
-  - figure out double-tick situation with build tool that is preventing has_changed() from ever being true
-    - it gets set in update() so has_changed() is true, but tick() advances it again
-  - stuff to move into "tick":
-    - [ ] calculate clicked/hovered element
 - [ ] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
 - [ ] screens (start screen, etc)

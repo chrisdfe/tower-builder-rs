@@ -1,11 +1,11 @@
 pub mod elements;
-use elements::Elements;
+use elements::*;
 
 mod update;
-pub use update::update;
+pub use update::*;
 
 mod events;
-pub use events::run_event_handlers;
+pub use events::*;
 
 mod slice;
-pub use slice::Slice;
+pub use slice::*;

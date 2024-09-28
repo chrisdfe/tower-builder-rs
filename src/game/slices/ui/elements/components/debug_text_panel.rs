@@ -87,7 +87,7 @@ fn update_text_with_selected_room_definition(
   ctx: &ElementUpdateCtx,
   _: &Element,
 ) -> ElementUpdateAction {
-  let text = if let Tool::Build = &ctx.tools.current_tool() {
+  let text = if let Tool::Build = &ctx.tools.tool.current {
     format!(
       "room definition: {:?}",
       ctx.tools.build_tool.selected_room_definition_id
@@ -148,31 +148,18 @@ fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> Elem
   ElementUpdateAction::UpdateText(text)
 }
 
-// TODO - only update if needed
 fn update_text_with_current_tool(ctx: &ElementUpdateCtx, element: &Element) -> ElementUpdateAction {
-  // println!(
-  //   "has changed: {}, element.text is empty string: {}",
-  //   ctx.tools.tool_has_changed(),
-  //   element.text == Some(String::from(""))
-  // );
-  println!(
-    "tool - prev: {:?}, current: {:?}",
-    ctx.tools.current_tool(),
-    ctx.tools.prev_tool()
-  );
-
-  if element.text == Some(String::from("")) || ctx.tools.tool_has_changed() {
-    let text = format!("Tool: {:#?}", ctx.tools.current_tool());
+  if element.text == Some(String::from("")) || ctx.tools.tool.has_changed() {
+    let text = format!("Tool: {:#?}", ctx.tools.tool.current);
     ElementUpdateAction::UpdateText(text)
   } else {
     ElementUpdateAction::None
   }
 }
 
-// TODO - probably don't do UpdateText unless it needs updating
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
-  _: &Element,
+  element: &Element,
 ) -> ElementUpdateAction {
   if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
     if current_hovered_element
@@ -187,13 +174,14 @@ fn update_text_with_current_hovered_room_definition_button(
     }
   };
 
-  if let Tool::Build = &ctx.tools.current_tool() {
-    // TODO - when there are different tools then this will have to be changed.
+  if let Tool::Build = &ctx.tools.tool.current {
     ElementUpdateAction::UpdateText(format!(
-      "{:?}",
+      "building room: {:?}",
       &ctx.tools.build_tool.selected_room_definition_id
     ))
-  } else {
+  } else if element.text != Some(String::from("")) {
     ElementUpdateAction::UpdateText(String::from(""))
+  } else {
+    ElementUpdateAction::None
   }
 }

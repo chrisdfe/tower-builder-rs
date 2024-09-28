@@ -56,7 +56,7 @@ impl Game {
   }
 
   pub fn try_to_build_blueprint_room(&mut self) {
-    if let Tool::Build = &mut self.tools.current_tool() {
+    if let Tool::Build = &mut self.tools.tool.current {
       if self.tools.build_tool.blueprint_room.is_valid() {
         self.world.tower.tower.build_room(
           ROOM_DEFINITIONS

@@ -1,4 +1,4 @@
-use super::Elements;
+use super::{elements::interactivity, Elements};
 
 pub struct Slice {
   pub elements: Elements,

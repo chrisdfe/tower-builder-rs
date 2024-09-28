@@ -127,7 +127,7 @@ fn draw_room_blueprint(game: &Game) {
     return;
   }
 
-  if let Tool::Build = &game.tools.current_tool() {
+  if let Tool::Build = &game.tools.tool.current {
     let mut color = if game.tools.build_tool.blueprint_room.is_valid() {
       game
         .tools

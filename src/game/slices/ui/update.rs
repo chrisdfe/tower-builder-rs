@@ -62,6 +62,7 @@ fn run_update_handlers(game: &mut Game) {
 
     //
     match action {
+      None => (),
       UpdateText(text) => {
         let element = game
           .ui
@@ -72,12 +73,24 @@ fn run_update_handlers(game: &mut Game) {
 
         element.data.text = Some(text);
       }
-      _ => (),
+      UpdateActiveState(is_active) => {
+        let element = game
+          .ui
+          .elements
+          .tree
+          .find_node_by_id_mut(element_id)
+          .unwrap();
+
+        if let Some(interactivity) = &mut element.data.interactivity {
+          println!("setting is_active to {}", is_active);
+          interactivity.is_active.set_current(is_active);
+        }
+      }
     }
   }
 }
 
-pub fn update_interactivity(game: &mut Game) {
+fn update_interactivity(game: &mut Game) {
   calculate_hovered_ui_element(game);
   calculate_clicked_ui_element(game);
 
@@ -206,6 +219,26 @@ fn calculate_clicked_ui_element(game: &mut Game) {
     .elements
     .clicked_element_id
     .set_current(new_clicked_id);
+}
+
+pub fn post_update(game: &mut Game) {
+  for node_id in game
+    .ui
+    .elements
+    .tree
+    .get_node_ids_grouped_by_depth_top_down_flat()
+  {
+    let node = game
+      .ui
+      .elements
+      .tree
+      .find_node_by_id_mut(node_id)
+      .unwrap();
+
+    if let Some(interactivity) = &mut node.data.interactivity {
+      interactivity.is_active.tick();
+    }
+  }
 }
 
 /*

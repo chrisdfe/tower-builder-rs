@@ -4,8 +4,9 @@ use crate::{
   game::slices::{
     tools::Tool,
     ui::elements::{
-      interactivity::{Action, ActionCreatorCtx, InteractivityConfig},
-      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementTag, TwoDimensional,
+      interactivity::{Action, ActionCreatorCtx, ElementInteractivity},
+      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementTag, ElementUpdateAction,
+      ElementUpdateCtx, TwoDimensional,
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
@@ -39,7 +40,9 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
         Element {
           name: String::from("none tool button"),
           text: Some(String::from("None")),
-          interactivity: Some(InteractivityConfig {
+
+          on_update: Some(update_none_button),
+          interactivity: Some(ElementInteractivity {
             on_mouse_up: Some(on_none_button_click),
             ..Default::default()
           }),
@@ -51,7 +54,9 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
         Element {
           name: String::from("build tool button"),
           text: Some(String::from("Build")),
-          interactivity: Some(InteractivityConfig {
+
+          on_update: Some(update_build_button),
+          interactivity: Some(ElementInteractivity {
             on_mouse_up: Some(on_build_button_click),
             ..Default::default()
           }),
@@ -63,7 +68,9 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
         Element {
           name: String::from("destroy tool button"),
           text: Some(String::from("Destroy")),
-          interactivity: Some(InteractivityConfig {
+
+          on_update: Some(update_destroy_button),
+          interactivity: Some(ElementInteractivity {
             on_mouse_up: Some(on_destroy_button_click),
             ..Default::default()
           }),
@@ -85,4 +92,33 @@ fn on_build_button_click(_: ActionCreatorCtx) -> Action {
 
 fn on_destroy_button_click(_: ActionCreatorCtx) -> Action {
   Action::SetCurrentTool(Tool::Destroy)
+}
+
+fn update_none_button(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+  if ctx.tools.tool.has_changed() {
+    ElementUpdateAction::UpdateActiveState(ctx.tools.tool.current == Tool::None)
+  } else {
+    ElementUpdateAction::None
+  }
+}
+
+fn update_build_button(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+  println!(
+    "build button. tool has changed: {}",
+    ctx.tools.tool.has_changed()
+  );
+
+  if ctx.tools.tool.has_changed() {
+    ElementUpdateAction::UpdateActiveState(ctx.tools.tool.current == Tool::Build)
+  } else {
+    ElementUpdateAction::None
+  }
+}
+
+fn update_destroy_button(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+  if ctx.tools.tool.has_changed() {
+    ElementUpdateAction::UpdateActiveState(ctx.tools.tool.current == Tool::Destroy)
+  } else {
+    ElementUpdateAction::None
+  }
 }

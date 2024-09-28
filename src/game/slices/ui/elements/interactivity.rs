@@ -3,7 +3,10 @@ use std::collections::VecDeque;
 use macroquad::color::*;
 use uuid::Uuid;
 
-use crate::game::slices::{tools::Tool, world::tower::rooms::definitions::RoomDefinitionId};
+use crate::{
+  game::slices::{tools::Tool, world::tower::rooms::definitions::RoomDefinitionId},
+  types::PrevAndCurrent,
+};
 
 use super::{BackgroundColorKind, Element};
 
@@ -22,10 +25,15 @@ pub struct ActionCreatorCtx<'a> {
 }
 
 #[derive(Debug, Clone)]
-pub struct InteractivityConfig {
+pub struct ElementInteractivity {
+  // state
+  pub is_active: PrevAndCurrent<bool>,
+
+  // config
   pub background_color_over: BackgroundColorKind,
   pub background_color_down: BackgroundColorKind,
   pub background_color_up: BackgroundColorKind,
+  pub background_color_active: BackgroundColorKind,
 
   pub on_mouse_over: Option<ActionCreator>,
   pub on_mouse_out: Option<ActionCreator>,
@@ -33,12 +41,15 @@ pub struct InteractivityConfig {
   pub on_mouse_up: Option<ActionCreator>,
 }
 
-impl Default for InteractivityConfig {
+impl Default for ElementInteractivity {
   fn default() -> Self {
     Self {
+      is_active: PrevAndCurrent::new(false),
+
       background_color_over: BackgroundColorKind::Fixed(BLUE),
       background_color_down: BackgroundColorKind::Fixed(GREEN),
       background_color_up: BackgroundColorKind::Fixed(YELLOW),
+      background_color_active: BackgroundColorKind::Fixed(PURPLE),
 
       on_mouse_over: None,
       on_mouse_out: None,
@@ -48,7 +59,7 @@ impl Default for InteractivityConfig {
   }
 }
 
-impl InteractivityConfig {
+impl ElementInteractivity {
   pub fn has_at_least_one_not_none_handler(&self) -> bool {
     !self.is_none()
   }

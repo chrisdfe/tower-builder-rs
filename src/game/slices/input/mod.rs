@@ -1,8 +1,8 @@
 mod key_down_handlers;
-pub use key_down_handlers::KEY_DOWN_HANDLERS;
+pub use key_down_handlers::*;
 
 mod update;
-pub use update::update;
+pub use update::*;
 
 mod slice;
-pub use slice::Slice;
+pub use slice::*;

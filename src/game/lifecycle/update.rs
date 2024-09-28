@@ -11,12 +11,6 @@ pub fn update(game: &mut Game) {
   timers::run_event_handlers(game);
   ui::run_event_handlers(game);
 
-  // Tick = increment PrevAndNext
-  // game.input.tick();
-  // game.timers.tick();
-  game.tools.tick();
-  // game.ui.tick();
-
   // Update
   input::update(game);
   timers::update(game);
@@ -26,4 +20,8 @@ pub fn update(game: &mut Game) {
   // TODO - prerender first?
   // TODO - render, not prerender
   elements::prerender(game);
+
+  // Post-update - cleanup
+  tools::post_update(game);
+  ui::post_update(game);
 }

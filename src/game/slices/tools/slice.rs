@@ -59,7 +59,7 @@ pub enum Tool {
 pub struct Slice {
   pub selection: Selection,
 
-  tool: PrevAndCurrent<Tool>,
+  pub tool: PrevAndCurrent<Tool>,
 
   pub build_tool: BuildTool,
   pub destroy_tool: DestroyTool,
@@ -87,26 +87,5 @@ impl Slice {
       // },
       selection: Selection::new(),
     }
-  }
-
-  pub fn tick(&mut self) {
-    self.tool.tick();
-  }
-
-  pub fn prev_tool(&self) -> &Tool {
-    &self.tool.prev
-  }
-
-  pub fn current_tool(&self) -> &Tool {
-    &self.tool.current
-  }
-
-  // TODO - 'process' every tick
-  pub fn tool_has_changed(&self) -> bool {
-    self.tool.has_changed()
-  }
-
-  pub fn set_current_tool(&mut self, tool: Tool) {
-    self.tool.set_current(tool);
   }
 }

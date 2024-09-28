@@ -14,7 +14,7 @@ use crate::{
 };
 
 use crate::{
-  game::slices::ui::elements::interactivity::{Action, ActionCreatorCtx, InteractivityConfig},
+  game::slices::ui::elements::interactivity::{Action, ActionCreatorCtx, ElementInteractivity},
   game::slices::world::tower::rooms::definitions::ROOM_DEFINITIONS,
 };
 
@@ -73,7 +73,7 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 
           tags: vec![ElementTag::RoomDefinitionButton],
 
-          interactivity: Some(InteractivityConfig {
+          interactivity: Some(ElementInteractivity {
             on_mouse_up: Some(on_room_definition_button_click),
             ..Default::default()
           }),

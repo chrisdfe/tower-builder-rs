@@ -8,7 +8,7 @@ use crate::{
 };
 
 use super::{
-  interactivity::InteractivityConfig,
+  interactivity::ElementInteractivity,
   types::{ContentAlignment, Resizability},
   TwoDimensional,
 };
@@ -24,6 +24,7 @@ pub enum ElementData {
 pub enum ElementUpdateAction {
   None,
   UpdateText(String),
+  UpdateActiveState(bool),
 }
 
 #[derive(Debug, Clone)]
@@ -47,7 +48,7 @@ pub struct Element {
   pub background_color: BackgroundColorKind,
 
   // Interactivity
-  pub interactivity: Option<InteractivityConfig>,
+  pub interactivity: Option<ElementInteractivity>,
 
   // TODO - should be renamed to 'needs update' or 'get update action' or something
   pub on_update: Option<UpdateHandler>,

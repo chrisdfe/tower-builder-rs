@@ -5,7 +5,7 @@ use super::slice::Tool;
 
 pub fn update(game: &mut Game) {
   if game.tools.selection.selected_cell_has_changed() {
-    match &mut game.tools.current_tool() {
+    match &mut game.tools.tool.current {
       Tool::Build => {
         game
           .tools
@@ -27,4 +27,8 @@ pub fn update(game: &mut Game) {
   }
 
   super::selection::update(game);
+}
+
+pub fn post_update(game: &mut Game) {
+  game.tools.tool.tick()
 }

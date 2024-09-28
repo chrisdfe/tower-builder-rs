@@ -39,3 +39,8 @@ pub fn update(game: &mut Game) {
   // Reset
   game.timers.timers_to_add = Vec::new();
 }
+
+pub fn post_update(game: &mut Game) {
+
+  // noop
+}

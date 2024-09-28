@@ -26,7 +26,7 @@ pub fn run_event_handlers(game: &mut Game) {
         println!("debug statement. {}", node_id);
       }
       SetSelectedRoomDefinition(room_definition_id) => {
-        if let Tool::Build = &mut game.tools.current_tool() {
+        if let Tool::Build = &mut game.tools.tool.current {
           // game.tools.selected_room_definition_id = definition_id;
           // TODO
           game
@@ -47,7 +47,7 @@ pub fn run_event_handlers(game: &mut Game) {
         }
       }
       SetCurrentTool(tool) => {
-        game.tools.set_current_tool(tool);
+        game.tools.tool.set_current(tool);
       }
     }
     // RemoveAllRootNodeChildren => {

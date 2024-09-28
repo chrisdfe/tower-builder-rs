@@ -4,4 +4,4 @@ pub mod tower;
 pub mod wallet;
 
 mod slice;
-pub use slice::Slice;
+pub use slice::*;
