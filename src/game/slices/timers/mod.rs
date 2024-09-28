@@ -1,5 +1,5 @@
 mod slice;
-pub use slice::Slice;
+pub use slice::*;
 
 mod timer;
 pub use timer::*;
@@ -14,4 +14,4 @@ mod update;
 pub use update::*;
 
 mod events;
-pub use events::run_event_handlers;
+pub use events::*;

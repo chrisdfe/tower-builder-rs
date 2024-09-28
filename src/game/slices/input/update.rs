@@ -60,6 +60,10 @@ fn handle_left_button_released(game: &mut Game) {
   }
 }
 
+pub fn post_update(game: &mut Game) {
+  // noop
+}
+
 /*
 fn debug_find_route(game: &Game) {
   let _ = game

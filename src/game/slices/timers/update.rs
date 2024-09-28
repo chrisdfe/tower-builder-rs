@@ -41,6 +41,5 @@ pub fn update(game: &mut Game) {
 }
 
 pub fn post_update(game: &mut Game) {
-
   // noop
 }

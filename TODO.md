@@ -2,12 +2,12 @@
 
 ## Layout node system
 
-- [ ] "active"/"selected" buttons - selected tool button, selected roomd definition
+- [x] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
 - [ ] screens (start screen, etc)
-- [ ] factories/components could just be components/
+- [x] factories/components could just be components/
 - [ ] put calculated prerendered stuff in a different place to Element?
-- [ ] empty string = element of zero height
+- [x] empty string = element of zero height
 - [ ] updating text should flip a "needs recalculation" flag
 - [x] put game.ui.selection into game.tools
 - [x] removing ui elements + children by name or id
