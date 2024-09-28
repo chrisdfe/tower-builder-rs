@@ -1,4 +1,5 @@
 use crate::game::slices::tools::Tool;
+use crate::game::slices::ui::ElementHandle;
 use crate::game::slices::world::tower::rooms::validation::RoomValidationContext;
 use crate::game::Game;
 
@@ -47,7 +48,37 @@ pub fn run_event_handlers(game: &mut Game) {
         }
       }
       SetCurrentTool(tool) => {
+        use crate::game::slices::ui::elements::components::tools_panel::room_definitions_button_wrapper;
         game.tools.tool.set_current(tool);
+
+        let parent_id = {
+          if let Some(tools_panel_element) = game
+            .ui
+            .elements
+            .find_node_by_handle(ElementHandle::ToolsPanel)
+          {
+            Some(tools_panel_element.id)
+          } else {
+            Option::None
+          }
+        };
+
+        // TODO - might want to move elsewhere at some point to decouple UI from other logic
+        // Add/remove room definitions buttons
+        if tool == Tool::Build {
+          if let Some(parent_id) = parent_id {
+            game
+              .ui
+              .elements
+              .tree
+              .append_node(room_definitions_button_wrapper::create(), Some(parent_id));
+          }
+        } else {
+          game
+            .ui
+            .elements
+            .remove_node_by_handle(ElementHandle::RoomDefinitionButtonsWrapper);
+        }
       }
     }
     // RemoveAllRootNodeChildren => {

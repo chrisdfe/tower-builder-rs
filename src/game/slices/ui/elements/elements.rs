@@ -23,7 +23,7 @@ impl Elements {
   pub fn new() -> Self {
     let mut tree = Tree::new();
 
-    let root_element_id = tree.add_node(components::root_node::create(), None);
+    let root_element_id = tree.append_node(components::root_node::create(), None);
     // TODO - should this be the default behavior in Tree if parent_id is None?
     tree.root_node_id = Some(root_element_id);
 

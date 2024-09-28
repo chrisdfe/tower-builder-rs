@@ -183,7 +183,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
    */
 
   //  TODO - return value should return children ids too probably
-  pub fn add_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
+  pub fn append_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
     let TreeNodeInput(data, children) = input;
 
     let node = TreeNode::new(data, parent_id);
@@ -193,7 +193,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
 
     // recursively add children
     for child in children {
-      self.add_node(child, Some(node_id));
+      self.append_node(child, Some(node_id));
     }
 
     node_id
@@ -202,7 +202,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
   pub fn add_nodes(&mut self, input_tuples: Vec<(TreeNodeInput<T>, Option<Uuid>)>) -> Vec<Uuid> {
     input_tuples
       .into_iter()
-      .map(|(input, parent_id)| self.add_node(input, parent_id))
+      .map(|(input, parent_id)| self.append_node(input, parent_id))
       .collect::<Vec<_>>()
   }
 

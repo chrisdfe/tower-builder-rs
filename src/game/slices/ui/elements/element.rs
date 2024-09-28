@@ -95,7 +95,8 @@ pub enum ElementHandle {
   None,
   RootNode,
   ToolsPanel,
-
+  ToolsButtonsWrapper,
+  RoomDefinitionButtonsWrapper,
   DebugTextPanel,
 }
 

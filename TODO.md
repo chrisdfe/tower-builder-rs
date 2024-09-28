@@ -2,12 +2,14 @@
 
 ## Layout node system
 
+- [ ] give element.interactivity is_hovered and is_clicked PrevAndNexts to match is_active
 - [x] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
 - [ ] screens (start screen, etc)
 - [x] factories/components could just be components/
 - [ ] put calculated prerendered stuff in a different place to Element?
 - [x] empty string = element of zero height
+- [ ] cache prerendering (right now it's done every frame)
 - [ ] updating text should flip a "needs recalculation" flag
 - [x] put game.ui.selection into game.tools
 - [x] removing ui elements + children by name or id

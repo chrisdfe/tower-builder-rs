@@ -18,34 +18,14 @@ use crate::{
   game::slices::world::tower::rooms::definitions::ROOM_DEFINITIONS,
 };
 
+// TODO - put elsewhere
 pub const DEFINITION_DATA_KEY: &str = "definition";
 
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
-      name: String::from("tools panel"),
-      handle: ElementHandle::ToolsPanel,
-
-      padding: 10,
-      child_gap: 10,
-
-      background_color: BackgroundColorKind::Fixed(RED),
-      stack_axis: Axis::Vertical,
-      content_alignment: TwoDimensional {
-        horizontal: ContentAlignment::Center,
-        vertical: ContentAlignment::Center,
-      },
-      ..Default::default()
-    },
-    vec![create_wrapper()],
-  )
-}
-
-// TODO - do I need this?
-pub fn create_wrapper() -> TreeNodeInput<Element> {
-  TreeNodeInput(
-    Element {
       name: String::from("room buttons wrapper"),
+      handle: ElementHandle::RoomDefinitionButtonsWrapper,
       padding: 10,
       child_gap: 10,
       stack_axis: Axis::Vertical,

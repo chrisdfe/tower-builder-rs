@@ -7,12 +7,11 @@ use crate::{
       BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
       ElementUpdateAction, ElementUpdateCtx, TwoDimensional, UpdateHandler,
     },
-    world::tower::rooms::definitions::RoomDefinitionId,
   },
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::tools_panel::build_tool_panel::DEFINITION_DATA_KEY;
+use super::tools_panel::room_definitions_button_wrapper::DEFINITION_DATA_KEY;
 
 pub fn create_node_input() -> TreeNodeInput<Element> {
   TreeNodeInput(

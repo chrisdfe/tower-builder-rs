@@ -1,3 +1,3 @@
-pub mod build_tool_panel;
+pub mod room_definitions_button_wrapper;
 
 pub mod tools_panel;

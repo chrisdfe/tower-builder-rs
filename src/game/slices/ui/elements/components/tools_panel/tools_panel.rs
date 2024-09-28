@@ -3,10 +3,13 @@ use macroquad::color::{BLUE, RED};
 use crate::{
   game::slices::{
     tools::Tool,
-    ui::elements::{
-      interactivity::{Action, ActionCreatorCtx, ElementInteractivity},
-      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementTag, ElementUpdateAction,
-      ElementUpdateCtx, TwoDimensional,
+    ui::{
+      elements::{
+        interactivity::{Action, ActionCreatorCtx, ElementInteractivity},
+        BackgroundColorKind, ContentAlignment, Element, ElementData, ElementTag,
+        ElementUpdateAction, ElementUpdateCtx, TwoDimensional,
+      },
+      ElementHandle,
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
@@ -22,6 +25,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
       name: String::from("build tool panel"),
+      handle: ElementHandle::ToolsPanel,
 
       padding: 10,
       child_gap: 10,
@@ -35,50 +39,58 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       },
       ..base_tool_button.clone()
     },
-    vec![
-      TreeNodeInput(
-        Element {
-          name: String::from("none tool button"),
-          text: Some(String::from("None")),
+    vec![TreeNodeInput(
+      Element {
+        name: String::from("Tool buttons wrapper"),
+        handle: ElementHandle::ToolsButtonsWrapper,
+        text: Some(String::from("None")),
+        ..Default::default()
+      },
+      vec![
+        TreeNodeInput(
+          Element {
+            name: String::from("none tool button"),
+            text: Some(String::from("None")),
 
-          on_update: Some(update_none_button),
-          interactivity: Some(ElementInteractivity {
-            on_mouse_up: Some(on_none_button_click),
-            ..Default::default()
-          }),
-          ..base_tool_button.clone()
-        },
-        Vec::new(),
-      ),
-      TreeNodeInput(
-        Element {
-          name: String::from("build tool button"),
-          text: Some(String::from("Build")),
+            on_update: Some(update_none_button),
+            interactivity: Some(ElementInteractivity {
+              on_mouse_up: Some(on_none_button_click),
+              ..Default::default()
+            }),
+            ..base_tool_button.clone()
+          },
+          Vec::new(),
+        ),
+        TreeNodeInput(
+          Element {
+            name: String::from("build tool button"),
+            text: Some(String::from("Build")),
 
-          on_update: Some(update_build_button),
-          interactivity: Some(ElementInteractivity {
-            on_mouse_up: Some(on_build_button_click),
-            ..Default::default()
-          }),
-          ..base_tool_button.clone()
-        },
-        Vec::new(),
-      ),
-      TreeNodeInput(
-        Element {
-          name: String::from("destroy tool button"),
-          text: Some(String::from("Destroy")),
+            on_update: Some(update_build_button),
+            interactivity: Some(ElementInteractivity {
+              on_mouse_up: Some(on_build_button_click),
+              ..Default::default()
+            }),
+            ..base_tool_button.clone()
+          },
+          Vec::new(),
+        ),
+        TreeNodeInput(
+          Element {
+            name: String::from("destroy tool button"),
+            text: Some(String::from("Destroy")),
 
-          on_update: Some(update_destroy_button),
-          interactivity: Some(ElementInteractivity {
-            on_mouse_up: Some(on_destroy_button_click),
-            ..Default::default()
-          }),
-          ..base_tool_button.clone()
-        },
-        Vec::new(),
-      ),
-    ],
+            on_update: Some(update_destroy_button),
+            interactivity: Some(ElementInteractivity {
+              on_mouse_up: Some(on_destroy_button_click),
+              ..Default::default()
+            }),
+            ..base_tool_button.clone()
+          },
+          Vec::new(),
+        ),
+      ],
+    )],
   )
 }
 
