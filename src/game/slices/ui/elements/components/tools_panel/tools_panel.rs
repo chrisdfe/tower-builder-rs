@@ -18,6 +18,7 @@ use crate::{
 pub fn create_node_input() -> TreeNodeInput<Element> {
   let base_tool_button: Element = Element {
     padding: 10,
+    stack_axis: Axis::Vertical,
     tags: vec![ElementTag::ToolButton],
     ..Default::default()
   };
@@ -27,14 +28,13 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       name: String::from("build tool panel"),
       handle: ElementHandle::ToolsPanel,
 
-      padding: 10,
       child_gap: 10,
 
       background_color: BackgroundColorKind::Fixed(BLUE),
-      stack_axis: Axis::Horizontal,
+      stack_axis: Axis::Vertical,
 
       content_alignment: TwoDimensional {
-        horizontal: ContentAlignment::Center,
+        horizontal: ContentAlignment::Start,
         vertical: ContentAlignment::Center,
       },
       ..base_tool_button.clone()
@@ -115,11 +115,6 @@ fn update_none_button(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateActio
 }
 
 fn update_build_button(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
-  println!(
-    "build button. tool has changed: {}",
-    ctx.tools.tool.has_changed()
-  );
-
   if ctx.tools.tool.has_changed() {
     ElementUpdateAction::UpdateActiveState(ctx.tools.tool.current == Tool::Build)
   } else {

@@ -199,11 +199,43 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
     node_id
   }
 
-  pub fn add_nodes(&mut self, input_tuples: Vec<(TreeNodeInput<T>, Option<Uuid>)>) -> Vec<Uuid> {
+  pub fn append_nodes(&mut self, input_tuples: Vec<(TreeNodeInput<T>, Option<Uuid>)>) -> Vec<Uuid> {
     input_tuples
       .into_iter()
       .map(|(input, parent_id)| self.append_node(input, parent_id))
       .collect::<Vec<_>>()
+  }
+
+  pub fn prepend_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
+    let TreeNodeInput(data, children) = input;
+
+    //
+    let node = TreeNode::new(data, parent_id);
+    let node_id = node.id.clone();
+
+    let index = if let Some(parent_id) = parent_id {
+      // Find index of first sibling
+      let index = self.nodes.iter().position(|n| {
+        if let Some(node_parent_id) = n.parent_id {
+          node_parent_id == parent_id
+        } else {
+          false
+        }
+      });
+
+      index.unwrap_or(0)
+    } else {
+      0
+    };
+
+    self.nodes.insert(index, node);
+
+    // Add children too
+    for child in children {
+      self.append_node(child, Some(node_id));
+    }
+
+    node_id
   }
 
   pub fn remove_node_by_id(&mut self, element_id: Uuid) -> Option<Uuid> {

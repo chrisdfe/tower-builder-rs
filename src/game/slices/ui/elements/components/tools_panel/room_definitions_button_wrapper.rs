@@ -26,9 +26,8 @@ pub fn create() -> TreeNodeInput<Element> {
     Element {
       name: String::from("room buttons wrapper"),
       handle: ElementHandle::RoomDefinitionButtonsWrapper,
-      padding: 10,
       child_gap: 10,
-      stack_axis: Axis::Vertical,
+      stack_axis: Axis::Horizontal,
       content_alignment: TwoDimensional {
         horizontal: ContentAlignment::Center,
         vertical: ContentAlignment::Center,

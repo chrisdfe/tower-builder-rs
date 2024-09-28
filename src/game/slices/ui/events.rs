@@ -71,7 +71,7 @@ pub fn run_event_handlers(game: &mut Game) {
               .ui
               .elements
               .tree
-              .append_node(room_definitions_button_wrapper::create(), Some(parent_id));
+              .prepend_node(room_definitions_button_wrapper::create(), Some(parent_id));
           }
         } else {
           game
