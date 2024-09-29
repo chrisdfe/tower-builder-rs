@@ -1,10 +1,10 @@
-#[derive(Debug, Clone, Copy)]
-pub struct PrevAndCurrent<T: Clone + Copy + std::fmt::Debug + PartialEq> {
+#[derive(Debug, Clone)]
+pub struct PrevAndCurrent<T: Clone + std::fmt::Debug + PartialEq> {
   pub prev: T,
   pub current: T,
 }
 
-impl<T: Clone + Copy + std::fmt::Debug + PartialEq> PrevAndCurrent<T> {
+impl<T: Clone + std::fmt::Debug + PartialEq> PrevAndCurrent<T> {
   pub fn new(current: T) -> Self {
     Self {
       prev: current.clone(),

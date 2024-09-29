@@ -82,7 +82,6 @@ fn run_update_handlers(game: &mut Game) {
           .unwrap();
 
         if let Some(interactivity) = &mut element.data.interactivity {
-          println!("setting is_active to {}", is_active);
           interactivity.is_active.set_current(is_active);
         }
       }
@@ -238,6 +237,11 @@ pub fn post_update(game: &mut Game) {
     if let Some(interactivity) = &mut node.data.interactivity {
       interactivity.is_active.tick();
     }
+  }
+
+  //
+  if game.ui.state.status_text.has_changed() {
+    game.ui.state.status_text.tick();
   }
 }
 

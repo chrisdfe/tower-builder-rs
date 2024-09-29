@@ -34,36 +34,44 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 fn get_children() -> Vec<TreeNodeInput<Element>> {
   vec![
     (
-      "funds text node", //
+      "funds text element", //
       update_text_with_funds as UpdateHandler,
     ),
     (
-      "population text node",
+      "population text element",
       update_text_with_population as UpdateHandler,
     ),
     (
-      "clock text node", //
+      "clock text element", //
       update_text_with_clock as UpdateHandler,
     ),
     (
-      "date text node", //
+      "date text element", //
       update_text_with_date as UpdateHandler,
     ),
     (
-      "camera position node",
+      "camera position element",
       update_text_with_camera_position as UpdateHandler,
     ),
     (
-      "current tool node",
+      "current tool element",
       update_text_with_current_tool as UpdateHandler,
     ),
     (
-      "selected room definition text node",
+      "current selected cell element",
+      update_text_with_current_selected_cell as UpdateHandler,
+    ),
+    (
+      "selected room definition text element",
       update_text_with_selected_room_definition as UpdateHandler,
     ),
     (
-      "current hovered room definition button node",
+      "current hovered room definition button element",
       update_text_with_current_hovered_room_definition_button as UpdateHandler,
+    ),
+    (
+      "status text element",
+      update_status_text_element as UpdateHandler,
     ),
   ]
   .into_iter()
@@ -156,6 +164,22 @@ fn update_text_with_current_tool(ctx: &ElementUpdateCtx, element: &Element) -> E
   }
 }
 
+fn update_text_with_current_selected_cell(
+  ctx: &ElementUpdateCtx,
+  _: &Element,
+) -> ElementUpdateAction {
+  // TODO - has_changed
+  if ctx.tools.selection.selected_cell_has_changed() {
+    let text = format!(
+      "Current selected cell: {:?}, {:?}",
+      ctx.tools.selection.current_selected_cell.x, ctx.tools.selection.current_selected_cell.y,
+    );
+    ElementUpdateAction::UpdateText(text)
+  } else {
+    ElementUpdateAction::None
+  }
+}
+
 fn update_text_with_current_hovered_room_definition_button(
   ctx: &ElementUpdateCtx,
   element: &Element,
@@ -180,6 +204,15 @@ fn update_text_with_current_hovered_room_definition_button(
     ))
   } else if element.text != Some(String::from("")) {
     ElementUpdateAction::UpdateText(String::from(""))
+  } else {
+    ElementUpdateAction::None
+  }
+}
+
+fn update_status_text_element(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+  //
+  if ctx.ui.state.status_text.has_changed() {
+    ElementUpdateAction::UpdateText(ctx.ui.state.status_text.current.clone())
   } else {
     ElementUpdateAction::None
   }

@@ -152,8 +152,7 @@ impl Room {
       BelowGround => String::from("Room must be built above ground"),
       InvalidOverhang => String::from("Room must be built above another room"),
       TransportationNotInsideTower => {
-        // String::from("Transportation must be built completely inside of tower")
-        String::from("Transportation ")
+        String::from("Transportation must be built completely inside of tower")
       }
     }
   }

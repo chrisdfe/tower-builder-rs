@@ -32,6 +32,34 @@ impl Tower {
     self.rooms.push(room);
   }
 
+  pub fn destroy_room_at_coordinates(&mut self, coordinates: &Coordinates) {
+    let room_id = {
+      if let Some(room) = self.find_room_at_coordinates(&coordinates) {
+        Some(room.id)
+      } else {
+        None
+      }
+    };
+
+    println!("room at coordinates {:?}: {:?}", coordinates, room_id);
+
+    for room in self.rooms.iter() {
+      println!("room: {:?}", room.coordinates_box);
+    }
+
+    if let Some(room_id) = room_id {
+      // TODO - validation
+      // destroy it
+      self.destroy_room(&room_id);
+    }
+  }
+
+  pub fn destroy_room(&mut self, room_id: &Uuid) {
+    // TODO - validation
+    self.rooms.retain(|room| room.id != *room_id);
+    // TODO - remove occupants
+  }
+
   pub fn find_room_at_coordinates(&self, coordinates: &Coordinates) -> Option<&Room> {
     self
       .rooms

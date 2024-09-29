@@ -52,11 +52,17 @@ fn handle_left_button_pressed(game: &mut Game) {
 }
 
 fn handle_left_button_released(game: &mut Game) {
-  // if let Some(hovered_button_id) = game.ui.buttons.hovered_button_id {
-  // game.ui.buttons.clicked_button_id = Some(hovered_button_id);
-  // } else {
   if !game.ui.mouse_is_over_ui() {
-    game.try_to_build_blueprint_room();
+    use crate::game::slices::tools::Tool;
+    match game.tools.tool.current {
+      Tool::Build => {
+        game.try_to_build_blueprint_room();
+      }
+      Tool::Destroy => {
+        game.try_to_destroy_room_at_current_cell();
+      }
+      Tool::None => (),
+    }
   }
 }
 

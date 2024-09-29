@@ -1,8 +1,5 @@
-use crate::{
-  game::slices::world::tower::rooms::{
-    definitions::ROOM_DEFINITIONS, validation::RoomValidationContext,
-  },
-  types::map::Coordinates,
+use crate::game::slices::world::tower::rooms::{
+  definitions::ROOM_DEFINITIONS, validation::RoomValidationContext,
 };
 
 use super::slices::{
@@ -56,50 +53,67 @@ impl Game {
   }
 
   pub fn try_to_build_blueprint_room(&mut self) {
-    if let Tool::Build = &mut self.tools.tool.current {
-      if self.tools.build_tool.blueprint_room.is_valid() {
-        self.world.tower.tower.build_room(
-          ROOM_DEFINITIONS
-            .get(&mut self.tools.build_tool.selected_room_definition_id)
-            .unwrap(),
-          &self.tools.selection.selection_box(),
-        );
+    // TODO - it feels like there must be a better way to do this
+    match &mut self.tools.tool.current {
+      Tool::Build => (),
+      _ => return,
+    }
 
-        self
-          .world
-          .wallet
-          .subtract_funds(self.tools.build_tool.blueprint_room.price());
+    if self.tools.build_tool.blueprint_room.is_valid() {
+      self.world.tower.tower.build_room(
+        ROOM_DEFINITIONS
+          .get(&mut self.tools.build_tool.selected_room_definition_id)
+          .unwrap(),
+        &self.tools.selection.selection_box(),
+      );
 
-        // Re-validate after build to prevent placing 2 rooms in the same place
-        self
-          .tools
-          .build_tool
-          .blueprint_room
-          .validate(RoomValidationContext {
-            tower: &self.world.tower.tower,
-            wallet: &self.world.wallet,
-          });
-      } else {
-        // TODO - add status text
-        // self.ui.sstatus_text = self
-        //   .tools
-        //   .blueprint_room
-        //   .get_first_validation_error_message()
-        //   .to_string();
-      }
-
-      // Reset selection box
       self
-        .tools
-        .selection
-        .start_selection_box_at_current_cell();
+        .world
+        .wallet
+        .subtract_funds(self.tools.build_tool.blueprint_room.price());
 
-      // reset blueprint
+      // Re-validate after build to prevent placing 2 rooms in the same place
       self
         .tools
         .build_tool
         .blueprint_room
-        .calculate_coordinates_box(&self.tools.selection.selection_box());
+        .validate(RoomValidationContext {
+          tower: &self.world.tower.tower,
+          wallet: &self.world.wallet,
+        });
+    } else {
+      let text = self
+        .tools
+        .build_tool
+        .blueprint_room
+        .get_first_validation_error_message()
+        .to_string();
+
+      self.ui.state.status_text.set_current(text);
     }
+
+    // Reset selection box
+    self
+      .tools
+      .selection
+      .start_selection_box_at_current_cell();
+
+    // reset blueprint
+    self
+      .tools
+      .build_tool
+      .blueprint_room
+      .calculate_coordinates_box(&self.tools.selection.selection_box());
+  }
+
+  pub fn try_to_destroy_room_at_current_cell(&mut self) {
+    // Destroy
+
+    println!("destroy");
+    self
+      .world
+      .tower
+      .tower
+      .destroy_room_at_coordinates(&self.tools.selection.current_selected_cell);
   }
 }

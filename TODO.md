@@ -2,8 +2,12 @@
 
 ## Layout node system
 
-- [ ] instead of 'update' and 'post_update' - 'get_mutations' and 'mutate'
+- [ ] change previous_selected_cell & current_selected_cell to PrevAndCurrent<Coordinates>
+- [ ] selected cell still doesn't appear underneath cursor
 - [ ] destroy tool
+  - [x] basic destroying a room
+  - [ ] destroy validation
+  - [ ] cursor showing where the deletion will happen (i.e highlight current selected cell, hightlight room hovered over)
 - [ ] default button element
 - [ ] line height is essed up in tool buttons because I think i'm using std::cmp::min(height, DEFAULT_FONT_SIZE) in that one place
 - [ ] give element.interactivity is_hovered and is_clicked PrevAndNexts to match is_active

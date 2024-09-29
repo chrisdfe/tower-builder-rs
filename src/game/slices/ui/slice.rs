@@ -1,7 +1,22 @@
+use crate::types::PrevAndCurrent;
+
 use super::{elements::interactivity, Elements};
+
+pub struct UIState {
+  pub status_text: PrevAndCurrent<String>,
+}
+
+impl UIState {
+  pub fn new() -> Self {
+    Self {
+      status_text: PrevAndCurrent::new(String::from("")),
+    }
+  }
+}
 
 pub struct Slice {
   pub elements: Elements,
+  pub state: UIState,
 }
 
 impl Default for Slice {
@@ -14,6 +29,7 @@ impl Slice {
   pub fn new() -> Self {
     Self {
       elements: Elements::new(),
+      state: UIState::new(),
     }
   }
 

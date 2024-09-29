@@ -10,7 +10,7 @@ pub struct Slice {
 impl Slice {
   pub fn new() -> Self {
     Self {
-      camera_position: Coordinates::zero(),
+      camera_position: Coordinates { x: 0, y: 4 },
     }
   }
 
