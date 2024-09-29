@@ -2,6 +2,10 @@
 
 ## Layout node system
 
+- [ ] instead of 'update' and 'post_update' - 'get_mutations' and 'mutate'
+- [ ] destroy tool
+- [ ] default button element
+- [ ] line height is essed up in tool buttons because I think i'm using std::cmp::min(height, DEFAULT_FONT_SIZE) in that one place
 - [ ] give element.interactivity is_hovered and is_clicked PrevAndNexts to match is_active
 - [x] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
