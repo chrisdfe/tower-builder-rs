@@ -2,6 +2,9 @@
 
 ## Layout node system
 
+- [ ] sky that changes color with time of day
+- [ ] BUG: more than 1 set of room definitions button can get added
+  - [ ] add PrevAndCurrent<bool> field to UI.state to track this
 - [ ] floating money UI element when player builds
 - [ ] recalculate UI when screen size changes
 - [x] selected room definition button too
@@ -10,9 +13,11 @@
 - [ ] destroy tool
   - [x] basic destroying a room
   - [ ] destroy validation
-  - [ ] cursor showing where the deletion will happen (i.e highlight current selected cell, hightlight room hovered over)
-- [ ] default button element
-- [ ] line height is essed up in tool buttons because I think i'm using std::cmp::min(height, DEFAULT_FONT_SIZE) in that one place
+  - [ ] cursor showing where the deletion will happen
+    - [x] highlight current selected cell
+    - [ ] hightlight room hovered over
+- [ ] default button element other buttons can inherit from
+- [ ] line height is messed up in tool buttons because I think i'm using std::cmp::min(height, DEFAULT_FONT_SIZE) in that one place
 - [ ] give element.interactivity is_hovered and is_clicked PrevAndNexts to match is_active
 - [x] "active"/"selected" buttons - selected tool button, selected roomd definition
 - [ ] multiple tools - normal, build, destroy
