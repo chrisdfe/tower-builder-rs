@@ -1,3 +1,4 @@
+use macroquad::math::Rect;
 use macroquad::prelude::Color;
 use macroquad::rand::RandomRange;
 use macroquad::window::{screen_height, screen_width};
@@ -69,6 +70,15 @@ pub fn coordinates_to_screen_point(cell: &Coordinates, game: &Game) -> Point {
     - (CELL_HEIGHT as f32 / 2.);
 
   Point { x, y }
+}
+
+pub fn cell_to_screen_dimensions(coordinates: &Coordinates, game: &Game) -> Rect {
+  let w = CELL_WIDTH as f32;
+  let h = CELL_HEIGHT as f32 * -1.;
+
+  let Point { x, y } = coordinates_to_screen_point(&coordinates, game);
+
+  Rect::new(x, y, w, h)
 }
 
 // TODO - figure out how to accept other number types

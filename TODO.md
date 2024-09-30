@@ -4,9 +4,9 @@
 
 - [ ] floating money UI element when player builds
 - [ ] recalculate UI when screen size changes
-- [ ] selected room definition button too
-- [ ] change previous_selected_cell & current_selected_cell to PrevAndCurrent<Coordinates>
-- [ ] selected cell still doesn't appear underneath cursor
+- [x] selected room definition button too
+- [x] change previous_selected_cell & current_selected_cell to PrevAndCurrent<Coordinates>
+- [ ] selected cell still doesn't appear underneath cursor correctly
 - [ ] destroy tool
   - [x] basic destroying a room
   - [ ] destroy validation
