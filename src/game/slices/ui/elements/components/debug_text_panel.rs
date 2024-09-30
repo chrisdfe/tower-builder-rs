@@ -4,7 +4,7 @@ use crate::{
   game::slices::{
     tools::Tool,
     ui::elements::{
-      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
+      BackgroundColorKind, ContentAlignment, Element, ElementHandle, ElementTag,
       ElementUpdateAction, ElementUpdateCtx, TwoDimensional, UpdateHandler,
     },
   },
@@ -189,10 +189,11 @@ fn update_text_with_current_hovered_room_definition_button(
       .tags
       .contains(&ElementTag::RoomDefinitionButton)
     {
-      if let ElementData::HashMap(hash_map) = &current_hovered_element.data {
-        if let Some(definition_data) = hash_map.get(DEFINITION_DATA_KEY) {
-          return ElementUpdateAction::UpdateText(String::from(definition_data));
-        }
+      if let Some(definition_data) = &current_hovered_element
+        .attributes
+        .get(DEFINITION_DATA_KEY)
+      {
+        return ElementUpdateAction::UpdateText((definition_data).to_string());
       }
     }
   };

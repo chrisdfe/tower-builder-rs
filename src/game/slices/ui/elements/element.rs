@@ -14,13 +14,6 @@ use super::{
 };
 
 #[derive(Debug, Clone)]
-pub enum ElementData {
-  None,
-  // TODO - this seems pretty horrible
-  HashMap(HashMap<&'static str, String>),
-}
-
-#[derive(Debug, Clone)]
 pub enum ElementUpdateAction {
   None,
   UpdateText(String),
@@ -55,7 +48,8 @@ pub struct Element {
 
   pub calculated: ElementCalculatedProperties,
 
-  pub data: ElementData,
+  // TODO - this seems pretty horrible
+  pub attributes: HashMap<&'static str, String>,
 }
 
 impl Default for Element {
@@ -84,7 +78,7 @@ impl Default for Element {
       calculated: Default::default(),
       text: None,
 
-      data: ElementData::None,
+      attributes: HashMap::new(),
     }
   }
 }

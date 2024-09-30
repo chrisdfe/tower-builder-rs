@@ -4,9 +4,10 @@ use macroquad::color::RED;
 
 use crate::{
   game::slices::{
-    ui::elements::{
-      BackgroundColorKind, ContentAlignment, Element, ElementData, ElementHandle, ElementTag,
-      TwoDimensional,
+    tools::Tool,
+    ui::{
+      elements::{ContentAlignment, Element, ElementHandle, ElementTag, TwoDimensional},
+      ElementUpdateAction, ElementUpdateCtx,
     },
     world::tower::rooms::definitions::RoomDefinitionId,
   },
@@ -57,10 +58,9 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
             ..Default::default()
           }),
 
-          data: ElementData::HashMap(HashMap::from([(
-            DEFINITION_DATA_KEY,
-            format!("{:?}", definition.id),
-          )])),
+          on_update: Some(on_room_definition_button_update),
+
+          attributes: HashMap::from([(DEFINITION_DATA_KEY, format!("{:?}", definition.id))]),
 
           ..Default::default()
         },
@@ -68,6 +68,40 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
       )
     })
     .collect::<Vec<_>>()
+}
+
+fn on_room_definition_button_update(
+  ctx: &ElementUpdateCtx,
+  element: &Element,
+) -> ElementUpdateAction {
+  if let Tool::Build = ctx.tools.tool.current {
+    if ctx
+      .tools
+      .build_tool
+      .selected_room_definition_id
+      .has_changed()
+    {
+      let definition_id_as_string = format!(
+        "{:?}",
+        ctx
+          .tools
+          .build_tool
+          .selected_room_definition_id
+          .current
+      );
+      let is_active = definition_id_as_string
+        == *element
+          .attributes
+          .get(DEFINITION_DATA_KEY)
+          .unwrap();
+
+      ElementUpdateAction::UpdateActiveState(is_active)
+    } else {
+      ElementUpdateAction::None
+    }
+  } else {
+    ElementUpdateAction::None
+  }
 }
 
 fn on_room_definition_button_click(ctx: ActionCreatorCtx) -> Action {
@@ -85,13 +119,13 @@ fn on_room_definition_button_click(ctx: ActionCreatorCtx) -> Action {
 }
 
 fn get_definition_from_button(element: &Element) -> Option<RoomDefinitionId> {
-  if let ElementData::HashMap(h) = &element.data {
-    if let Some(definition_as_str) = h.get(DEFINITION_DATA_KEY) {
-      if let Ok(definition) = RoomDefinitionId::from_str(definition_as_str) {
-        return Some(definition);
-      }
+  if let Some(definition_as_str) = &element.attributes.get(DEFINITION_DATA_KEY) {
+    if let Ok(definition) = RoomDefinitionId::from_str(definition_as_str) {
+      Some(definition)
+    } else {
+      None
     }
+  } else {
+    None
   }
-
-  None
 }

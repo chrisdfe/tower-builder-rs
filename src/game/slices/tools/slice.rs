@@ -10,14 +10,14 @@ use crate::{
 use super::Selection;
 
 pub struct BuildTool {
-  pub selected_room_definition_id: RoomDefinitionId,
+  pub selected_room_definition_id: PrevAndCurrent<RoomDefinitionId>,
   pub blueprint_room: Room,
 }
 
 impl Default for BuildTool {
   fn default() -> Self {
     Self {
-      selected_room_definition_id: RoomDefinitionId::Lobby,
+      selected_room_definition_id: PrevAndCurrent::new(RoomDefinitionId::Lobby),
       blueprint_room: Room::new(),
     }
   }
@@ -35,7 +35,9 @@ impl BuildTool {
     // TODO - rename this
     ctx: RoomValidationContext,
   ) {
-    self.selected_room_definition_id = room_definition_id;
+    self
+      .selected_room_definition_id
+      .set_current(room_definition_id);
     let selected_room_definition = ROOM_DEFINITIONS.get(&room_definition_id).unwrap();
     self.blueprint_room = Room::from(selected_room_definition);
 
@@ -44,6 +46,10 @@ impl BuildTool {
       .calculate_coordinates_box(selection_box);
 
     self.blueprint_room.validate(ctx)
+  }
+
+  pub fn tick(&mut self) {
+    self.selected_room_definition_id.tick();
   }
 }
 
@@ -87,5 +93,10 @@ impl Slice {
       // },
       selection: Selection::new(),
     }
+  }
+
+  pub fn tick(&mut self) {
+    self.tool.tick();
+    self.build_tool.tick();
   }
 }

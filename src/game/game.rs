@@ -62,7 +62,13 @@ impl Game {
     if self.tools.build_tool.blueprint_room.is_valid() {
       self.world.tower.tower.build_room(
         ROOM_DEFINITIONS
-          .get(&mut self.tools.build_tool.selected_room_definition_id)
+          .get(
+            &mut self
+              .tools
+              .build_tool
+              .selected_room_definition_id
+              .current,
+          )
           .unwrap(),
         &self.tools.selection.selection_box(),
       );
