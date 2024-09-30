@@ -14,29 +14,33 @@ pub fn screen_point_to_cell(point: &Point, game: &Game) -> Coordinates {
         // base point
         point.x as i32
         // center 0,0 to the middle of the screen
-        - (screen_width() as i32 / 2)
+        - (screen_width() / 2.).round() as i32
         // 
-        - (CELL_WIDTH as i32 / 2)
+        - (CELL_WIDTH as f32 / 2.).round() as i32
       )
       / CELL_WIDTH as i32
     )
     // account for camera position
-    + game.world.camera.camera_position.x;
+    + game.world.camera.camera_position.x
+    // -
+    + 1;
   let y = (
       ((
         // base point
         point.y as i32
         // center 0,0 to the middle of the screen
-        - (screen_height() as i32 / 2)
+        - (screen_height() / 2.).round() as i32
         // 
-        + (CELL_HEIGHT as i32 / 2)
+        + (CELL_HEIGHT as f32 / 2.).round() as i32
       )
       / CELL_HEIGHT as i32)
       // floors go in the opposite direction to screen coordinates
       * -1
     )
     // account for camera position
-    + game.world.camera.camera_position.y;
+    + game.world.camera.camera_position.y
+    // -
+    - 1;
 
   Coordinates { x, y }
 }
