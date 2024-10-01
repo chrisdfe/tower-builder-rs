@@ -1,10 +1,16 @@
 use std::collections::HashMap;
 
-use macroquad::color::Color;
+use macroquad::{
+  color::Color,
+  text::{draw_text_ex, measure_text, TextDimensions, TextParams},
+};
 use uuid::Uuid;
 
 use crate::{
-  game::slices::{tools, ui, world},
+  game::{
+    lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE},
+    slices::{tools, ui, world},
+  },
   types::{
     measurements::{Axis, Dimensions, Point, Rect},
     tree::TreeNodeInput,
@@ -27,6 +33,70 @@ pub enum ElementUpdateAction {
   RemoveNodeByHandle(ElementHandle),
 }
 
+pub type ContentRenderer = fn(element: &Element) -> ();
+pub fn noop_content_renderer(_: &Element) {}
+pub fn text_content_renderer(element: &Element) {
+  let UnwrappedElementCalculatedProperties {
+    content_position, ..
+  } = element.calculated.unwrap();
+
+  if let Some(text) = &element.text {
+    let TextSettings {
+      font,
+      text_color,
+      font_size,
+      font_scale,
+    } = get_text_settings();
+
+    // TODO - prerender offset_y
+    let TextDimensions { offset_y, .. } = measure_text(text, font, font_size, font_scale);
+
+    // Draw content
+
+    draw_text_ex(
+      text,
+      content_position.x,
+      content_position.y + offset_y,
+      TextParams {
+        font,
+        font_size,
+        color: text_color,
+        font_scale,
+        ..Default::default()
+      },
+    );
+  }
+}
+
+pub type ContentMeasurer = fn(element: &Element) -> Dimensions;
+pub fn default_content_measurer(element: &Element) -> Dimensions {
+  match &element.resizability {
+    Resizability::Fixed(dimensions) => dimensions.clone(),
+    _ => Dimensions::zero(),
+  }
+}
+
+pub fn text_content_measurer(element: &Element) -> Dimensions {
+  let TextSettings {
+    font,
+    font_size,
+    font_scale,
+    ..
+  } = get_text_settings();
+  if let Some(text) = &element.text {
+    let text_dimensions = measure_text(text, font, font_size, font_scale);
+
+    Dimensions {
+      width: text_dimensions.width as u32,
+      // TODO - something less hacky than this
+      height: std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32),
+    }
+  } else {
+    // TODO - warning here
+    Dimensions::zero()
+  }
+}
+
 #[derive(Clone)]
 pub struct Element {
   pub name: String,
@@ -36,6 +106,8 @@ pub struct Element {
 
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: Option<String>,
+  pub measure_content: ContentMeasurer,
+  pub render_content: ContentRenderer,
 
   // dimensions/position
   pub padding: u32,
@@ -77,6 +149,8 @@ impl Default for Element {
       },
 
       background_color: BackgroundColorKind::None,
+      render_content: text_content_renderer,
+      measure_content: text_content_measurer,
 
       on_update: None,
 

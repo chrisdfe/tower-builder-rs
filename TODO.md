@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] replace get_text_settings with get_theme instead
 - [ ] split time out into its own panel
 - [ ] Update tools panel button colors
 - [ ] icons for tools panel buttons

@@ -321,32 +321,8 @@ fn draw_element(element: &Element) {
     draw_rectangle(x, y, w, h, debug_content_background_color);
   }
 
-  if let Some(text) = &element.text {
-    let TextSettings {
-      font,
-      text_color,
-      font_size,
-      font_scale,
-    } = get_text_settings();
-
-    // TODO - prerender offset_y
-    let TextDimensions { offset_y, .. } = measure_text(text, font, font_size, font_scale);
-
-    // Draw content
-
-    draw_text_ex(
-      text,
-      content_position.x,
-      content_position.y + offset_y,
-      TextParams {
-        font,
-        font_size,
-        color: text_color,
-        font_scale,
-        ..Default::default()
-      },
-    );
-  }
+  // Render leaf node content
+  (element.render_content)(&element);
 }
 
 fn render_text_custom(text: &String, point: &Point) {

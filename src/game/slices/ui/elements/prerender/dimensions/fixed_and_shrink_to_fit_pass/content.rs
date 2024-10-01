@@ -33,29 +33,33 @@ fn calculate_leaf_node_content_dimensions_for_axis(
   calculation_axis: &Axis,
 ) -> u32 {
   // If a leaf node has neither text nor a fixed size, it collapses to 0x0
-  if let Some(text) = &node.data.text {
-    let TextSettings {
-      font,
-      font_size,
-      font_scale,
-      ..
-    } = get_text_settings();
-    let text_dimensions = measure_text(text, font, font_size, font_scale);
+  // if let Some(text) = &node.data.text {
+  // let TextSettings {
+  //   font,
+  //   font_size,
+  //   font_scale,
+  //   ..
+  // } = get_text_settings();
+  // let text_dimensions = measure_text(text, font, font_size, font_scale);
 
-    match calculation_axis {
-      Axis::Horizontal => text_dimensions.width as u32,
-      Axis::Vertical => std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32),
-    }
-  } else {
-    use Resizability::*;
-    match &node.data.resizability {
-      Fixed(dimensions) => {
-        dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
-      }
-      ShrinkToFit => 0,
-      ExpandToFill(_) => 0,
-    }
-  }
+  // TODO - use this instead
+  let dimensions = &(node.data.measure_content)(&node.data);
+
+  dimensions.get_length_for_axis(calculation_axis)
+  // match calculation_axis {
+  //   Axis::Horizontal => text_dimensions.width as u32,
+  //   Axis::Vertical => std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32),
+  // }
+  // } else {
+  //   use Resizability::*;
+  //   match &node.data.resizability {
+  //     Fixed(dimensions) => {
+  //       dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
+  //     }
+  //     ShrinkToFit => 0,
+  //     ExpandToFill(_) => 0,
+  //   }
+  // }
 }
 
 fn calculate_wrapper_node_content_dimensions_for_axis(
