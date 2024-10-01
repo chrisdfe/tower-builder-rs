@@ -24,12 +24,30 @@ pub struct ActionCreatorCtx<'a> {
   pub element: &'a Element,
 }
 
-#[derive(Debug, Clone)]
-pub struct ElementInteractivity {
-  // state
-  pub is_active: PrevAndCurrent<bool>,
+#[derive(Debug, Clone, PartialEq)]
+pub enum ElementInteractionState {
+  Default,
+  Hover,
+  Click,
+}
 
-  // config
+#[derive(Debug, Clone)]
+pub struct ElementInteractivityState {
+  pub interaction_state: PrevAndCurrent<ElementInteractionState>,
+  pub is_active: PrevAndCurrent<bool>,
+}
+
+impl Default for ElementInteractivityState {
+  fn default() -> Self {
+    Self {
+      is_active: PrevAndCurrent::new(false),
+      interaction_state: PrevAndCurrent::new(ElementInteractionState::Default),
+    }
+  }
+}
+
+#[derive(Debug, Clone)]
+pub struct ElementInteractivityConfig {
   pub background_color_over: BackgroundColorKind,
   pub background_color_down: BackgroundColorKind,
   pub background_color_up: BackgroundColorKind,
@@ -41,11 +59,9 @@ pub struct ElementInteractivity {
   pub on_mouse_up: Option<ActionCreator>,
 }
 
-impl Default for ElementInteractivity {
+impl Default for ElementInteractivityConfig {
   fn default() -> Self {
     Self {
-      is_active: PrevAndCurrent::new(false),
-
       background_color_over: BackgroundColorKind::Fixed(BLUE),
       background_color_down: BackgroundColorKind::Fixed(GREEN),
       background_color_up: BackgroundColorKind::Fixed(YELLOW),
@@ -59,16 +75,33 @@ impl Default for ElementInteractivity {
   }
 }
 
+#[derive(Debug, Clone)]
+pub struct ElementInteractivity {
+  // state
+  pub state: ElementInteractivityState,
+  // config
+  pub config: ElementInteractivityConfig,
+}
+
+impl Default for ElementInteractivity {
+  fn default() -> Self {
+    Self {
+      state: Default::default(),
+      config: Default::default(),
+    }
+  }
+}
+
 impl ElementInteractivity {
   pub fn has_at_least_one_not_none_handler(&self) -> bool {
     !self.is_none()
   }
 
   pub fn is_none(&self) -> bool {
-    self.on_mouse_over == None
-      && self.on_mouse_out == None
-      && self.on_mouse_down == None
-      && self.on_mouse_up == None
+    self.config.on_mouse_over == None
+      && self.config.on_mouse_out == None
+      && self.config.on_mouse_down == None
+      && self.config.on_mouse_up == None
   }
 }
 

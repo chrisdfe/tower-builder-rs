@@ -68,7 +68,7 @@ fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
   };
 
   if let Some(interactivity) = &node.data.interactivity {
-    if interactivity.is_active.has_changed() {
+    if interactivity.state.is_active.has_changed() {
       return true;
     }
   }
@@ -116,15 +116,18 @@ fn get_interactive_color(game: &Game, node_id: Uuid) -> BackgroundColorKind {
 
   let interactivity = &node.data.interactivity.as_ref().unwrap();
 
-  if interactivity.is_active.current {
-    return interactivity.background_color_active.clone();
+  if interactivity.state.is_active.current {
+    return interactivity
+      .config
+      .background_color_active
+      .clone();
   }
 
   // hover state
   if game.ui.elements.hovered_element_id.has_changed() {
     if let Some(hovered_element_id) = game.ui.elements.hovered_element_id.current {
       if hovered_element_id == node.id {
-        return interactivity.background_color_over.clone();
+        return interactivity.config.background_color_over.clone();
       }
     }
 
@@ -138,13 +141,13 @@ fn get_interactive_color(game: &Game, node_id: Uuid) -> BackgroundColorKind {
   if game.ui.elements.clicked_element_id.has_changed() {
     if let Some(clicked_element_id) = game.ui.elements.clicked_element_id.current {
       if clicked_element_id == node.id {
-        return interactivity.background_color_down.clone();
+        return interactivity.config.background_color_down.clone();
       }
     }
 
     if let Some(unclicked_element_id) = game.ui.elements.clicked_element_id.prev {
       if unclicked_element_id == node.id {
-        return interactivity.background_color_up.clone();
+        return interactivity.config.background_color_up.clone();
       }
     }
   }

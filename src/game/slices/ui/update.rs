@@ -82,7 +82,10 @@ fn run_update_handlers(game: &mut Game) {
           .unwrap();
 
         if let Some(interactivity) = &mut element.data.interactivity {
-          interactivity.is_active.set_current(is_active);
+          interactivity
+            .state
+            .is_active
+            .set_current(is_active);
         }
       }
     }
@@ -108,6 +111,7 @@ fn update_interactivity(game: &mut Game) {
             .interactivity
             .as_ref()
             .unwrap()
+            .config
             .on_mouse_over
         };
 
@@ -122,6 +126,7 @@ fn update_interactivity(game: &mut Game) {
             .interactivity
             .as_ref()
             .unwrap()
+            .config
             .on_mouse_out
         };
 
@@ -143,6 +148,7 @@ fn update_interactivity(game: &mut Game) {
             .interactivity
             .as_ref()
             .unwrap()
+            .config
             .on_mouse_down
         };
 
@@ -157,6 +163,7 @@ fn update_interactivity(game: &mut Game) {
             .interactivity
             .as_ref()
             .unwrap()
+            .config
             .on_mouse_up
         };
 
@@ -235,7 +242,7 @@ pub fn post_update(game: &mut Game) {
       .unwrap();
 
     if let Some(interactivity) = &mut node.data.interactivity {
-      interactivity.is_active.tick();
+      interactivity.state.is_active.tick();
     }
   }
 

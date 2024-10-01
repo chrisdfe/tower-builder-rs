@@ -9,6 +9,7 @@ use crate::{
         BackgroundColorKind, ContentAlignment, Element, ElementTag, ElementUpdateAction,
         ElementUpdateCtx, TwoDimensional,
       },
+      interactivity::ElementInteractivityConfig,
       ElementHandle,
     },
   },
@@ -53,8 +54,12 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
             text: Some(String::from("None")),
 
             on_update: Some(update_none_button),
+
             interactivity: Some(ElementInteractivity {
-              on_mouse_up: Some(on_none_button_click),
+              config: ElementInteractivityConfig {
+                on_mouse_up: Some(on_none_button_click),
+                ..Default::default()
+              },
               ..Default::default()
             }),
             ..base_tool_button.clone()
@@ -68,7 +73,10 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
             on_update: Some(update_build_button),
             interactivity: Some(ElementInteractivity {
-              on_mouse_up: Some(on_build_button_click),
+              config: ElementInteractivityConfig {
+                on_mouse_up: Some(on_build_button_click),
+                ..Default::default()
+              },
               ..Default::default()
             }),
             ..base_tool_button.clone()
@@ -82,7 +90,10 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
             on_update: Some(update_destroy_button),
             interactivity: Some(ElementInteractivity {
-              on_mouse_up: Some(on_destroy_button_click),
+              config: ElementInteractivityConfig {
+                on_mouse_up: Some(on_destroy_button_click),
+                ..Default::default()
+              },
               ..Default::default()
             }),
             ..base_tool_button.clone()

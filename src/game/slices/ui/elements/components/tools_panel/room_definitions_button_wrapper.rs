@@ -1,12 +1,11 @@
 use std::{collections::HashMap, str::FromStr};
 
-use macroquad::color::RED;
-
 use crate::{
   game::slices::{
     tools::Tool,
     ui::{
       elements::{ContentAlignment, Element, ElementHandle, ElementTag, TwoDimensional},
+      interactivity::ElementInteractivityConfig,
       ElementUpdateAction, ElementUpdateCtx,
     },
     world::tower::rooms::definitions::RoomDefinitionId,
@@ -54,7 +53,10 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
           tags: vec![ElementTag::RoomDefinitionButton],
 
           interactivity: Some(ElementInteractivity {
-            on_mouse_up: Some(on_room_definition_button_click),
+            config: ElementInteractivityConfig {
+              on_mouse_up: Some(on_room_definition_button_click),
+              ..Default::default()
+            },
             ..Default::default()
           }),
 
