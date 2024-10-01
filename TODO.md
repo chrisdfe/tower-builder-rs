@@ -2,6 +2,7 @@
 
 ## Layout node system
 
+- [ ] ElementHandle should be a &'static str, not enum
 - [ ] camera zooming
 - [ ] experiment with different room sizes/dimensions
 - [ ] 'render content' for Elements -
@@ -19,8 +20,7 @@
   - [x] try RGB lerping instead of HSL ? hsl lerping is does not look right to me
   - [ ] overlay that darkens tower and stuff too
   - [ ] use a shader for the sky instead of just rectangle
-- [ ] BUG: more than 1 set of room definitions button can get added
-  - [ ] add PrevAndCurrent<bool> field to UI.state to track this
+- [x] BUG: more than 1 set of room definitions button can get added
 - [ ] floating money UI element when player builds
 - [ ] recalculate UI when screen size changes
 - [x] selected room definition button too
@@ -61,9 +61,8 @@
   - [x] take primary/off axis into account (e.g off axis will not have siblings)
   - [x] support multiple stretch to fill siblings
   - [x] recurse down as well (or does it already do this?)
-- [ ] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
+- [x] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
 - [ ] middleware-like prerender/precalculate "modifiers" to override prerendered values in a clean/abstracted way (like randomizing background/text colors)
-- [ ] TreeNodeInput should accept a parent_id parameter too - it will just be ignored for the "children" TreeNodeInputs
 - [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
 - [ ] rename 'prerender' to 'precalculate'
 - [x] rename 'element_tree' to 'elements'

@@ -76,31 +76,32 @@ fn on_room_definition_button_update(
   ctx: &ElementUpdateCtx,
   element: &Element,
 ) -> ElementUpdateAction {
-  if let Tool::Build = ctx.tools.tool.current {
-    if ctx
-      .tools
-      .build_tool
-      .selected_room_definition_id
-      .has_changed()
-    {
-      let definition_id_as_string = format!(
-        "{:?}",
-        ctx
-          .tools
-          .build_tool
-          .selected_room_definition_id
-          .current
-      );
-      let is_active = definition_id_as_string
-        == *element
-          .attributes
-          .get(DEFINITION_DATA_KEY)
-          .unwrap();
+  match ctx.tools.tool.current {
+    Tool::Build => (),
+    _ => return ElementUpdateAction::None,
+  };
 
-      ElementUpdateAction::UpdateActiveState(is_active)
-    } else {
-      ElementUpdateAction::None
-    }
+  if ctx
+    .tools
+    .build_tool
+    .selected_room_definition_id
+    .has_changed()
+  {
+    let definition_id_as_string = format!(
+      "{:?}",
+      ctx
+        .tools
+        .build_tool
+        .selected_room_definition_id
+        .current
+    );
+    let is_active = definition_id_as_string
+      == *element
+        .attributes
+        .get(DEFINITION_DATA_KEY)
+        .unwrap();
+
+    ElementUpdateAction::UpdateActiveState(is_active)
   } else {
     ElementUpdateAction::None
   }

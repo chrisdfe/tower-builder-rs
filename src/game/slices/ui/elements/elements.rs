@@ -9,7 +9,7 @@ use crate::types::{
 use super::{components, interactivity::EventHandlerQueue, Element, ElementHandle, ElementTag};
 
 // TODO - implement Iterator
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Elements {
   pub tree: Tree<Element>,
 
@@ -67,6 +67,14 @@ impl Elements {
       .nodes
       .iter()
       .find(|node| node.data.handle == handle)
+  }
+
+  pub fn find_node_id_by_handle(&self, handle: ElementHandle) -> Option<Uuid> {
+    if let Some(node) = self.find_node_by_handle(handle) {
+      Some(node.id.clone())
+    } else {
+      None
+    }
   }
 
   pub fn find_nodes_by_tag(&self, tag: ElementTag) -> Vec<&TreeNode<Element>> {

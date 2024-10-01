@@ -9,13 +9,13 @@ pub type ParentIdSiblingGroupTuple = (Option<Uuid>, Vec<Uuid>);
 /*
   Tree
 */
-#[derive(Debug, Clone)]
-pub struct Tree<T: Clone + std::fmt::Debug> {
+#[derive(Clone)]
+pub struct Tree<T: Clone> {
   pub nodes: Vec<TreeNode<T>>,
   pub root_node_id: Option<Uuid>,
 }
 
-impl<T: Clone + std::fmt::Debug> Tree<T> {
+impl<T: Clone> Tree<T> {
   pub fn new() -> Self {
     Self {
       nodes: Vec::new(),
@@ -207,6 +207,7 @@ impl<T: Clone + std::fmt::Debug> Tree<T> {
   }
 
   pub fn prepend_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
+    println!("prepending node to {:#?}", parent_id);
     let TreeNodeInput(data, children) = input;
 
     //

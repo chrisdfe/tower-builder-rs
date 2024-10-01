@@ -88,6 +88,23 @@ fn run_update_handlers(game: &mut Game) {
             .set_current(is_active);
         }
       }
+      AppendChild(input, parent_id) => {
+        game
+          .ui
+          .elements
+          .tree
+          .append_node(input, parent_id);
+      }
+      PrependChild(input, parent_id) => {
+        game
+          .ui
+          .elements
+          .tree
+          .prepend_node(input, parent_id);
+      }
+      RemoveNodeByHandle(handle) => {
+        game.ui.elements.remove_node_by_handle(handle);
+      }
     }
   }
 }

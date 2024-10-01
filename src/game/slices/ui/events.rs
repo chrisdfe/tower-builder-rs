@@ -28,8 +28,6 @@ pub fn run_event_handlers(game: &mut Game) {
       }
       SetSelectedRoomDefinition(room_definition_id) => {
         if let Tool::Build = &mut game.tools.tool.current {
-          // game.tools.selected_room_definition_id = definition_id;
-          // TODO
           game
             .tools
             .build_tool
@@ -62,23 +60,6 @@ pub fn run_event_handlers(game: &mut Game) {
             Option::None
           }
         };
-
-        // TODO - might want to move elsewhere at some point to decouple UI from other logic
-        // Add/remove room definitions buttons
-        if tool == Tool::Build {
-          if let Some(parent_id) = parent_id {
-            game
-              .ui
-              .elements
-              .tree
-              .prepend_node(room_definitions_button_wrapper::create(), Some(parent_id));
-          }
-        } else {
-          game
-            .ui
-            .elements
-            .remove_node_by_handle(ElementHandle::RoomDefinitionButtonsWrapper);
-        }
       }
     }
     // RemoveAllRootNodeChildren => {

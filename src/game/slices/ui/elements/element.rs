@@ -1,26 +1,33 @@
 use std::collections::HashMap;
 
 use macroquad::color::Color;
+use uuid::Uuid;
 
 use crate::{
   game::slices::{tools, ui, world},
-  types::measurements::{Axis, Dimensions, Point, Rect},
+  types::{
+    measurements::{Axis, Dimensions, Point, Rect},
+    tree::TreeNodeInput,
+  },
 };
 
 use super::{
   interactivity::ElementInteractivity,
   types::{ContentAlignment, Resizability},
-  TwoDimensional,
+  InsertMode, TwoDimensional,
 };
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub enum ElementUpdateAction {
   None,
   UpdateText(String),
   UpdateActiveState(bool),
+  AppendChild(TreeNodeInput<Element>, Option<Uuid>),
+  PrependChild(TreeNodeInput<Element>, Option<Uuid>),
+  RemoveNodeByHandle(ElementHandle),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Element {
   pub name: String,
 

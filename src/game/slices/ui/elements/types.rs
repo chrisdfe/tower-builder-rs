@@ -44,3 +44,10 @@ pub enum ContentAlignment {
   Center,
   End,
 }
+
+#[derive(Default, Debug, Clone)]
+pub enum InsertMode {
+  #[default]
+  Append,
+  Prepend,
+}
