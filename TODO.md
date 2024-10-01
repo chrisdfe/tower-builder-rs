@@ -1,7 +1,8 @@
 # TODO
 
-## Layout node system
-
+- [ ] split time out into its own panel
+- [ ] Update tools panel button colors
+- [ ] icons for tools panel buttons
 - [ ] ElementHandle should be a &'static str, not enum
 - [ ] camera zooming
 - [ ] experiment with different room sizes/dimensions
