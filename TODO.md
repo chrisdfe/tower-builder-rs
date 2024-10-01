@@ -2,7 +2,11 @@
 
 ## Layout node system
 
-- [ ] sky that changes color with time of day
+- [ ] 'ElementState' - 1 each for active, hover, default, & has background_color, border_color, text_color, etc
+- [x] sky that changes color with time of day
+  - [ ] try RGB lerping instead of HSL? hsl lerping is does not look right to me
+  - [ ] overlay that darkens tower and stuff too
+  - [ ] use a shader for the sky instead of just rectangle
 - [ ] BUG: more than 1 set of room definitions button can get added
   - [ ] add PrevAndCurrent<bool> field to UI.state to track this
 - [ ] floating money UI element when player builds
