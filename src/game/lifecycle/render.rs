@@ -1,3 +1,5 @@
+use lazy_static::lazy_static;
+use macroquad::color::{hsl_to_rgb, rgb_to_hsl};
 use macroquad::prelude::*;
 use macroquad::{
   color::{Color, WHITE},
@@ -9,6 +11,7 @@ use once_cell::sync::OnceCell;
 
 use crate::game::slices::tools::Tool;
 use crate::game::slices::ui::elements::UnwrappedElementCalculatedProperties;
+use crate::game::slices::world::time::Time;
 use crate::game::slices::world::tower::Room;
 use crate::types::map::Coordinates;
 use crate::utils::cell_to_screen_dimensions;
@@ -63,10 +66,25 @@ pub async fn initialize() {
   UI_FONT.set(font).unwrap();
 }
 
+#[rustfmt::skip]
+const SKY_COLORS: [(u8, Color); 5] = [
+  // midnight
+  (0, BLUE),
+  // morning
+  (6, WHITE),
+  // evening
+  (18, RED),
+  // begining of night
+  (20, BLACK),
+  // midnight again
+  (24, BLUE)
+];
+
 pub fn render(game: &Game) {
   clear_background(BG_COLOR);
 
   // World
+  draw_sky(game);
   draw_ground(game);
   draw_rooms(game);
   draw_current_tool(game);
@@ -74,6 +92,69 @@ pub fn render(game: &Game) {
 
   // UI
   draw_ui(game);
+}
+
+fn draw_sky(game: &Game) {
+  let x = 0.;
+  let y = 0.;
+  let w = screen_width();
+  let h = screen_height();
+
+  let color = {
+    let Time {
+      hour: current_hour,
+      minute: current_minute,
+      ..
+    } = game.world.time.current_time();
+
+    let mut prev_sky_time_idx = SKY_COLORS.len() - 1;
+    let mut next_sky_time_idx = 0;
+    for (idx, (sky_hour, _)) in SKY_COLORS.iter().enumerate() {
+      //
+      if *sky_hour as u32 > current_hour {
+        next_sky_time_idx = idx;
+        prev_sky_time_idx = if next_sky_time_idx > 0 {
+          idx - 1
+        } else {
+          SKY_COLORS.len() - 1
+        };
+        break;
+      }
+    }
+
+    let (prev_hour, prev_color) = SKY_COLORS[prev_sky_time_idx];
+    let (next_hour, next_color) = SKY_COLORS[next_sky_time_idx];
+
+    // TODO here - convert prev/next color to hsl for interpolation (or just store them that way in SKY_COLORS)
+    // TODO here - normalize current hour/current minute between prev_hour and next_hour
+    let prev_color_hsl = rgb_to_hsl(prev_color);
+    let next_color_hsl = rgb_to_hsl(next_color);
+
+    let total_in_minutes = (next_hour as u32 * 60) - (prev_hour as u32 * 60);
+    let progress_in_minutes = ((current_hour * 60) + current_minute) - (prev_hour as u32 * 60);
+    let normalized_progress = (progress_in_minutes as f32) / (total_in_minutes as f32);
+
+    // TODO - pull out into fn
+    let current_color_hsl = (
+      prev_color_hsl
+        .0
+        .lerp(next_color_hsl.0, normalized_progress),
+      prev_color_hsl
+        .1
+        .lerp(next_color_hsl.1, normalized_progress),
+      prev_color_hsl
+        .2
+        .lerp(next_color_hsl.2, normalized_progress),
+    );
+
+    hsl_to_rgb(
+      current_color_hsl.0,
+      current_color_hsl.1,
+      current_color_hsl.2,
+    )
+  };
+
+  draw_rectangle(x, y, w, h, color);
 }
 
 fn draw_ground(game: &Game) {

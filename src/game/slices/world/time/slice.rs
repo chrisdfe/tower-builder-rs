@@ -28,16 +28,17 @@ impl Slice {
       loop_type: TimerLoopType::Looping,
     });
 
-    timers_slice.add_timer_listener(Box::new(GlobalTickListener::new()));
+    timers_slice.add_timer_listener(Box::new(TimeTickListener::new()));
   }
 }
 
-pub struct GlobalTickListener {
+// TODO - I probably don't need this complexity here. just a 'tick' slice variable that gets incremented
+pub struct TimeTickListener {
   listener_id: TimerListenerId,
   timer_id: TimerId,
 }
 
-impl TimerListener for GlobalTickListener {
+impl TimerListener for TimeTickListener {
   fn id(&self) -> &TimerListenerId {
     &self.listener_id
   }
@@ -58,9 +59,9 @@ impl TimerListener for GlobalTickListener {
   }
 }
 
-impl GlobalTickListener {
+impl TimeTickListener {
   pub fn new() -> Self {
-    GlobalTickListener {
+    Self {
       timer_id: TimerId::Tick,
       listener_id: TimerListenerId::GlobalTick,
     }
