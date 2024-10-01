@@ -2,6 +2,12 @@
 
 ## Layout node system
 
+- [ ] camera zooming
+- [ ] experiment with different room sizes/dimensions
+- [ ] 'render content' for Elements -
+  - doesn't need to have state or anything since it will just call macroquad render fns
+  - [ ] use for 'text'
+  - [ ] use also for minimap ultimately
 - [ ] sfx
   - [ ] on build
   - [ ] on destroy
@@ -10,7 +16,7 @@
   - [ ] map bounds - right now you can go as much as you want in any direction
 - [ ] 'ElementState' - 1 each for active, hover, default, & has background_color, border_color, text_color, etc
 - [x] sky that changes color with time of day
-  - [ ] try RGB lerping instead of HSL? hsl lerping is does not look right to me
+  - [x] try RGB lerping instead of HSL ? hsl lerping is does not look right to me
   - [ ] overlay that darkens tower and stuff too
   - [ ] use a shader for the sky instead of just rectangle
 - [ ] BUG: more than 1 set of room definitions button can get added

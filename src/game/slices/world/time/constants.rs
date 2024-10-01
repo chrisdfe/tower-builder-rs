@@ -1,7 +1,7 @@
 use super::types::*;
 
-// pub const TICK_INTERVAL_S: f32 = 0.02;
-pub const TICK_INTERVAL_S: f32 = 0.05;
+pub const TICK_INTERVAL_S: f32 = 0.02;
+// pub const TICK_INTERVAL_S: f32 = 0.05;
 
 // pub const MINUTES_ELAPSED_PER_TICK: u32 = 15;
 pub const MINUTES_ELAPSED_PER_TICK: u32 = 1;
