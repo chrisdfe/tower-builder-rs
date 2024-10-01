@@ -7,6 +7,7 @@
   - [ ] on destroy
   - [ ] configurable volume
 - [ ] simtower-style minimap with screen area outlined
+  - [ ] map bounds - right now you can go as much as you want in any direction
 - [ ] 'ElementState' - 1 each for active, hover, default, & has background_color, border_color, text_color, etc
 - [x] sky that changes color with time of day
   - [ ] try RGB lerping instead of HSL? hsl lerping is does not look right to me
