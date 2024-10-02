@@ -20,7 +20,7 @@ use crate::{
 use super::{
   super::{
     types::{ContentAlignment, Resizability},
-    InsertMode, TwoDimensional,
+    TwoDimensional,
   },
   interactivity::*,
   renderer::*,
@@ -45,8 +45,7 @@ pub struct Element {
 
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: Option<String>,
-  pub measure_content: ContentMeasurer,
-  pub render_content: ContentRenderer,
+  pub content_renderer: ElementContentRenderer,
 
   // dimensions/position
   pub padding: u32,
@@ -74,9 +73,9 @@ impl Default for Element {
   fn default() -> Self {
     Self {
       name: String::from("untitled node"),
-
       handle: ElementHandle::None,
       tags: Vec::new(),
+      text: None,
 
       padding: 0,
       child_gap: 0,
@@ -88,16 +87,11 @@ impl Default for Element {
       },
 
       background_color: BackgroundColorKind::None,
-      render_content: text_content_renderer,
-      measure_content: text_content_measurer,
-
+      content_renderer: TEXT_ELEMENT_CONTENT_RENDERER,
       on_update: None,
 
       interactivity: None,
-
       calculated: Default::default(),
-      text: None,
-
       attributes: HashMap::new(),
     }
   }

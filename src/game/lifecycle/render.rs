@@ -322,7 +322,7 @@ fn draw_element(element: &Element) {
   }
 
   // Render leaf node content
-  (element.render_content)(&element);
+  (element.content_renderer.render)(&element);
 }
 
 fn render_text_custom(text: &String, point: &Point) {
