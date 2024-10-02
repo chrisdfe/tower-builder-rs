@@ -18,5 +18,3 @@ pub mod components;
 
 /// Generic helpers for `Vec<&TreeNode<Element>>`s
 mod element_node_vec;
-
-pub mod interactivity;

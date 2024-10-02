@@ -6,7 +6,8 @@ use crate::types::{
   PrevAndCurrent,
 };
 
-use super::{components, interactivity::EventHandlerQueue, Element, ElementHandle, ElementTag};
+use super::{components, Element, ElementHandle, ElementTag};
+use crate::game::slices::ui::interactivity::EventHandlerQueue;
 
 // TODO - implement Iterator
 #[derive(Clone)]
