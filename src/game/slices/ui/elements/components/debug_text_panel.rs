@@ -42,14 +42,6 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
       update_text_with_population as UpdateHandler,
     ),
     (
-      "clock text element", //
-      update_text_with_clock as UpdateHandler,
-    ),
-    (
-      "date text element", //
-      update_text_with_date as UpdateHandler,
-    ),
-    (
       "camera position element",
       update_text_with_camera_position as UpdateHandler,
     ),
@@ -114,34 +106,6 @@ fn update_text_with_funds(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateA
 
 fn update_text_with_population(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
   let text = format!("population: {:?}", ctx.world.tower.tower.population());
-
-  ElementUpdateAction::UpdateText(text)
-}
-
-fn update_text_with_clock(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
-  let time = ctx.world.time.current_time();
-  let padded_hours = if time.hour < 10 {
-    format!("0{}", time.hour)
-  } else {
-    format!("{}", time.hour)
-  };
-
-  let padded_minutes = if time.minute < 10 {
-    format!("0{}", time.minute)
-  } else {
-    format!("{}", time.minute)
-  };
-
-  ElementUpdateAction::UpdateText(format!("time: {}:{}", padded_hours, padded_minutes))
-}
-
-fn update_text_with_date(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
-  let time = ctx.world.time.current_time();
-
-  let text = format!(
-    "date: day {}, month {}, year {}",
-    time.day, time.month, time.year
-  );
 
   ElementUpdateAction::UpdateText(text)
 }

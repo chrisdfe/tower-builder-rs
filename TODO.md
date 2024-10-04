@@ -1,5 +1,8 @@
 # TODO
 
+- [ ] get rid of random "None" text in tools panel
+- [ ] rename 'prerender' to 'calculate' in elements mod
+- [x] Make resizability TwoDimensional
 - [ ] replace get_text_settings with get_theme instead
 - [ ] split time out into its own panel
 - [ ] Update tools panel button colors

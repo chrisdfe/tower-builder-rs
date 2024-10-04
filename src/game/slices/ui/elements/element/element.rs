@@ -50,7 +50,7 @@ pub struct Element {
   // dimensions/position
   pub padding: u32,
   pub child_gap: u32,
-  pub resizability: Resizability,
+  pub resizability: TwoDimensional<Resizability>,
   pub stack_axis: Axis,
   pub content_alignment: TwoDimensional<ContentAlignment>,
 
@@ -79,7 +79,7 @@ impl Default for Element {
 
       padding: 0,
       child_gap: 0,
-      resizability: Resizability::ShrinkToFit,
+      resizability: TwoDimensional::same(Resizability::ShrinkToFit),
       stack_axis: Axis::Horizontal,
       content_alignment: TwoDimensional {
         horizontal: ContentAlignment::Center,

@@ -49,7 +49,7 @@ fn calculate_wrapper_node_content_dimensions_for_axis(
       dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
     }
     Resizability::ShrinkToFit => {
-      // Assumes children has been calculated
+      // Assumes children have been calculated
       node
         .data
         .calculated

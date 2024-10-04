@@ -73,7 +73,7 @@ fn calculate_sibling_group_for_axis(
     .unwrap();
 
   let (expand_to_fill_siblings, non_expand_to_fill_siblings) =
-    group_siblings_by_expand_to_fill(&sibling_id_group, &elements_replica);
+    group_siblings_by_expand_to_fill(&sibling_id_group, &calculation_axis, &elements_replica);
 
   let total_expand_to_fill_sibling_weights = expand_to_fill_siblings
     .iter()
@@ -81,12 +81,17 @@ fn calculate_sibling_group_for_axis(
       sibling
         .data
         .resizability
+        .get_value_for_axis(calculation_axis)
         .extract_expand_to_fill_weight()
     })
     .fold(0, accumulators::sum);
 
   let primary_axis = parent_node.data.stack_axis.clone();
   let is_on_primary_axis = primary_axis == *calculation_axis;
+  let off_axis = match calculation_axis {
+    Axis::Horizontal => Axis::Vertical,
+    Axis::Vertical => Axis::Horizontal,
+  };
 
   let (_, parent_content_size, parent_children_size) = parent_node
     .data
@@ -114,6 +119,7 @@ fn calculate_sibling_group_for_axis(
       let weight = sibling
         .data
         .resizability
+        .get_value_for_axis(calculation_axis)
         .extract_expand_to_fill_weight();
 
       // Do the actual calculation here
@@ -124,7 +130,14 @@ fn calculate_sibling_group_for_axis(
 
         (total_available_expand_to_fill_space / total_expand_to_fill_sibling_weights) * weight
       } else {
+        let (_, parent_off_axis_content_size, parent_off_axis_children_size) = parent_node
+          .data
+          .calculated
+          .get_sizes_for_axis(&off_axis);
+
+        // parent_off_axis_content_size
         parent_content_size
+        // 10
       };
 
       let content_size = outer_size - (sibling.data.padding * 2);
@@ -157,11 +170,18 @@ fn calculate_sibling_group_for_axis(
 // (<expand to fill siblings>, <non-expand to fill siblings>)
 fn group_siblings_by_expand_to_fill<'a>(
   sibling_id_group: &Vec<Uuid>,
+  axis: &Axis,
   elements: &'a Elements,
 ) -> (Vec<&'a TreeNode<Element>>, Vec<&'a TreeNode<Element>>) {
   elements
     .tree
     .find_nodes_by_ids(sibling_id_group)
     .into_iter()
-    .partition(|sibling| sibling.data.resizability.is_expand_to_fill())
+    .partition(|sibling| {
+      sibling
+        .data
+        .resizability
+        .get_value_for_axis(axis)
+        .is_expand_to_fill()
+    })
 }

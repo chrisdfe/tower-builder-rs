@@ -1,3 +1,5 @@
+use std::slice::Iter;
+
 use crate::types::measurements::{Axis, Dimensions};
 
 #[derive(Debug, Clone)]
@@ -7,6 +9,16 @@ pub struct TwoDimensional<T> {
 }
 
 impl<T> TwoDimensional<T> {
+  pub fn same(value: T) -> Self
+  where
+    T: Clone,
+  {
+    Self {
+      horizontal: value.clone(),
+      vertical: value.clone(),
+    }
+  }
+
   pub fn get_value_for_axis(&self, axis: &Axis) -> &T {
     match axis {
       Axis::Horizontal => &self.horizontal,
