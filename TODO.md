@@ -1,10 +1,11 @@
 # TODO
 
-- [ ] BUG: get rid of random "None" text in tools panel
+- [x] BUG: get rid of random "None" text in tools panel
 - [x] rename 'prerender' to 'calculate' in elements mod
 - [x] Make resizability TwoDimensional
 - [ ] replace get_text_settings with get_theme instead
-- [ ] split time out into its own panel
+- [x] split time out into its own panel
+  - [ ] make clock with custom renderer
 - [ ] Update tools panel button colors
 - [ ] icons for tools panel buttons
 - [ ] ElementHandle should be a &'static str, not enum

@@ -41,12 +41,6 @@ impl Tower {
       }
     };
 
-    println!("room at coordinates {:?}: {:?}", coordinates, room_id);
-
-    for room in self.rooms.iter() {
-      println!("room: {:?}", room.coordinates_box);
-    }
-
     if let Some(room_id) = room_id {
       // TODO - validation
       // destroy it

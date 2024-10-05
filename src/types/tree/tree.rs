@@ -207,7 +207,6 @@ impl<T: Clone> Tree<T> {
   }
 
   pub fn prepend_node(&mut self, input: TreeNodeInput<T>, parent_id: Option<Uuid>) -> Uuid {
-    println!("prepending node to {:#?}", parent_id);
     let TreeNodeInput(data, children) = input;
 
     //

@@ -89,7 +89,11 @@ fn update_text_with_selected_room_definition(
   let text = if let Tool::Build = &ctx.tools.tool.current {
     format!(
       "room definition: {:?}",
-      ctx.tools.build_tool.selected_room_definition_id
+      ctx
+        .tools
+        .build_tool
+        .selected_room_definition_id
+        .current
     )
   } else {
     String::from("nothing.")
@@ -165,7 +169,11 @@ fn update_text_with_current_hovered_room_definition_button(
   if let Tool::Build = &ctx.tools.tool.current {
     ElementUpdateAction::UpdateText(format!(
       "building room: {:?}",
-      &ctx.tools.build_tool.selected_room_definition_id
+      &ctx
+        .tools
+        .build_tool
+        .selected_room_definition_id
+        .current
     ))
   } else if element.text != Some(String::from("")) {
     ElementUpdateAction::UpdateText(String::from(""))

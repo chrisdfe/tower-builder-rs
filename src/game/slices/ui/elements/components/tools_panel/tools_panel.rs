@@ -28,7 +28,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
   TreeNodeInput(
     Element {
-      name: String::from("build tool panel"),
+      name: String::from("tools panel"),
       handle: ElementHandle::ToolsPanel,
 
       child_gap: 10,
@@ -46,7 +46,6 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       Element {
         name: String::from("Tool buttons wrapper"),
         handle: ElementHandle::ToolsButtonsWrapper,
-        text: Some(String::from("None")),
 
         on_update: Some(update_tool_buttons_wrapper),
 
