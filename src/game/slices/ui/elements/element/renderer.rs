@@ -3,7 +3,7 @@ use macroquad::text::{draw_text_ex, measure_text, TextDimensions, TextParams};
 use crate::{
   game::{
     lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE},
-    slices::ui::Resizability,
+    Game,
   },
   types::measurements::Dimensions,
 };
@@ -12,17 +12,17 @@ use super::*;
 
 #[derive(Debug, Clone)]
 pub struct ElementContentRenderer {
-  pub render: fn(element: &Element) -> (),
+  pub render: fn(element: &Element, ctx: &Game) -> (),
   pub measure: fn(element: &Element) -> Dimensions,
 }
 
 pub const NOOP_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
-  render: |element: &Element| {},
+  render: |element: &Element, _: &Game| {},
   measure: |element: &Element| Dimensions::zero(),
 };
 
 pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
-  render: |element| {
+  render: |element, _: &Game| {
     //
     let UnwrappedElementCalculatedProperties {
       content_position, ..

@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] add time speeds - pause, normal, fast, very fast
 - [x] BUG: get rid of random "None" text in tools panel
 - [x] rename 'prerender' to 'calculate' in elements mod
 - [x] Make resizability TwoDimensional

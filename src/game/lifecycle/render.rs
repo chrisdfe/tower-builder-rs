@@ -285,11 +285,11 @@ fn draw_ui(game: &Game) {
   let sorted_nodes = game.ui.elements.tree.find_nodes_by_ids(&ids);
 
   for node in sorted_nodes {
-    draw_element(&node.data);
+    draw_element(&node.data, &game);
   }
 }
 
-fn draw_element(element: &Element) {
+fn draw_element(element: &Element, game: &Game) {
   let UnwrappedElementCalculatedProperties {
     outer_position,
     outer_dimensions,
@@ -322,7 +322,7 @@ fn draw_element(element: &Element) {
   }
 
   // Render leaf node content
-  (element.content_renderer.render)(&element);
+  (element.content_renderer.render)(&element, &game);
 }
 
 fn render_text_custom(text: &String, point: &Point) {

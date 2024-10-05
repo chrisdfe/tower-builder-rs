@@ -53,6 +53,13 @@ impl Dimensions {
     }
   }
 
+  pub fn square(value: u32) -> Self {
+    Self {
+      width: value,
+      height: value,
+    }
+  }
+
   pub fn of_screen() -> Self {
     Self {
       width: screen_width() as u32,
