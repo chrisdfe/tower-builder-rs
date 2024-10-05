@@ -6,7 +6,7 @@ use crate::types::{
   PrevAndCurrent,
 };
 
-use super::{components, Element, ElementHandle, ElementTag};
+use super::{components, Element, ElementTag};
 use crate::game::slices::ui::interactivity::EventHandlerQueue;
 
 // TODO - implement Iterator
@@ -62,7 +62,7 @@ impl Elements {
     }
   }
 
-  pub fn find_node_by_handle(&self, handle: ElementHandle) -> Option<&TreeNode<Element>> {
+  pub fn find_node_by_handle(&self, handle: &'static str) -> Option<&TreeNode<Element>> {
     self
       .tree
       .nodes
@@ -70,7 +70,7 @@ impl Elements {
       .find(|node| node.data.handle == handle)
   }
 
-  pub fn find_node_id_by_handle(&self, handle: ElementHandle) -> Option<Uuid> {
+  pub fn find_node_id_by_handle(&self, handle: &'static str) -> Option<Uuid> {
     if let Some(node) = self.find_node_by_handle(handle) {
       Some(node.id.clone())
     } else {
@@ -87,7 +87,7 @@ impl Elements {
       .collect::<_>()
   }
 
-  pub fn remove_node_by_handle(&mut self, handle: ElementHandle) {
+  pub fn remove_node_by_handle(&mut self, handle: &'static str) {
     let element = self.find_node_by_handle(handle);
 
     if let Some(element) = element {

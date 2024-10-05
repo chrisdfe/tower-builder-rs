@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] ElementHandle should be a &'static str, not enum
+- [x] ElementHandle should be a &'static str, not enum
 - [ ] UI element borders (configurable)
 - [ ] BUG: Resizability::ExpandToFill doesn't have a min_width
   - [ ] REFACTOR: refactor ui system to have element min-width's and max-widths? it might simplify things

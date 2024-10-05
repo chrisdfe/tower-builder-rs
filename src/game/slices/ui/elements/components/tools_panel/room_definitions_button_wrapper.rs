@@ -4,7 +4,7 @@ use crate::{
   game::slices::{
     tools::Tool,
     ui::{
-      elements::{ContentAlignment, Element, ElementHandle, ElementTag, TwoDimensional},
+      elements::{ContentAlignment, Element, ElementTag, TwoDimensional},
       interactivity::ElementInteractivityConfig,
       ElementUpdateAction, ElementUpdateCtx,
     },
@@ -20,12 +20,13 @@ use crate::{
 
 // TODO - put elsewhere
 pub const DEFINITION_DATA_KEY: &str = "definition";
+pub const ROOM_BUTTONS_WRAPPER_HANDLE: &'static str = "room buttons wrapper";
 
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
-      name: String::from("room buttons wrapper"),
-      handle: ElementHandle::RoomDefinitionButtonsWrapper,
+      name: String::from(ROOM_BUTTONS_WRAPPER_HANDLE),
+      handle: ROOM_BUTTONS_WRAPPER_HANDLE,
       child_gap: 10,
       stack_axis: Axis::Horizontal,
       content_alignment: TwoDimensional {

@@ -10,13 +10,15 @@ use crate::{
         ElementUpdateCtx, TwoDimensional,
       },
       interactivity::ElementInteractivityConfig,
-      ElementHandle,
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::room_definitions_button_wrapper;
+use super::room_definitions_button_wrapper::{self, ROOM_BUTTONS_WRAPPER_HANDLE};
+
+pub const TOOLS_PANEL_HANDLE: &'static str = "tools panel";
+pub const TOOLS_BUTTONS_WRAPER_HANDLE: &'static str = "tools buttons wrapper";
 
 pub fn create_node_input() -> TreeNodeInput<Element> {
   let base_tool_button: Element = Element {
@@ -28,8 +30,8 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
   TreeNodeInput(
     Element {
-      name: String::from("tools panel"),
-      handle: ElementHandle::ToolsPanel,
+      name: String::from(TOOLS_PANEL_HANDLE),
+      handle: TOOLS_PANEL_HANDLE,
 
       child_gap: 10,
 
@@ -44,8 +46,8 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
     },
     vec![TreeNodeInput(
       Element {
-        name: String::from("Tool buttons wrapper"),
-        handle: ElementHandle::ToolsButtonsWrapper,
+        name: String::from(TOOLS_BUTTONS_WRAPER_HANDLE),
+        handle: TOOLS_BUTTONS_WRAPER_HANDLE,
 
         on_update: Some(update_tool_buttons_wrapper),
 
@@ -128,10 +130,11 @@ fn update_tool_buttons_wrapper(ctx: &ElementUpdateCtx, element: &Element) -> Ele
       let parent_id = ctx
         .ui
         .elements
-        .find_node_id_by_handle(ElementHandle::ToolsPanel);
+        .find_node_id_by_handle(TOOLS_PANEL_HANDLE);
+
       ElementUpdateAction::PrependChild(room_definitions_button_wrapper::create(), parent_id)
     } else {
-      ElementUpdateAction::RemoveNodeByHandle(ElementHandle::RoomDefinitionButtonsWrapper)
+      ElementUpdateAction::RemoveNodeByHandle(ROOM_BUTTONS_WRAPPER_HANDLE)
     }
   } else {
     ElementUpdateAction::None

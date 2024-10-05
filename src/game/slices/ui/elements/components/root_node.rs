@@ -2,11 +2,13 @@ use macroquad::color::{GREEN, YELLOW};
 
 use crate::{
   game::slices::ui::elements::{
-    BackgroundColorKind, ContentAlignment, Element, ElementHandle, Resizability, TwoDimensional,
+    BackgroundColorKind, ContentAlignment, Element, Resizability, TwoDimensional,
   },
   types::measurements::{Axis, Dimensions},
   types::tree::TreeNodeInput,
 };
+
+pub const ROOT_ELEMENT_HANDLE: &'static str = "root element";
 
 pub fn create() -> TreeNodeInput<Element> {
   TreeNodeInput(
@@ -37,7 +39,7 @@ pub fn create() -> TreeNodeInput<Element> {
 fn create_root_node_element() -> Element {
   Element {
     name: String::from("root node"),
-    handle: ElementHandle::RootNode,
+    handle: ROOT_ELEMENT_HANDLE,
 
     padding: 10,
     child_gap: 10,

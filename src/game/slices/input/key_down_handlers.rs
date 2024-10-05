@@ -1,7 +1,8 @@
 use macroquad::input::KeyCode;
 use std::collections::HashMap;
 
-use crate::{game::slices::ui::elements::ElementHandle, types::map::Coordinates};
+use crate::game::slices::ui::elements::components::tools_panel::tools_panel::TOOLS_PANEL_HANDLE;
+use crate::types::map::Coordinates;
 
 use crate::game::{slices::ui::elements::components, Game};
 use lazy_static::lazy_static;
@@ -40,7 +41,7 @@ fn handle_key2_down(game: &mut Game) {
   game
     .ui
     .elements
-    .remove_node_by_handle(ElementHandle::ToolsPanel);
+    .remove_node_by_handle(TOOLS_PANEL_HANDLE);
   game.ui.elements.clear_all_calculated_properties();
 }
 

@@ -1,5 +1,5 @@
 use crate::game::slices::tools::Tool;
-use crate::game::slices::ui::ElementHandle;
+use crate::game::slices::ui::components::tools_panel::tools_panel::TOOLS_PANEL_HANDLE;
 use crate::game::slices::world::tower::rooms::validation::RoomValidationContext;
 use crate::game::Game;
 
@@ -46,14 +46,13 @@ pub fn run_event_handlers(game: &mut Game) {
         }
       }
       SetCurrentTool(tool) => {
-        use crate::game::slices::ui::elements::components::tools_panel::room_definitions_button_wrapper;
         game.tools.tool.set_current(tool);
 
         let parent_id = {
           if let Some(tools_panel_element) = game
             .ui
             .elements
-            .find_node_by_handle(ElementHandle::ToolsPanel)
+            .find_node_by_handle(TOOLS_PANEL_HANDLE)
           {
             Some(tools_panel_element.id)
           } else {

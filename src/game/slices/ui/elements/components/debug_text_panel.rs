@@ -4,8 +4,8 @@ use crate::{
   game::slices::{
     tools::Tool,
     ui::elements::{
-      BackgroundColorKind, ContentAlignment, Element, ElementHandle, ElementTag,
-      ElementUpdateAction, ElementUpdateCtx, TwoDimensional, UpdateHandler,
+      BackgroundColorKind, ContentAlignment, Element, ElementTag, ElementUpdateAction,
+      ElementUpdateCtx, TwoDimensional, UpdateHandler,
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
@@ -13,11 +13,13 @@ use crate::{
 
 use super::tools_panel::room_definitions_button_wrapper::DEFINITION_DATA_KEY;
 
+const DEBUG_TEXT_PANEL_HANDLE: &'static str = "debug text panel";
+
 pub fn create_node_input() -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
       name: String::from("debug text section"),
-      handle: ElementHandle::DebugTextPanel,
+      handle: DEBUG_TEXT_PANEL_HANDLE,
       padding: 2,
       stack_axis: Axis::Vertical,
       content_alignment: TwoDimensional {
