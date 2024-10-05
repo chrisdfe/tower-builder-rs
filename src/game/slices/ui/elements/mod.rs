@@ -10,8 +10,8 @@ pub use elements::*;
 pub mod types;
 pub use types::*;
 
-pub mod prerender;
-pub use prerender::prerender;
+mod calculate;
+pub use calculate::calculate;
 
 /// Factory functions for creating `Elements`s
 pub mod components;

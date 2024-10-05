@@ -1,7 +1,7 @@
 # TODO
 
-- [ ] get rid of random "None" text in tools panel
-- [ ] rename 'prerender' to 'calculate' in elements mod
+- [ ] BUG: get rid of random "None" text in tools panel
+- [x] rename 'prerender' to 'calculate' in elements mod
 - [x] Make resizability TwoDimensional
 - [ ] replace get_text_settings with get_theme instead
 - [ ] split time out into its own panel
@@ -69,7 +69,7 @@
 - [x] Fix the ordering of the input/ui update/interactivity/prerendering, it is not obvious and hard to follow right now
 - [ ] middleware-like prerender/precalculate "modifiers" to override prerendered values in a clean/abstracted way (like randomizing background/text colors)
 - [ ] "validate layout" or something, that identifies/warns when children_size is greater than content_size etc
-- [ ] rename 'prerender' to 'precalculate'
+- [x] rename 'prerender' to 'precalculate'
 - [x] rename 'element_tree' to 'elements'
 - [ ] update algorithms to calculate widths of all children at once
 - [ ] abstract layout calculations from actual layout node system - it's just a bunch of math

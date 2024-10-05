@@ -29,7 +29,7 @@ pub fn create() -> TreeNodeInput<Element> {
           super::time_panel::create_node_input(),
         ],
       ),
-      super::spacers::expand_to_fill::create_node_input(3),
+      super::spacers::expand_to_fill::create_node_input(1),
       super::tools_panel::tools_panel::create_node_input(),
     ],
   )

@@ -36,11 +36,9 @@ pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContent
         font_scale,
       } = get_text_settings();
 
-      // TODO - prerender offset_y
       let TextDimensions { offset_y, .. } = measure_text(text, font, font_size, font_scale);
 
       // Draw content
-
       draw_text_ex(
         text,
         content_position.x,

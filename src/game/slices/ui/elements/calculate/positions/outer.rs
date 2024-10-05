@@ -1,4 +1,4 @@
-use crate::game::slices::ui::elements::prerender::accumulators;
+use crate::game::slices::ui::elements::calculate::accumulators;
 use crate::game::slices::ui::elements::{Element, Elements};
 use crate::types::measurements::{Axis, Point};
 use crate::types::tree::TreeNode;

@@ -8,7 +8,7 @@ mod outer;
 
 /// First pass - calculate fixed + shrink_to_fit node dimension from leaf nodes up,
 /// setting expand_to_fill nodes to 0
-pub fn prerender(game: &mut Game, elements_replica: &mut Elements) {
+pub fn calculate(game: &mut Game, elements_replica: &mut Elements) {
   let sibling_id_groups = get_sibling_id_groups_bottom_up(&game.ui.elements);
 
   for sibling_id_group in sibling_id_groups {

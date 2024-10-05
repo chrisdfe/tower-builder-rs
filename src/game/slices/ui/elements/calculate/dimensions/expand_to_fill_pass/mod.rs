@@ -1,7 +1,7 @@
 use uuid::Uuid;
 
+use crate::game::slices::ui::elements::calculate::accumulators;
 use crate::game::slices::ui::elements::element_node_vec;
-use crate::game::slices::ui::elements::prerender::accumulators;
 use crate::game::slices::ui::elements::{Element, Elements};
 use crate::game::Game;
 use crate::types::measurements::Axis;
@@ -9,7 +9,7 @@ use crate::types::tree::TreeNode;
 
 /// Second pass - traverses back down from the root & if there is a difference between
 /// parent's content_size and children_size then use that to set expand_to_fill node values
-pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
+pub fn calculate(game: &mut Game, mut elements_replica: &mut Elements) {
   let sibling_id_groups = game
     .ui
     .elements

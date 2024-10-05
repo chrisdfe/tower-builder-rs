@@ -10,7 +10,7 @@ use crate::{
   utils::get_random_color,
 };
 
-pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
+pub fn calculate(game: &mut Game, mut elements_replica: &mut Elements) {
   // Background color
   for node_id in game
     .ui
@@ -18,9 +18,9 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
     .tree
     .get_node_ids_grouped_by_depth_bottom_up_flat()
   {
-    let needs_prerender = needs_prerender(&game, node_id);
+    let needs_recalculation = needs_recalculation(&game, node_id);
 
-    if needs_prerender {
+    if needs_recalculation {
       let (base_background_color, is_interactive) = {
         let element = &game
           .ui
@@ -55,7 +55,7 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
   }
 }
 
-fn needs_prerender(game: &Game, node_id: Uuid) -> bool {
+fn needs_recalculation(game: &Game, node_id: Uuid) -> bool {
   let node = game
     .ui
     .elements

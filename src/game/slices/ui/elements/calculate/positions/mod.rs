@@ -8,7 +8,7 @@ mod calculations;
 mod content;
 mod outer;
 
-pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
+pub fn calculate(game: &mut Game, mut elements_replica: &mut Elements) {
   // Calculate root node -> down
   let sibling_id_groups = game
     .ui
@@ -23,7 +23,7 @@ pub fn prerender(game: &mut Game, mut elements_replica: &mut Elements) {
         .tree
         .find_nodes_by_ids(&node_ids)
         .into_iter()
-        // TODO - a 'need_prerender' flag
+        // TODO - a 'needs_recalculation' flag
         // .filter(|element_id| {
         //   element_id
         //     .data

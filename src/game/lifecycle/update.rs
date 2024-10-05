@@ -17,9 +17,7 @@ pub fn update(game: &mut Game) {
   tools::update(game);
   ui::update(game);
 
-  // TODO - prerender first?
-  // TODO - render, not prerender
-  elements::prerender(game);
+  elements::calculate(game);
 
   // Post-update - cleanup
   tools::post_update(game);
