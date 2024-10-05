@@ -10,9 +10,10 @@
 - [ ] ElementHandle should be a &'static str, not enum
 - [ ] camera zooming
 - [ ] experiment with different room sizes/dimensions
-- [ ] 'render content' for Elements -
+- [x] 'render content' for Elements -
   - doesn't need to have state or anything since it will just call macroquad render fns
-  - [ ] use for 'text'
+  - [x] use for 'text'
+  - [ ] use it for clock in time panel
   - [ ] use also for minimap ultimately
 - [ ] sfx
   - [ ] on build
