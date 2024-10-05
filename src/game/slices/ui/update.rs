@@ -1,20 +1,16 @@
 use macroquad::input::mouse_position;
 
-use crate::{
-  game::{slices::ui::elements::ElementUpdateCtx, Game},
-  types::measurements::Point,
-};
+use crate::{game::Game, types::measurements::Point};
 
 use crate::{
-  game::slices::ui::elements::{
-    interactivity::{ActionCreator, QueuedAction},
-    Element,
-  },
+  game::slices::ui::elements::{interactivity::QueuedAction, Element},
   types::tree::TreeNode,
 };
 use uuid::Uuid;
 
-use super::elements::ElementUpdateAction;
+use super::actions::{
+  perform_element_mutation, ElementAction, ElementActionCreator, ElementActionCreatorCtx,
+};
 
 pub fn update(game: &mut Game) {
   run_update_handlers(game);
@@ -23,89 +19,43 @@ pub fn update(game: &mut Game) {
 }
 
 fn run_update_handlers(game: &mut Game) {
-  let ctx = ElementUpdateCtx {
-    world: &game.world,
-    tools: &game.tools,
-    ui: &game.ui,
-  };
-
-  // TODO - I'm probably going to need to change how this works
-  let mut mutations: Vec<(Uuid, ElementUpdateAction)> = Vec::new();
+  let mut mutations: Vec<(Uuid, ElementAction)> = Vec::new();
 
   // run on_updates
-  for element_id in game
-    .ui
-    .elements
-    .tree
-    .get_node_ids_grouped_by_depth_top_down_flat()
   {
-    let element = game
+    for node_id in game
       .ui
       .elements
       .tree
-      .find_node_by_id(element_id)
-      .unwrap();
+      .get_node_ids_grouped_by_depth_top_down_flat()
+    {
+      let element = game
+        .ui
+        .elements
+        .tree
+        .find_node_by_id(node_id)
+        .unwrap();
 
-    if let Some(on_update) = element.data.on_update {
-      let action = on_update(&ctx, &element.data);
+      if let Some(on_update) = element.data.on_update {
+        let ctx = ElementActionCreatorCtx {
+          world: &game.world,
+          tools: &game.tools,
+          ui: &game.ui,
+        };
 
-      match action {
-        ElementUpdateAction::None => (),
-        _ => mutations.push((element_id, action)),
-      };
+        let action = on_update(ctx, &element.data);
+
+        match action {
+          ElementAction::None => (),
+          _ => mutations.push((node_id, action)),
+        };
+      }
     }
   }
 
   // Run mutations
-  for (element_id, action) in mutations.into_iter() {
-    use ElementUpdateAction::*;
-
-    //
-    match action {
-      None => (),
-      UpdateText(text) => {
-        let element = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id_mut(element_id)
-          .unwrap();
-
-        element.data.text = Some(text);
-      }
-      UpdateActiveState(is_active) => {
-        let element = game
-          .ui
-          .elements
-          .tree
-          .find_node_by_id_mut(element_id)
-          .unwrap();
-
-        if let Some(interactivity) = &mut element.data.interactivity {
-          interactivity
-            .state
-            .is_active
-            .set_current(is_active);
-        }
-      }
-      AppendChild(input, parent_id) => {
-        game
-          .ui
-          .elements
-          .tree
-          .append_node(input, parent_id);
-      }
-      PrependChild(input, parent_id) => {
-        game
-          .ui
-          .elements
-          .tree
-          .prepend_node(input, parent_id);
-      }
-      RemoveNodeByHandle(handle) => {
-        game.ui.elements.remove_node_by_handle(handle);
-      }
-    }
+  for (node_id, action) in mutations.into_iter() {
+    perform_element_mutation(game, node_id, action);
   }
 }
 
@@ -281,7 +231,11 @@ fn find_node(game: &Game, node_id: Uuid) -> &TreeNode<Element> {
     .unwrap()
 }
 
-fn maybe_enqueue_action(game: &mut Game, action_creator: Option<ActionCreator>, node_id: Uuid) {
+fn maybe_enqueue_action(
+  game: &mut Game,
+  action_creator: Option<ElementActionCreator>,
+  node_id: Uuid,
+) {
   if let Some(action_creator) = action_creator {
     game
       .ui

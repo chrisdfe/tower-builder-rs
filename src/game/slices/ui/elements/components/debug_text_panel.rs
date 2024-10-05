@@ -3,9 +3,9 @@ use macroquad::color::BLACK;
 use crate::{
   game::slices::{
     tools::Tool,
-    ui::elements::{
-      BackgroundColorKind, ContentAlignment, Element, ElementTag, ElementUpdateAction,
-      ElementUpdateCtx, TwoDimensional, UpdateHandler,
+    ui::{
+      actions::{ElementAction, ElementActionCreator, ElementActionCreatorCtx},
+      elements::{BackgroundColorKind, ContentAlignment, Element, ElementTag, TwoDimensional},
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
@@ -37,35 +37,35 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
   vec![
     (
       "funds text element", //
-      update_text_with_funds as UpdateHandler,
+      update_text_with_funds as ElementActionCreator,
     ),
     (
       "population text element",
-      update_text_with_population as UpdateHandler,
+      update_text_with_population as ElementActionCreator,
     ),
     (
       "camera position element",
-      update_text_with_camera_position as UpdateHandler,
+      update_text_with_camera_position as ElementActionCreator,
     ),
     (
       "current tool element",
-      update_text_with_current_tool as UpdateHandler,
+      update_text_with_current_tool as ElementActionCreator,
     ),
     (
       "current selected cell element",
-      update_text_with_current_selected_cell as UpdateHandler,
+      update_text_with_current_selected_cell as ElementActionCreator,
     ),
     (
       "selected room definition text element",
-      update_text_with_selected_room_definition as UpdateHandler,
+      update_text_with_selected_room_definition as ElementActionCreator,
     ),
     (
       "current hovered room definition button element",
-      update_text_with_current_hovered_room_definition_button as UpdateHandler,
+      update_text_with_current_hovered_room_definition_button as ElementActionCreator,
     ),
     (
       "status text element",
-      update_status_text_element as UpdateHandler,
+      update_status_text_element as ElementActionCreator,
     ),
   ]
   .into_iter()
@@ -85,9 +85,9 @@ fn get_children() -> Vec<TreeNodeInput<Element>> {
 }
 
 fn update_text_with_selected_room_definition(
-  ctx: &ElementUpdateCtx,
+  ctx: ElementActionCreatorCtx,
   _: &Element,
-) -> ElementUpdateAction {
+) -> ElementAction {
   let text = if let Tool::Build = &ctx.tools.tool.current {
     format!(
       "room definition: {:?}",
@@ -101,59 +101,59 @@ fn update_text_with_selected_room_definition(
     String::from("nothing.")
   };
 
-  ElementUpdateAction::UpdateText(text)
+  ElementAction::UpdateText(text)
 }
 
-fn update_text_with_funds(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn update_text_with_funds(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   let text = format!("funds: {:?}", ctx.world.wallet.funds);
 
-  ElementUpdateAction::UpdateText(text)
+  ElementAction::UpdateText(text)
 }
 
-fn update_text_with_population(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn update_text_with_population(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   let text = format!("population: {:?}", ctx.world.tower.tower.population());
 
-  ElementUpdateAction::UpdateText(text)
+  ElementAction::UpdateText(text)
 }
 
-fn update_text_with_camera_position(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn update_text_with_camera_position(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   let text = format!(
     "camera position: {}, {}",
     ctx.world.camera.camera_position.x, ctx.world.camera.camera_position.y
   );
 
-  ElementUpdateAction::UpdateText(text)
+  ElementAction::UpdateText(text)
 }
 
-fn update_text_with_current_tool(ctx: &ElementUpdateCtx, element: &Element) -> ElementUpdateAction {
+fn update_text_with_current_tool(ctx: ElementActionCreatorCtx, element: &Element) -> ElementAction {
   if element.text == Some(String::from("")) || ctx.tools.tool.has_changed() {
     let text = format!("Tool: {:#?}", ctx.tools.tool.current);
-    ElementUpdateAction::UpdateText(text)
+    ElementAction::UpdateText(text)
   } else {
-    ElementUpdateAction::None
+    ElementAction::None
   }
 }
 
 fn update_text_with_current_selected_cell(
-  ctx: &ElementUpdateCtx,
+  ctx: ElementActionCreatorCtx,
   _: &Element,
-) -> ElementUpdateAction {
+) -> ElementAction {
   // TODO - has_changed
   if ctx.tools.selection.selected_cell_has_changed() {
     let text = format!(
       "Current selected cell: {:?}, {:?}",
       ctx.tools.selection.current_selected_cell.x, ctx.tools.selection.current_selected_cell.y,
     );
-    ElementUpdateAction::UpdateText(text)
+    ElementAction::UpdateText(text)
   } else {
-    ElementUpdateAction::None
+    ElementAction::None
   }
 }
 
 fn update_text_with_current_hovered_room_definition_button(
-  ctx: &ElementUpdateCtx,
+  ctx: ElementActionCreatorCtx,
   element: &Element,
-) -> ElementUpdateAction {
+) -> ElementAction {
   if let Some(current_hovered_element) = ctx.ui.elements.get_current_hovered_element() {
     if current_hovered_element
       .tags
@@ -163,13 +163,13 @@ fn update_text_with_current_hovered_room_definition_button(
         .attributes
         .get(DEFINITION_DATA_KEY)
       {
-        return ElementUpdateAction::UpdateText((definition_data).to_string());
+        return ElementAction::UpdateText((definition_data).to_string());
       }
     }
   };
 
   if let Tool::Build = &ctx.tools.tool.current {
-    ElementUpdateAction::UpdateText(format!(
+    ElementAction::UpdateText(format!(
       "building room: {:?}",
       &ctx
         .tools
@@ -178,17 +178,17 @@ fn update_text_with_current_hovered_room_definition_button(
         .current
     ))
   } else if element.text != Some(String::from("")) {
-    ElementUpdateAction::UpdateText(String::from(""))
+    ElementAction::UpdateText(String::from(""))
   } else {
-    ElementUpdateAction::None
+    ElementAction::None
   }
 }
 
-fn update_status_text_element(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn update_status_text_element(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   //
   if ctx.ui.state.status_text.has_changed() {
-    ElementUpdateAction::UpdateText(ctx.ui.state.status_text.current.clone())
+    ElementAction::UpdateText(ctx.ui.state.status_text.current.clone())
   } else {
-    ElementUpdateAction::None
+    ElementAction::None
   }
 }

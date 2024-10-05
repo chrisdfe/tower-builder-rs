@@ -1,16 +1,14 @@
-use lazy_static::lazy_static;
-use macroquad::color::{hsl_to_rgb, rgb_to_hsl};
 use macroquad::prelude::*;
 use macroquad::{
   color::{Color, WHITE},
   shapes::draw_rectangle,
-  text::{draw_text_ex, measure_text, Font, TextParams},
+  text::{draw_text_ex, Font, TextParams},
   window::clear_background,
 };
 use once_cell::sync::OnceCell;
 
 use crate::game::slices::tools::Tool;
-use crate::game::slices::ui::elements::UnwrappedElementCalculatedProperties;
+use crate::game::slices::ui::elements::calculated::UnwrappedElementCalculatedProperties;
 use crate::game::slices::world::time::Time;
 use crate::game::slices::world::tower::Room;
 use crate::types::map::Coordinates;

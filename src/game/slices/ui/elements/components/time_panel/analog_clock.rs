@@ -8,7 +8,9 @@ use macroquad::{
 use crate::{
   game::{
     slices::{
-      ui::{renderer::ElementContentRenderer, Element, UnwrappedElementCalculatedProperties},
+      ui::{
+        calculated::UnwrappedElementCalculatedProperties, renderer::ElementContentRenderer, Element,
+      },
       world::time::Time,
     },
     Game,

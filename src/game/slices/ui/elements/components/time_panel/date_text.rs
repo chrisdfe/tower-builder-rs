@@ -1,5 +1,8 @@
 use crate::{
-  game::slices::ui::{Element, ElementUpdateAction, ElementUpdateCtx},
+  game::slices::ui::{
+    actions::{ElementAction, ElementActionCreatorCtx},
+    Element,
+  },
   types::tree::TreeNodeInput,
 };
 
@@ -14,7 +17,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
   )
 }
 
-fn update_text_with_date(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn update_text_with_date(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   let time = ctx.world.time.current_time();
 
   let text = format!(
@@ -22,5 +25,5 @@ fn update_text_with_date(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAc
     time.day, time.month, time.year
   );
 
-  ElementUpdateAction::UpdateText(text)
+  ElementAction::UpdateText(text)
 }

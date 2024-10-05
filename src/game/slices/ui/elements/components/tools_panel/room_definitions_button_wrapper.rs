@@ -4,9 +4,9 @@ use crate::{
   game::slices::{
     tools::Tool,
     ui::{
+      actions::{ElementAction, ElementActionCreatorCtx},
       elements::{ContentAlignment, Element, ElementTag, TwoDimensional},
       interactivity::ElementInteractivityConfig,
-      ElementUpdateAction, ElementUpdateCtx,
     },
     world::tower::rooms::definitions::RoomDefinitionId,
   },
@@ -14,7 +14,7 @@ use crate::{
 };
 
 use crate::{
-  game::slices::ui::elements::interactivity::{Action, ActionCreatorCtx, ElementInteractivity},
+  game::slices::ui::elements::interactivity::ElementInteractivity,
   game::slices::world::tower::rooms::definitions::ROOM_DEFINITIONS,
 };
 
@@ -74,12 +74,12 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 }
 
 fn on_room_definition_button_update(
-  ctx: &ElementUpdateCtx,
+  ctx: ElementActionCreatorCtx,
   element: &Element,
-) -> ElementUpdateAction {
+) -> ElementAction {
   match ctx.tools.tool.current {
     Tool::Build => (),
-    _ => return ElementUpdateAction::None,
+    _ => return ElementAction::None,
   };
 
   if ctx
@@ -102,23 +102,24 @@ fn on_room_definition_button_update(
         .get(DEFINITION_DATA_KEY)
         .unwrap();
 
-    ElementUpdateAction::UpdateActiveState(is_active)
+    ElementAction::UpdateActiveState(is_active)
   } else {
-    ElementUpdateAction::None
+    ElementAction::None
   }
 }
 
-fn on_room_definition_button_click(ctx: ActionCreatorCtx) -> Action {
-  let ActionCreatorCtx { element } = ctx;
-
+fn on_room_definition_button_click(
+  ctx: ElementActionCreatorCtx,
+  element: &Element,
+) -> ElementAction {
   if let Some(definition) = get_definition_from_button(&element) {
-    Action::SetSelectedRoomDefinition(definition)
+    ElementAction::SetSelectedRoomDefinition(definition)
   } else {
     println!(
       "Room definition button {:?} has invalid definition",
       element.name,
     );
-    Action::None
+    ElementAction::None
   }
 }
 

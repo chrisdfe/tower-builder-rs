@@ -1,7 +1,11 @@
 # TODO
 
+- [ ] run `cargo fix --bin "towerbuilder-rs"`
+- [ ] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
 - [x] ElementHandle should be a &'static str, not enum
 - [ ] UI element borders (configurable)
+  - [ ] config options: thickness, color, inset (distance from outside)
+    - [ ] inset will need to be calculated into overall element dimensions
 - [ ] BUG: Resizability::ExpandToFill doesn't have a min_width
   - [ ] REFACTOR: refactor ui system to have element min-width's and max-widths? it might simplify things
 - [ ] add time speeds - pause, normal, fast, very fast

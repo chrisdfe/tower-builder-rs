@@ -1,3 +1,6 @@
+use std::collections::HashMap;
+
+use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
 use crate::game::slices::timers::{
@@ -6,18 +9,55 @@ use crate::game::slices::timers::{
 
 use super::{constants::*, types::Time};
 
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, Clone)]
+pub enum TimeSpeed {
+  Paused = 0,
+  Normal = 1,
+  Fast = 2,
+  VeryFast = 3,
+}
+
+lazy_static! {
+  #[rustfmt::skip]
+  pub static ref TIME_SPEED_INTERVAL_MAP: HashMap<TimeSpeed, f32> = HashMap::from([
+    (TimeSpeed::Paused, 0.),
+    (TimeSpeed::Normal, 1.),
+    (TimeSpeed::Fast, 3.),
+    (TimeSpeed::VeryFast, 5.),
+  ]);
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct Slice {
   pub tick: u64,
+  speed: TimeSpeed,
+  current_interval: f32,
 }
+
+const DEFAULT_SPEED: TimeSpeed = TimeSpeed::Normal;
 
 impl Slice {
   pub fn new() -> Self {
-    Self { tick: 0 }
+    Self {
+      tick: 0,
+      speed: DEFAULT_SPEED,
+      current_interval: *TIME_SPEED_INTERVAL_MAP
+        .get(&TimeSpeed::Normal)
+        .unwrap(),
+    }
   }
 
   pub fn current_time(&self) -> Time {
     Time::from_minutes(self.tick * MINUTES_ELAPSED_PER_TICK as u64)
+  }
+
+  pub fn speed(&self) -> &TimeSpeed {
+    &self.speed
+  }
+
+  pub fn set_speed(&mut self, new_speed: TimeSpeed) {
+    self.speed = new_speed.clone();
+    self.current_interval = *TIME_SPEED_INTERVAL_MAP.get(&new_speed).unwrap();
   }
 
   pub fn register_timers(&self, timers_slice: &mut timers::Slice) {

@@ -8,21 +8,7 @@ use crate::{
   types::PrevAndCurrent,
 };
 
-use super::{BackgroundColorKind, Element};
-
-// TODO - this being here couples game logic with UI framework logic, I should probably move it
-pub enum Action {
-  None,
-  PrintDebugStatement,
-  SetSelectedRoomDefinition(RoomDefinitionId),
-  SetCurrentTool(Tool),
-}
-
-pub type ActionCreator = fn(ctx: ActionCreatorCtx) -> Action;
-
-pub struct ActionCreatorCtx<'a> {
-  pub element: &'a Element,
-}
+use super::{actions::ElementActionCreator, BackgroundColorKind, Element};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ElementInteractionState {
@@ -53,10 +39,10 @@ pub struct ElementInteractivityConfig {
   pub background_color_up: BackgroundColorKind,
   pub background_color_active: BackgroundColorKind,
 
-  pub on_mouse_over: Option<ActionCreator>,
-  pub on_mouse_out: Option<ActionCreator>,
-  pub on_mouse_down: Option<ActionCreator>,
-  pub on_mouse_up: Option<ActionCreator>,
+  pub on_mouse_over: Option<ElementActionCreator>,
+  pub on_mouse_out: Option<ElementActionCreator>,
+  pub on_mouse_down: Option<ElementActionCreator>,
+  pub on_mouse_up: Option<ElementActionCreator>,
 }
 
 impl Default for ElementInteractivityConfig {
@@ -132,6 +118,6 @@ impl EventHandlerQueue {
 
 #[derive(Debug, Clone)]
 pub struct QueuedAction {
-  pub action_creator: fn(ActionCreatorCtx) -> Action,
+  pub action_creator: ElementActionCreator,
   pub node_id: Uuid,
 }

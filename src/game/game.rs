@@ -115,7 +115,6 @@ impl Game {
   pub fn try_to_destroy_room_at_current_cell(&mut self) {
     // Destroy
 
-    println!("destroy");
     self
       .world
       .tower

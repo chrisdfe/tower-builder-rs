@@ -1,5 +1,8 @@
 use crate::{
-  game::slices::ui::{Element, ElementUpdateAction, ElementUpdateCtx},
+  game::slices::ui::{
+    actions::{ElementAction, ElementActionCreatorCtx},
+    Element,
+  },
   types::tree::TreeNodeInput,
 };
 
@@ -15,7 +18,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
   )
 }
 
-fn on_update(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
+fn on_update(ctx: ElementActionCreatorCtx, _: &Element) -> ElementAction {
   let time = ctx.world.time.current_time();
   let padded_hours = if time.hour < 10 {
     format!("0{}", time.hour)
@@ -29,5 +32,5 @@ fn on_update(ctx: &ElementUpdateCtx, _: &Element) -> ElementUpdateAction {
     format!("{}", time.minute)
   };
 
-  ElementUpdateAction::UpdateText(format!("{}:{}", padded_hours, padded_minutes))
+  ElementAction::UpdateText(format!("{}:{}", padded_hours, padded_minutes))
 }
