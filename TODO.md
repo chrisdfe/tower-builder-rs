@@ -1,12 +1,15 @@
 # TODO
 
+- [ ] BUG: Resizability::ExpandToFill doesn't have a min_width
+  - [ ] REFACTOR: refactor ui system to have element min-width's and max-widths? it might simplify things
 - [ ] add time speeds - pause, normal, fast, very fast
+- [ ] make Element.margin TwoDimensional
 - [x] BUG: get rid of random "None" text in tools panel
 - [x] rename 'prerender' to 'calculate' in elements mod
 - [x] Make resizability TwoDimensional
 - [ ] replace get_text_settings with get_theme instead
 - [x] split time out into its own panel
-  - [ ] make clock with custom renderer
+  - [x] make clock with custom renderer
 - [ ] Update tools panel button colors
 - [ ] icons for tools panel buttons
 - [ ] ElementHandle should be a &'static str, not enum
@@ -15,7 +18,7 @@
 - [x] 'render content' for Elements -
   - doesn't need to have state or anything since it will just call macroquad render fns
   - [x] use for 'text'
-  - [ ] use it for clock in time panel
+  - [x] use it for clock in time panel
   - [ ] use also for minimap ultimately
 - [ ] sfx
   - [ ] on build
