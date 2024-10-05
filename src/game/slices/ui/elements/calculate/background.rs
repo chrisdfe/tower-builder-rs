@@ -1,16 +1,15 @@
-use macroquad::color::{Color, RED};
+use macroquad::color::{Color};
 use uuid::Uuid;
 
 use crate::{
   game::{
-    slices::ui::elements::{BackgroundColorKind, Element, Elements},
+    slices::ui::elements::{BackgroundColorKind, Elements},
     Game,
   },
-  types::tree::TreeNode,
   utils::get_random_color,
 };
 
-pub fn calculate(game: &mut Game, mut elements_replica: &mut Elements) {
+pub fn calculate(game: &mut Game, _elements_replica: &mut Elements) {
   // Background color
   for node_id in game
     .ui

@@ -15,7 +15,7 @@ use crate::{
   },
   types::{
     map::CoordinatesBox,
-    tree::{TreeNode, TreeNodeInput},
+    tree::{TreeNodeInput},
   },
 };
 
@@ -91,7 +91,7 @@ pub fn perform_element_mutation(game: &mut Game, node_id: Uuid, action: ElementA
     SetCurrentTool(tool) => {
       game.tools.tool.set_current(tool);
 
-      let parent_id = {
+      let _parent_id = {
         if let Some(tools_panel_element) = game
           .ui
           .elements

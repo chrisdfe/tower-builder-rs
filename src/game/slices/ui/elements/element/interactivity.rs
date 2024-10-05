@@ -4,11 +4,10 @@ use macroquad::color::*;
 use uuid::Uuid;
 
 use crate::{
-  game::slices::{tools::Tool, world::tower::rooms::definitions::RoomDefinitionId},
   types::PrevAndCurrent,
 };
 
-use super::{actions::ElementActionCreator, BackgroundColorKind, Element};
+use super::{actions::ElementActionCreator, BackgroundColorKind};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ElementInteractionState {

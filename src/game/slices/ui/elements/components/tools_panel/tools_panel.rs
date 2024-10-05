@@ -1,4 +1,4 @@
-use macroquad::color::{BLUE, RED};
+use macroquad::color::{BLUE};
 
 use crate::{
   game::slices::{
@@ -123,7 +123,7 @@ fn on_destroy_button_click(_: ElementActionCreatorCtx, _: &Element) -> ElementAc
   ElementAction::SetCurrentTool(Tool::Destroy)
 }
 
-fn update_tool_buttons_wrapper(ctx: ElementActionCreatorCtx, element: &Element) -> ElementAction {
+fn update_tool_buttons_wrapper(ctx: ElementActionCreatorCtx, _element: &Element) -> ElementAction {
   // Add/remove room definitions buttons
   if ctx.tools.tool.has_changed() {
     if ctx.tools.tool.current == Tool::Build {

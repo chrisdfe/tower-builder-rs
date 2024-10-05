@@ -130,7 +130,7 @@ fn calculate_sibling_group_for_axis(
 
         (total_available_expand_to_fill_space / total_expand_to_fill_sibling_weights) * weight
       } else {
-        let (_, parent_off_axis_content_size, parent_off_axis_children_size) = parent_node
+        let (_, _parent_off_axis_content_size, _parent_off_axis_children_size) = parent_node
           .data
           .calculated
           .get_sizes_for_axis(&off_axis);

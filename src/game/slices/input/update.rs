@@ -5,7 +5,7 @@ use macroquad::prelude::*;
 
 use crate::game::slices::input::KEY_DOWN_HANDLERS;
 use crate::game::Game;
-use crate::types::map::CoordinatesBox;
+
 
 pub fn update(game: &mut Game) {
   handle_input(game);
@@ -66,7 +66,7 @@ fn handle_left_button_released(game: &mut Game) {
   }
 }
 
-pub fn post_update(game: &mut Game) {
+pub fn post_update(_game: &mut Game) {
   // noop
 }
 

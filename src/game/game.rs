@@ -42,7 +42,7 @@ impl Game {
     self.world.tower.register_timers(&mut self.timers);
   }
 
-  pub fn load(&mut self, loaded: Game) {
+  pub fn load(&mut self, _loaded: Game) {
     // self.time = loaded.time;
     // self.tower = loaded.tower;
     // self.wallet = loaded.wallet;

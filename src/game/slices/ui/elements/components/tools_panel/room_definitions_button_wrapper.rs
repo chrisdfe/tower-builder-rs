@@ -109,7 +109,7 @@ fn on_room_definition_button_update(
 }
 
 fn on_room_definition_button_click(
-  ctx: ElementActionCreatorCtx,
+  _ctx: ElementActionCreatorCtx,
   element: &Element,
 ) -> ElementAction {
   if let Some(definition) = get_definition_from_button(&element) {

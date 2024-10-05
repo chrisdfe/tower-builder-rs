@@ -79,7 +79,7 @@ impl Default for Slice {
 
 impl Slice {
   pub fn new() -> Self {
-    let selected_room_definition_id = RoomDefinitionId::Lobby;
+    let _selected_room_definition_id = RoomDefinitionId::Lobby;
 
     Self {
       tool: PrevAndCurrent::new(Tool::None),

@@ -1,6 +1,6 @@
 use crate::types::PrevAndCurrent;
 
-use super::{elements::interactivity, Elements};
+use super::{Elements};
 
 pub struct UIState {
   pub status_text: PrevAndCurrent<String>,

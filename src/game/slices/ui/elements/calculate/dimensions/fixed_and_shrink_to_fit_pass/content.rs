@@ -1,11 +1,11 @@
-use macroquad::text::measure_text;
+
 
 use crate::types::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNode;
 
 use crate::game::slices::ui::elements::Resizability;
 
-use crate::game::lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE};
+
 use crate::game::slices::ui::elements::{Element, Elements};
 
 pub fn calculate(node: &mut TreeNode<Element>, elements_replica: &mut Elements) {

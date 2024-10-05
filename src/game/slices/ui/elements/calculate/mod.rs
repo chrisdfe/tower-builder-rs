@@ -1,8 +1,7 @@
-use macroquad::color::RED;
+
 
 use crate::{
-  game::{slices::ui::elements::BackgroundColorKind, Game},
-  utils::get_random_color,
+  game::{Game},
 };
 
 /// A collection of generic functions to use in reduce/fold algorithms

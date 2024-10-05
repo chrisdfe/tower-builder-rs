@@ -32,7 +32,7 @@ impl TimerListener for Listener {
 
   fn on_timer_complete(&mut self, _: &Timer, ctx: TimerCallbackContext) -> bool {
     let TimerCallbackContext {
-      time,
+      
       tower,
       wallet,
       ..

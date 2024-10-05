@@ -18,8 +18,8 @@ pub struct ElementContentRenderer {
 }
 
 pub const NOOP_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
-  render: |element: &Element, _: &Game| {},
-  measure: |element: &Element| Dimensions::zero(),
+  render: |_element: &Element, _: &Game| {},
+  measure: |_element: &Element| Dimensions::zero(),
 };
 
 pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
