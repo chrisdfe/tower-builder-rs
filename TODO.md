@@ -1,9 +1,11 @@
 # TODO
 
+- [ ] ElementHandle should be a &'static str, not enum
+- [ ] UI element borders (configurable)
 - [ ] BUG: Resizability::ExpandToFill doesn't have a min_width
   - [ ] REFACTOR: refactor ui system to have element min-width's and max-widths? it might simplify things
 - [ ] add time speeds - pause, normal, fast, very fast
-- [ ] make Element.margin TwoDimensional
+- [ ] make Element.padding TwoDimensional
 - [x] BUG: get rid of random "None" text in tools panel
 - [x] rename 'prerender' to 'calculate' in elements mod
 - [x] Make resizability TwoDimensional
@@ -12,7 +14,6 @@
   - [x] make clock with custom renderer
 - [ ] Update tools panel button colors
 - [ ] icons for tools panel buttons
-- [ ] ElementHandle should be a &'static str, not enum
 - [ ] camera zooming
 - [ ] experiment with different room sizes/dimensions
 - [x] 'render content' for Elements -
