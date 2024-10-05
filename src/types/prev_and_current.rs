@@ -1,4 +1,6 @@
-#[derive(Debug, Clone)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct PrevAndCurrent<T: Clone + std::fmt::Debug + PartialEq> {
   pub prev: T,
   pub current: T,

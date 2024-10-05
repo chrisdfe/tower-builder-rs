@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] add time speeds - pause, normal, fast, very fast
 - [ ] consolidate where ElementActions get run - it happens in 2 places right now
 - [x] run `cargo fix --bin "towerbuilder-rs"`
 - [x] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
@@ -9,7 +10,6 @@
     - [ ] inset will need to be calculated into overall element dimensions
 - [ ] BUG: Resizability::ExpandToFill doesn't have a min_width
   - [ ] REFACTOR: refactor ui system to have element min-width's and max-widths? it might simplify things
-- [ ] add time speeds - pause, normal, fast, very fast
 - [ ] make Element.padding TwoDimensional
 - [x] BUG: get rid of random "None" text in tools panel
 - [x] rename 'prerender' to 'calculate' in elements mod

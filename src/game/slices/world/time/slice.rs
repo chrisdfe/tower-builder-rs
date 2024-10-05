@@ -3,8 +3,11 @@ use std::collections::HashMap;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
-use crate::game::slices::timers::{
-  self, Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId, TimerLoopType,
+use crate::{
+  game::slices::timers::{
+    self, Timer, TimerCallbackContext, TimerId, TimerListener, TimerListenerId, TimerLoopType,
+  },
+  types::PrevAndCurrent,
 };
 
 use super::{constants::*, types::Time};
@@ -30,8 +33,8 @@ lazy_static! {
 #[derive(Serialize, Deserialize)]
 pub struct Slice {
   pub tick: u64,
-  speed: TimeSpeed,
-  current_interval: f32,
+  speed: PrevAndCurrent<TimeSpeed>,
+  interval: f32,
 }
 
 const DEFAULT_SPEED: TimeSpeed = TimeSpeed::Normal;
@@ -40,8 +43,8 @@ impl Slice {
   pub fn new() -> Self {
     Self {
       tick: 0,
-      speed: DEFAULT_SPEED,
-      current_interval: *TIME_SPEED_INTERVAL_MAP
+      speed: PrevAndCurrent::new(DEFAULT_SPEED),
+      interval: *TIME_SPEED_INTERVAL_MAP
         .get(&TimeSpeed::Normal)
         .unwrap(),
     }
@@ -51,13 +54,21 @@ impl Slice {
     Time::from_minutes(self.tick * MINUTES_ELAPSED_PER_TICK as u64)
   }
 
-  pub fn speed(&self) -> &TimeSpeed {
+  pub fn current_speed(&self) -> &TimeSpeed {
+    &self.speed.current
+  }
+
+  pub fn speed(&self) -> &PrevAndCurrent<TimeSpeed> {
     &self.speed
   }
 
   pub fn set_speed(&mut self, new_speed: TimeSpeed) {
-    self.speed = new_speed.clone();
-    self.current_interval = *TIME_SPEED_INTERVAL_MAP.get(&new_speed).unwrap();
+    self.speed.set_current(new_speed.clone());
+    self.interval = *TIME_SPEED_INTERVAL_MAP.get(&new_speed).unwrap();
+  }
+
+  pub fn interval(&self) -> f32 {
+    self.interval
   }
 
   pub fn register_timers(&self, timers_slice: &mut timers::Slice) {
