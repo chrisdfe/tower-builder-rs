@@ -1,8 +1,8 @@
 # TODO
 
-- [x] consolidate where ElementActions get run - it happens in 2 places right now
-- [ ] run `cargo fix --bin "towerbuilder-rs"`
-- [ ] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
+- [ ] consolidate where ElementActions get run - it happens in 2 places right now
+- [x] run `cargo fix --bin "towerbuilder-rs"`
+- [x] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
 - [x] ElementHandle should be a &'static str, not enum
 - [ ] UI element borders (configurable)
   - [ ] config options: thickness, color, inset (distance from outside)
