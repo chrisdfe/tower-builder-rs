@@ -1,9 +1,10 @@
 # TODO
 
-- [ ] default panel element (like for button)
+- [x] default panel element (like for button)
+- [ ] some placeholder images for rooms
 - [x] make Resizability::Fixed accept a u32 instead of Dimensions (since element.resizability is wrapped in a TwoDimensional now, it doesn't make sense)
-- [ ] a 'line height text wrapper' that centers text inside of it
-  - [ ] use in generic button element
+- [x] a 'line height text wrapper' that centers text inside of it
+  - [x] use in generic button element
 - [ ] timer system is a little confusing
   - [ ] make TimerIds/TimerListenerIds Uuids instead of enums
   - [ ] the 'global tick' timer should be initizlied in the timers slice - right now it is initialized in the Time slice instead

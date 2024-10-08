@@ -1,10 +1,11 @@
-use macroquad::color::{BLUE};
+use macroquad::color::BLUE;
 
 use crate::{
   game::slices::{
     tools::Tool,
     ui::{
       actions::{ElementAction, ElementActionCreatorCtx},
+      components::panel,
       elements::{
         interactivity::ElementInteractivity, BackgroundColorKind, ContentAlignment, Element,
         ElementTag, TwoDimensional,
@@ -33,16 +34,13 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       name: String::from(TOOLS_PANEL_HANDLE),
       handle: TOOLS_PANEL_HANDLE,
 
-      child_gap: 10,
-
-      background_color: BackgroundColorKind::Fixed(BLUE),
       stack_axis: Axis::Vertical,
 
       content_alignment: TwoDimensional {
         horizontal: ContentAlignment::Start,
         vertical: ContentAlignment::Center,
       },
-      ..base_tool_button.clone()
+      ..panel::create_base_element()
     },
     vec![TreeNodeInput(
       Element {

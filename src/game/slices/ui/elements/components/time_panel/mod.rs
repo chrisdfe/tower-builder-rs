@@ -8,6 +8,8 @@ use crate::{
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
+use super::panel;
+
 mod analog_clock;
 mod date_text;
 mod digital_clock;
@@ -22,10 +24,6 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
       name: String::from(TIME_PANEL_HANDLE),
       handle: TIME_PANEL_HANDLE,
 
-      padding: 10,
-      child_gap: 10,
-
-      background_color: BackgroundColorKind::Fixed(BLACK),
       stack_axis: Axis::Horizontal,
       resizability: TwoDimensional::same(Resizability::ShrinkToFit),
       content_alignment: TwoDimensional {
@@ -33,7 +31,7 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
         vertical: ContentAlignment::Center,
       },
 
-      ..Default::default()
+      ..panel::create_base_element()
     },
     vec![
       TreeNodeInput(

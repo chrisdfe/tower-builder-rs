@@ -1,17 +1,15 @@
-use macroquad::color::BLACK;
-
 use crate::{
   game::slices::{
     tools::Tool,
     ui::{
       actions::{ElementAction, ElementActionCreator, ElementActionCreatorCtx},
-      elements::{BackgroundColorKind, ContentAlignment, Element, ElementTag, TwoDimensional},
+      elements::{ContentAlignment, Element, ElementTag, TwoDimensional},
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::tools_panel::room_definitions_button_wrapper::DEFINITION_DATA_KEY;
+use super::{panel, tools_panel::room_definitions_button_wrapper::DEFINITION_DATA_KEY};
 
 const DEBUG_TEXT_PANEL_HANDLE: &'static str = "debug text panel";
 
@@ -20,14 +18,14 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
     Element {
       name: String::from("debug text section"),
       handle: DEBUG_TEXT_PANEL_HANDLE,
-      padding: 2,
+      //
+      child_gap: 2,
       stack_axis: Axis::Vertical,
       content_alignment: TwoDimensional {
         horizontal: ContentAlignment::Start,
         vertical: ContentAlignment::Start,
       },
-      background_color: BackgroundColorKind::Fixed(BLACK),
-      ..Default::default()
+      ..panel::create_base_element()
     },
     get_children(),
   )
