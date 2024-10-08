@@ -4,7 +4,7 @@ use super::{Timer, TimerId};
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 pub enum TimerListenerId {
-  GlobalTick,
+  TimeTick,
 
   CondoMoveIn,
   HotelCheckIn,

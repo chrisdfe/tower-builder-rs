@@ -14,19 +14,19 @@ use super::{constants::*, types::Time};
 
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, Clone)]
 pub enum TimeSpeed {
-  Paused = 0,
-  Normal = 1,
-  Fast = 2,
-  VeryFast = 3,
+  Paused,
+  Normal,
+  Fast,
+  VeryFast,
 }
 
 lazy_static! {
   #[rustfmt::skip]
-  pub static ref TIME_SPEED_INTERVAL_MAP: HashMap<TimeSpeed, f32> = HashMap::from([
-    (TimeSpeed::Paused, 0.),
-    (TimeSpeed::Normal, 1.),
-    (TimeSpeed::Fast, 3.),
-    (TimeSpeed::VeryFast, 5.),
+  pub static ref TIME_SPEED_MINUTES_PER_TICK_MAP: HashMap<TimeSpeed, u8> = HashMap::from([
+    (TimeSpeed::Paused, 0),
+    (TimeSpeed::Normal, 1),
+    (TimeSpeed::Fast, 5),
+    (TimeSpeed::VeryFast, 15),
   ]);
 }
 
@@ -34,7 +34,7 @@ lazy_static! {
 pub struct Slice {
   pub tick: u64,
   speed: PrevAndCurrent<TimeSpeed>,
-  interval: f32,
+  current_minute: PrevAndCurrent<u64>,
 }
 
 const DEFAULT_SPEED: TimeSpeed = TimeSpeed::Normal;
@@ -44,14 +44,13 @@ impl Slice {
     Self {
       tick: 0,
       speed: PrevAndCurrent::new(DEFAULT_SPEED),
-      interval: *TIME_SPEED_INTERVAL_MAP
-        .get(&TimeSpeed::Normal)
-        .unwrap(),
+      current_minute: PrevAndCurrent::new(0),
     }
   }
 
   pub fn current_time(&self) -> Time {
-    Time::from_minutes(self.tick * MINUTES_ELAPSED_PER_TICK as u64)
+    // Time::from_minutes(self.tick * MINUTES_ELAPSED_PER_TICK as u64)
+    Time::from_minutes(self.current_minute.current)
   }
 
   pub fn current_speed(&self) -> &TimeSpeed {
@@ -64,14 +63,21 @@ impl Slice {
 
   pub fn set_speed(&mut self, new_speed: TimeSpeed) {
     self.speed.set_current(new_speed.clone());
-    self.interval = *TIME_SPEED_INTERVAL_MAP.get(&new_speed).unwrap();
   }
 
-  pub fn interval(&self) -> f32 {
-    self.interval
+  pub fn on_tick(&mut self) {
+    self.tick += 1;
+
+    let current_minute = self.current_minute.current
+      + *TIME_SPEED_MINUTES_PER_TICK_MAP
+        .get(&self.speed.current)
+        .unwrap() as u64;
+
+    self.current_minute.set_current(current_minute);
   }
 
   pub fn register_timers(&self, timers_slice: &mut timers::Slice) {
+    // TODO - add this timer in the timers slice - only register the listener here instead
     timers_slice.add_timer(Timer {
       id: TimerId::Tick,
       length: TICK_INTERVAL_S,
@@ -79,42 +85,33 @@ impl Slice {
       loop_type: TimerLoopType::Looping,
     });
 
-    timers_slice.add_timer_listener(Box::new(TimeTickListener::new()));
+    timers_slice.add_timer_listener(Box::new(TimeTickListener));
   }
 }
 
-// TODO - I probably don't need this complexity here. just a 'tick' slice variable that gets incremented
-pub struct TimeTickListener {
-  listener_id: TimerListenerId,
-  timer_id: TimerId,
-}
+pub struct TimeTickListener;
+
+const TICK_LISTENER_ID: TimerListenerId = TimerListenerId::TimeTick;
+const TICK_TIMER_ID: TimerId = TimerId::Tick;
 
 impl TimerListener for TimeTickListener {
   fn id(&self) -> &TimerListenerId {
-    &self.listener_id
+    &TICK_LISTENER_ID
   }
 
   fn timer_id(&self) -> &TimerId {
-    &self.timer_id
+    &TICK_TIMER_ID
   }
 
+  // true = run on_timer_complete on every tick
   fn should_run_complete_cb(&self, _: &Timer, _: TimerCallbackContext) -> bool {
     true
   }
 
   fn on_timer_complete(&mut self, _: &Timer, ctx: TimerCallbackContext) -> bool {
     let TimerCallbackContext { time, .. } = ctx;
-    time.tick += 1;
+    time.on_tick();
 
     false
-  }
-}
-
-impl TimeTickListener {
-  pub fn new() -> Self {
-    Self {
-      timer_id: TimerId::Tick,
-      listener_id: TimerListenerId::GlobalTick,
-    }
   }
 }

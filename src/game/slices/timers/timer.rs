@@ -1,5 +1,3 @@
-
-
 use super::TimerLoopType;
 
 #[derive(Clone, PartialEq, Eq, Hash)]
