@@ -65,10 +65,14 @@ pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContent
     if let Some(text) = &element.text {
       let text_dimensions = measure_text(text, font, font_size, font_scale);
 
+      // TODO - a more robust solution than this
+      // let height = std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32);
+      let height = DEFAULT_FONT_SIZE as u32;
+      // let height = text_dimensions.height as u32;
+
       Dimensions {
         width: text_dimensions.width as u32,
-        // TODO - something less hacky than this
-        height: std::cmp::max(DEFAULT_FONT_SIZE as u32, text_dimensions.height as u32),
+        height,
       }
     } else {
       // TODO - warning here

@@ -1,18 +1,24 @@
 use crate::{
-  game::slices::ui::{Element, Resizability, TwoDimensional},
+  game::{
+    lifecycle::render::DEFAULT_LINE_HEIGHT,
+    slices::ui::{ContentAlignment, Element, Resizability, TwoDimensional},
+  },
   types::tree::TreeNodeInput,
 };
-
-// TODO - put this in theme, not here
-pub const LINE_HEIGHT: u32 = 20;
 
 pub fn create_node_input(text: String) -> TreeNodeInput<Element> {
   TreeNodeInput(
     Element {
+      content_alignment: TwoDimensional {
+        horizontal: ContentAlignment::Start,
+        vertical: ContentAlignment::Center,
+      },
+
       resizability: TwoDimensional {
         horizontal: Resizability::ShrinkToFit,
-        vertical: Resizability::Fixed(20),
+        vertical: Resizability::Fixed(DEFAULT_LINE_HEIGHT),
       },
+
       ..Default::default()
     },
     vec![TreeNodeInput(

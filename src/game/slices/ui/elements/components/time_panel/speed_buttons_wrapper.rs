@@ -2,6 +2,7 @@ use crate::{
   game::slices::{
     ui::{
       actions::{ElementAction, ElementActionCreator, ElementActionCreatorCtx},
+      components::line_height_wrapper,
       interactivity::{ElementInteractivity, ElementInteractivityConfig},
       Element,
     },
@@ -42,7 +43,8 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
       Element {
         name: handle.to_string(),
         handle: handle,
-        text: Some(handle.to_string()),
+
+        padding: 4,
 
         on_update: Some(on_update),
         interactivity: Some(ElementInteractivity {
@@ -55,7 +57,7 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 
         ..Default::default()
       },
-      Vec::new(),
+      vec![line_height_wrapper::create_node_input(handle.to_string())],
     )
   })
   .collect::<Vec<_>>()
@@ -70,6 +72,7 @@ fn on_update(ctx: ElementActionCreatorCtx, _: &Element, button_speed: TimeSpeed)
   }
 }
 
+// TODO - none of this feels very elegant, but I'm still not sure of the best way to achieve this
 fn on_paused_update(ctx: ElementActionCreatorCtx, element: &Element) -> ElementAction {
   on_update(ctx, element, TimeSpeed::Paused)
 }
