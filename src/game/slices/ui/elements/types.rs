@@ -1,5 +1,3 @@
-
-
 use crate::types::measurements::{Axis, Dimensions};
 
 #[derive(Debug, Clone)]
@@ -29,7 +27,7 @@ impl<T> TwoDimensional<T> {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Resizability {
-  Fixed(Dimensions),
+  Fixed(u32),
   ShrinkToFit,
   ExpandToFill(u32),
 }

@@ -1,10 +1,7 @@
-
-
 use crate::types::measurements::{Axis, Dimensions};
 use crate::types::tree::TreeNode;
 
 use crate::game::slices::ui::elements::Resizability;
-
 
 use crate::game::slices::ui::elements::{Element, Elements};
 
@@ -45,9 +42,7 @@ fn calculate_wrapper_node_content_dimensions_for_axis(
     .resizability
     .get_value_for_axis(calculation_axis)
   {
-    Resizability::Fixed(dimensions) => {
-      dimensions.get_length_for_axis(calculation_axis) - (node.data.padding * 2)
-    }
+    Resizability::Fixed(size) => size - (node.data.padding * 2),
     Resizability::ShrinkToFit => {
       // Assumes children has been calculated
       node

@@ -1,5 +1,3 @@
-
-
 use crate::{
   game::slices::ui::elements::{
     BackgroundColorKind, ContentAlignment, Element, Resizability, TwoDimensional,
@@ -37,6 +35,8 @@ pub fn create() -> TreeNodeInput<Element> {
   )
 }
 fn create_root_node_element() -> Element {
+  let screen_dimensions = Dimensions::of_screen();
+
   Element {
     name: String::from("root node"),
     handle: ROOT_ELEMENT_HANDLE,
@@ -47,8 +47,8 @@ fn create_root_node_element() -> Element {
 
     stack_axis: Axis::Vertical,
     resizability: TwoDimensional {
-      horizontal: Resizability::Fixed(Dimensions::of_screen()),
-      vertical: Resizability::Fixed(Dimensions::of_screen()),
+      horizontal: Resizability::Fixed(screen_dimensions.width),
+      vertical: Resizability::Fixed(screen_dimensions.height),
     },
     content_alignment: TwoDimensional {
       horizontal: ContentAlignment::Start,

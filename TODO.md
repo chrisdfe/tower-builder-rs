@@ -1,6 +1,14 @@
 # TODO
 
-- [ ] add time speeds - pause, normal, fast, very fast
+- [ ] default panel element (like for button)
+- [x] make Resizability::Fixed accept a u32 instead of Dimensions (since element.resizability is wrapped in a TwoDimensional now, it doesn't make sense)
+- [ ] a 'line height text wrapper' that centers text inside of it
+  - [ ] use in generic button element
+- [ ] timer system is a little confusing
+  - [ ] make TimerIds/TimerListenerIds Uuids instead of enums
+  - [ ] the 'global tick' timer should be initizlied in the timers slice - right now it is initialized in the Time slice instead
+- [ ] elements calculation is very confusing
+- [x] add time speeds - pause, normal, fast, very fast
 - [ ] consolidate where ElementActions get run - it happens in 2 places right now
 - [x] run `cargo fix --bin "towerbuilder-rs"`
 - [x] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
