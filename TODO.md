@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] notifications system/ui
 - [ ] weather
 - [ ] additions to time panel:
   - [ ] day of the week (weekday/weekend)
