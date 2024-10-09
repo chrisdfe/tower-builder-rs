@@ -1,16 +1,17 @@
-use macroquad::color::BLUE;
+use macroquad::color::{BLUE, RED};
 
 use crate::{
   game::slices::{
     tools::Tool,
     ui::{
-      actions::{ElementAction, ElementActionCreatorCtx},
-      components::panel,
+      actions::{ElementAction, ElementActionCreator, ElementActionCreatorCtx},
+      components::{line_height_wrapper, panel},
       elements::{
         interactivity::ElementInteractivity, BackgroundColorKind, ContentAlignment, Element,
         ElementTag, TwoDimensional,
       },
       interactivity::ElementInteractivityConfig,
+      renderer::generic::ImageElementContentRenderer,
     },
   },
   types::{measurements::Axis, tree::TreeNodeInput},
@@ -47,64 +48,85 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
         name: String::from(TOOLS_BUTTONS_WRAPER_HANDLE),
         handle: TOOLS_BUTTONS_WRAPER_HANDLE,
 
+        child_gap: 4,
         on_update: Some(update_tool_buttons_wrapper),
 
         ..Default::default()
       },
       vec![
+        (
+          "none tool button",
+          "None",
+          update_none_button as ElementActionCreator,
+          on_none_button_click as ElementActionCreator,
+        ),
+        (
+          "build tool button",
+          "Build",
+          update_build_button as ElementActionCreator,
+          on_build_button_click as ElementActionCreator,
+        ),
+        (
+          "destroy tool button",
+          "Destroy",
+          update_destroy_button as ElementActionCreator,
+          on_destroy_button_click as ElementActionCreator,
+        ),
+      ]
+      .into_iter()
+      .map(|(name, text, on_update, on_click)| {
         TreeNodeInput(
           Element {
-            name: String::from("none tool button"),
-            text: Some(String::from("None")),
+            name: name.to_string(),
 
-            on_update: Some(update_none_button),
+            on_update: Some(on_update),
+            child_gap: 5,
+            padding: 5,
+
+            stack_axis: Axis::Horizontal,
+            content_alignment: TwoDimensional::same(ContentAlignment::Center),
 
             interactivity: Some(ElementInteractivity {
               config: ElementInteractivityConfig {
-                on_mouse_up: Some(on_none_button_click),
+                on_mouse_up: Some(on_click),
                 ..Default::default()
               },
               ..Default::default()
             }),
             ..base_tool_button.clone()
           },
-          Vec::new(),
-        ),
-        TreeNodeInput(
-          Element {
-            name: String::from("build tool button"),
-            text: Some(String::from("Build")),
-
-            on_update: Some(update_build_button),
-            interactivity: Some(ElementInteractivity {
-              config: ElementInteractivityConfig {
-                on_mouse_up: Some(on_build_button_click),
+          vec![
+            TreeNodeInput(
+              Element {
+                // TODO - replace with actual icon
+                content_renderer: Box::new(ImageElementContentRenderer::new(
+                  "assets/icon_pause.png".to_string(),
+                )),
                 ..Default::default()
               },
-              ..Default::default()
-            }),
-            ..base_tool_button.clone()
-          },
-          Vec::new(),
-        ),
-        TreeNodeInput(
-          Element {
-            name: String::from("destroy tool button"),
-            text: Some(String::from("Destroy")),
-
-            on_update: Some(update_destroy_button),
-            interactivity: Some(ElementInteractivity {
-              config: ElementInteractivityConfig {
-                on_mouse_up: Some(on_destroy_button_click),
-                ..Default::default()
-              },
-              ..Default::default()
-            }),
-            ..base_tool_button.clone()
-          },
-          Vec::new(),
-        ),
-      ],
+              vec![],
+            ),
+            // TreeNodeInput(
+            //   Element {
+            //     text: Some(text.to_string()),
+            //     // background_color: BackgroundColorKind::Fixed(RED),
+            //     ..Default::default()
+            //   },
+            //   vec![],
+            // ),
+            line_height_wrapper::create_node_input(text.to_string()),
+          ],
+          //
+          // TreeNodeInput(
+          //   Element {
+          //     text: Some(text.to_string()),
+          //     ..Default::default()
+          //   },
+          //   vec![],
+          // ),
+        )
+      })
+      .collect(),
     )],
   )
 }

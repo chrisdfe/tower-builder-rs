@@ -1,5 +1,8 @@
 # TODO
 
+- [ ] fix annoying text line-height issue
+  - [ ] maybe text.get_center could help
+- [ ] get rid of the 'text' element field - just use a TextElementContentRenderer field/param!
 - [ ] notifications system/ui
 - [ ] weather
 - [ ] additions to time panel:
