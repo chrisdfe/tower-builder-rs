@@ -5,9 +5,11 @@
   - [ ] at the very least, make other rooms be able to be placed on top of it
 - [ ] multiple textures for room (i.e fast food, variants of hotel room layout, etc)
   - [ ] chosen randomly (or in sequence) like in sim tower?
+- [ ] repeating texture for lobby
+  - [ ] also - lobby = just the first floor of the image; LobbyLarge = all 3 floors of it
 - [ ] first pass at room images
   - [x] split up render.rs into submodules
-  - [ ] room texture should be overlaid with valid/invalid color in blueprint mode
+  - [x] room texture should be overlaid with valid/invalid color in blueprint mode
   - [ ] BUG: transportation items should be drawn on top of everything else
 - [ ] investigate turning Element into a trait again
   - to help with the state issue

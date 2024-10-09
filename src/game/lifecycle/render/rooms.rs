@@ -1,5 +1,5 @@
 use macroquad::{
-  color::{Color, WHITE},
+  color::{self, Color, WHITE},
   math::Vec2,
   shapes::draw_rectangle,
   texture::{draw_texture, draw_texture_ex, DrawTextureParams},
@@ -52,12 +52,18 @@ pub(super) fn render_room(room: &Room, color_override: Option<Color>, game: &Gam
       // TODO - all of these 2.s should be dependent on dpi
       let y = y - texture.height() / 2.;
 
+      let overlay_color = if let Some(color) = color_override {
+        color
+      } else {
+        WHITE
+      };
+
       // TODO
       draw_texture_ex(
         texture,
         x,
         y,
-        WHITE,
+        overlay_color,
         DrawTextureParams {
           dest_size: Some(Vec2 {
             x: texture.width() / 2.,
