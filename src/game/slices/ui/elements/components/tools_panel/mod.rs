@@ -1,3 +1,3 @@
-pub mod room_definitions_button_wrapper;
+pub mod room_definition_buttons;
 
 pub mod tools_panel;

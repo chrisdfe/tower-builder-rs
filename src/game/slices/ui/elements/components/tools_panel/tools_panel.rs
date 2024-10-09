@@ -16,7 +16,7 @@ use crate::{
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::room_definitions_button_wrapper::{self, ROOM_BUTTONS_WRAPPER_HANDLE};
+use super::room_definition_buttons::{self, ROOM_BUTTONS_WRAPPER_HANDLE};
 
 pub const TOOLS_PANEL_HANDLE: &'static str = "tools panel";
 pub const TOOLS_BUTTONS_WRAPER_HANDLE: &'static str = "tools buttons wrapper";
@@ -130,7 +130,7 @@ fn update_tool_buttons_wrapper(ctx: ElementActionCreatorCtx, _element: &Element)
         .elements
         .find_node_id_by_handle(TOOLS_PANEL_HANDLE);
 
-      ElementAction::PrependChild(room_definitions_button_wrapper::create(), parent_id)
+      ElementAction::PrependChild(room_definition_buttons::create(), parent_id)
     } else {
       ElementAction::RemoveNodeByHandle(ROOM_BUTTONS_WRAPPER_HANDLE)
     }

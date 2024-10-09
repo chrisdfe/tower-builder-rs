@@ -9,7 +9,7 @@ use crate::{
   types::{measurements::Axis, tree::TreeNodeInput},
 };
 
-use super::{panel, tools_panel::room_definitions_button_wrapper::DEFINITION_DATA_KEY};
+use super::{panel, tools_panel::room_definition_buttons::DEFINITION_DATA_KEY};
 
 const DEBUG_TEXT_PANEL_HANDLE: &'static str = "debug text panel";
 

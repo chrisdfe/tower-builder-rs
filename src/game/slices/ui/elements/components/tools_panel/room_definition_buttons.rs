@@ -108,10 +108,7 @@ fn on_room_definition_button_update(
   }
 }
 
-fn on_room_definition_button_click(
-  _ctx: ElementActionCreatorCtx,
-  element: &Element,
-) -> ElementAction {
+fn on_room_definition_button_click(_: ElementActionCreatorCtx, element: &Element) -> ElementAction {
   if let Some(definition) = get_definition_from_button(&element) {
     ElementAction::SetSelectedRoomDefinition(definition)
   } else {
