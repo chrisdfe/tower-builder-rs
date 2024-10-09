@@ -1,5 +1,7 @@
 # TODO
 
+- [x] ImageElementContentRenderer
+  - [x] add to time speed buttons
 - [ ] default element to NOOP content renderer - make a 'text' element factory that uses text content renderer
 - [x] default panel element (like for button)
 - [ ] some placeholder images for rooms

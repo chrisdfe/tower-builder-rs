@@ -4,7 +4,8 @@ use crate::{
       actions::{ElementAction, ElementActionCreator, ElementActionCreatorCtx},
       components::line_height_wrapper,
       interactivity::{ElementInteractivity, ElementInteractivityConfig},
-      Element,
+      renderer::generic::ImageElementContentRenderer,
+      ContentAlignment, Element, TwoDimensional,
     },
     world::time::slice::TimeSpeed,
   },
@@ -32,21 +33,41 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
       "pause",
       switch_to_paused as ElementActionCreator,
       on_paused_update as ElementActionCreator,
+      "./assets/icon_pause.png",
     ),
-    ("normal", switch_to_normal, on_normal_update),
-    ("fast", switch_to_fast, on_fast_update),
-    ("very fast", switch_to_very_fast, on_very_fast_update),
+    (
+      "normal",
+      switch_to_normal,
+      on_normal_update,
+      "./assets/icon_play.png",
+    ),
+    (
+      "fast",
+      switch_to_fast,
+      on_fast_update,
+      "./assets/icon_fast.png",
+    ),
+    (
+      "very fast",
+      switch_to_very_fast,
+      on_very_fast_update,
+      "./assets/icon_very_fast.png",
+    ),
   ]
   .into_iter()
-  .map(|(handle, on_click, on_update)| {
+  .map(|(handle, on_click, on_update, image_path)| {
     TreeNodeInput(
       Element {
         name: handle.to_string(),
         handle: handle,
 
         padding: 4,
-
         on_update: Some(on_update),
+
+        content_alignment: TwoDimensional::same(ContentAlignment::Center),
+
+        content_renderer: Box::new(ImageElementContentRenderer::new(image_path.to_string())),
+
         interactivity: Some(ElementInteractivity {
           config: ElementInteractivityConfig {
             on_mouse_up: Some(on_click),
@@ -57,7 +78,7 @@ fn create_buttons() -> Vec<TreeNodeInput<Element>> {
 
         ..Default::default()
       },
-      vec![line_height_wrapper::create_node_input(handle.to_string())],
+      vec![],
     )
   })
   .collect::<Vec<_>>()
