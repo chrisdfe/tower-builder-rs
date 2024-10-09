@@ -12,7 +12,7 @@ use super::{
   actions::ElementActionCreator,
   calculated::*,
   interactivity::*,
-  renderer::*,
+  renderer::{self, *},
 };
 
 #[derive(Clone)]
@@ -24,7 +24,7 @@ pub struct Element {
 
   // text will be ignored for wrapper nodes (i.e if its node has children)
   pub text: Option<String>,
-  pub content_renderer: ElementContentRenderer,
+  pub content_renderer: Box<dyn ElementContentRenderer>,
 
   // dimensions/position
   pub padding: u32,
@@ -66,7 +66,7 @@ impl Default for Element {
       },
 
       background_color: BackgroundColorKind::None,
-      content_renderer: TEXT_ELEMENT_CONTENT_RENDERER,
+      content_renderer: Box::new(renderer::generic::TextElementContentRenderer),
       on_update: None,
 
       interactivity: None,

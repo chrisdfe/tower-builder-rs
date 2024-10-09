@@ -29,7 +29,7 @@ fn calculate_leaf_node_content_dimensions_for_axis(
   node: &mut TreeNode<Element>,
   calculation_axis: &Axis,
 ) -> u32 {
-  let dimensions = &(node.data.content_renderer.measure)(&node.data);
+  let dimensions = node.data.content_renderer.measure(&node.data);
   dimensions.get_length_for_axis(calculation_axis)
 }
 

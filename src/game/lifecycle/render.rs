@@ -321,7 +321,7 @@ fn draw_element(element: &Element, game: &Game) {
   }
 
   // Render leaf node content
-  (element.content_renderer.render)(&element, &game);
+  element.content_renderer.render(&element, &game);
 }
 
 fn render_text_custom(text: &String, point: &Point) {

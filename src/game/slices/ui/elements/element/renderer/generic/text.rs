@@ -1,29 +1,10 @@
-use calculated::UnwrappedElementCalculatedProperties;
-use macroquad::text::{draw_text_ex, measure_text, TextDimensions, TextParams};
+use super::super::*;
 
-use crate::{
-  game::{
-    lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE},
-    Game,
-  },
-  types::measurements::Dimensions,
-};
+#[derive(Clone)]
+pub struct TextElementContentRenderer;
 
-use super::*;
-
-#[derive(Debug, Clone)]
-pub struct ElementContentRenderer {
-  pub render: fn(element: &Element, ctx: &Game) -> (),
-  pub measure: fn(element: &Element) -> Dimensions,
-}
-
-pub const NOOP_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
-  render: |_element: &Element, _: &Game| {},
-  measure: |_element: &Element| Dimensions::zero(),
-};
-
-pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContentRenderer {
-  render: |element, _: &Game| {
+impl ElementContentRenderer for TextElementContentRenderer {
+  fn render(&self, element: &Element, _: &Game) {
     //
     let UnwrappedElementCalculatedProperties {
       content_position, ..
@@ -53,9 +34,9 @@ pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContent
         },
       );
     }
-  },
+  }
 
-  measure: |element| {
+  fn measure(&self, element: &Element) -> Dimensions {
     let TextSettings {
       font,
       font_size,
@@ -78,5 +59,9 @@ pub const TEXT_ELEMENT_CONTENT_RENDERER: ElementContentRenderer = ElementContent
       // TODO - warning here
       Dimensions::zero()
     }
-  },
-};
+  }
+
+  fn box_clone(&self) -> Box<dyn ElementContentRenderer> {
+    Box::new((*self).clone())
+  }
+}
