@@ -26,13 +26,28 @@ impl ElementContentRenderer for ImageElementContentRenderer {
     let texture = Texture2D::from_image(&self.image);
     // TODO - element position
     let Point { x, y, .. } = element.calculated.unwrap().content_position;
-    draw_texture(&texture, *x, *y, WHITE);
+    draw_texture_ex(
+      &texture,
+      *x,
+      *y,
+      WHITE,
+      DrawTextureParams {
+        dest_size: Some(Vec2 {
+          // TODO - do this based on DPI
+          x: texture.width() / 2.,
+          y: texture.height() / 2.,
+        }),
+        ..Default::default()
+      },
+    )
+    //  draw_texture(&texture, *x, *y, WHITE);
   }
 
   fn measure(&self, _: &Element) -> Dimensions {
     Dimensions {
-      width: self.image.width() as u32,
-      height: self.image.height() as u32,
+      // TODO- do this based on DPI
+      width: (self.image.width() / 2) as u32,
+      height: (self.image.height() / 2) as u32,
     }
   }
 
