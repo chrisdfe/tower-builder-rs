@@ -1,5 +1,11 @@
 # TODO
 
+- [ ] weather
+- [ ] additions to time panel:
+  - [ ] day of the week (weekday/weekend)
+  - [ ] season
+- [ ] FPS counter
+- [x] BUG: images (time speed button icons) are blurry on my HD monitor
 - [x] ImageElementContentRenderer
   - [x] add to time speed buttons
 - [ ] default element to NOOP content renderer - make a 'text' element factory that uses text content renderer
@@ -13,7 +19,7 @@
   - [ ] the 'global tick' timer should be initizlied in the timers slice - right now it is initialized in the Time slice instead
 - [ ] elements calculation is very confusing
 - [x] add time speeds - pause, normal, fast, very fast
-- [ ] consolidate where ElementActions get run - it happens in 2 places right now
+- [ ] consolidate where ElementActikons get run - it happens in 2 places right now
 - [x] run `cargo fix --bin "towerbuilder-rs"`
 - [x] merge "ElementAction" and "ElementUpdateAction" systems - they do the same thing
 - [x] ElementHandle should be a &'static str, not enum
