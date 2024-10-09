@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] BUG - LobbyLarge validation is messed up, you can't build any rooms on top of it
+- [ ] get rid of my own Rect struct - I keep confusing it with macroquad's Rect
 - [ ] decide what to do about "floor"
   - [ ] if I keep it, make it work like sim tower (undeletable)
   - [ ] at the very least, make other rooms be able to be placed on top of it

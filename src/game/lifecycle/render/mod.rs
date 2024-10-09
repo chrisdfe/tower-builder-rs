@@ -25,11 +25,14 @@ pub fn render(game: &Game) {
   clear_background(BG_COLOR);
 
   // World
-  sky::render(game);
+  sky::render_background(game);
+
   ground::render(game);
   rooms::render(game);
   tools::render(game);
   // draw_room_blueprint(game);
+
+  sky::render_foreground(game);
 
   // UI
   ui::render(game);
