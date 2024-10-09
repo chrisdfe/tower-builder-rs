@@ -25,6 +25,40 @@ impl<T> TwoDimensional<T> {
   }
 }
 
+#[derive(Debug, Clone)]
+pub struct Orthogonal<T> {
+  pub top: T,
+  pub right: T,
+  pub bottom: T,
+  pub left: T,
+}
+
+impl<T> Orthogonal<T> {
+  pub fn same(value: T) -> Self
+  where
+    T: Clone,
+  {
+    Self {
+      top: value.clone(),
+      right: value.clone(),
+      bottom: value.clone(),
+      left: value.clone(),
+    }
+  }
+
+  pub fn top_and_bottom(top_and_bottom: T, left_and_right: T) -> Self
+  where
+    T: Clone,
+  {
+    Self {
+      top: top_and_bottom.clone(),
+      right: left_and_right.clone(),
+      bottom: top_and_bottom.clone(),
+      left: left_and_right.clone(),
+    }
+  }
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Resizability {
   Fixed(u32),
