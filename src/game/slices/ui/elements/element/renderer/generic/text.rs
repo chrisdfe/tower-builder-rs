@@ -1,5 +1,3 @@
-use crate::game::lifecycle::render::DEFAULT_LINE_HEIGHT;
-
 use super::super::*;
 
 #[derive(Clone)]

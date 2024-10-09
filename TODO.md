@@ -1,5 +1,8 @@
 # TODO
 
+- [ ] nicer sky colors
+- [ ] first pass at room images
+  - [x] split up render.rs into submodules
 - [ ] fix annoying text line-height issue
   - [ ] maybe text.get_center could help
 - [ ] get rid of the 'text' element field - just use a TextElementContentRenderer field/param!
@@ -14,7 +17,6 @@
   - [x] add to time speed buttons
 - [ ] default element to NOOP content renderer - make a 'text' element factory that uses text content renderer
 - [x] default panel element (like for button)
-- [ ] some placeholder images for rooms
 - [x] make Resizability::Fixed accept a u32 instead of Dimensions (since element.resizability is wrapped in a TwoDimensional now, it doesn't make sense)
 - [x] a 'line height text wrapper' that centers text inside of it
   - [x] use in generic button element

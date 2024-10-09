@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 use lazy_static::lazy_static;
+use macroquad::texture::Texture2D;
 use serde::{Deserialize, Serialize};
 
 // Re-export for ease of use in RoomDefinition modules
@@ -36,6 +37,13 @@ lazy_static! {
   .collect();
 }
 
+// Just a stop-gap until all rooms have images
+#[derive(Debug)]
+pub enum RoomDefinitionRenderType {
+  Color(Color),
+  Image(Texture2D),
+}
+
 #[derive(Debug)]
 pub struct RoomDefinition {
   pub id: RoomDefinitionId,
@@ -48,7 +56,7 @@ pub struct RoomDefinition {
   pub occupancy_limit: u32,
   // rent for offices, nightly price for hotel rooms, sale price for condos
   pub income: u32,
-  pub color: Color,
+  pub render_type: RoomDefinitionRenderType,
 }
 
 impl Default for RoomDefinition {

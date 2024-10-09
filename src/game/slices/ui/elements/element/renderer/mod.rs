@@ -3,7 +3,7 @@ use macroquad::text::{draw_text_ex, measure_text, TextDimensions, TextParams};
 
 use crate::{
   game::{
-    lifecycle::render::{get_text_settings, TextSettings, DEFAULT_FONT_SIZE},
+    lifecycle::render::text::{get_text_settings, TextSettings},
     Game,
   },
   types::measurements::Dimensions,

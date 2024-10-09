@@ -15,7 +15,7 @@ pub fn get_definition() -> RoomDefinition {
     ]),
     price: 4000,
     resizability: RoomResizability::None,
-    color: Color::from_hex(0x994499),
+    render_type: RoomDefinitionRenderType::Color(Color::from_hex(0x994499)),
     occupancy_limit: 5,
     income: 10000,
   }

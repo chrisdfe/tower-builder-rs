@@ -1,6 +1,6 @@
 use crate::{
   game::{
-    lifecycle::render::DEFAULT_LINE_HEIGHT,
+    lifecycle::render::text::DEFAULT_LINE_HEIGHT,
     slices::ui::{ContentAlignment, Element, Resizability, TwoDimensional},
   },
   types::tree::TreeNodeInput,

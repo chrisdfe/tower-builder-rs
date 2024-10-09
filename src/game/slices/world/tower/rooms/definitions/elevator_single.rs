@@ -1,3 +1,5 @@
+use crate::game::slices::ui::elements::BackgroundColorKind;
+
 use super::*;
 
 pub fn get_definition() -> RoomDefinition {
@@ -19,7 +21,7 @@ pub fn get_definition() -> RoomDefinition {
     price: 1000,
     resizability: RoomResizability::Vertical,
     // resizability: RoomResizability::None,
-    color: Color::new(0.067, 0.067, 0.667, 0.5),
+    render_type: RoomDefinitionRenderType::Color(Color::new(0.067, 0.067, 0.667, 0.5)),
     occupancy_limit: 12,
     income: 1000,
   }
