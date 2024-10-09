@@ -18,10 +18,13 @@ pub fn get_definition() -> RoomDefinition {
     price: 4000,
     resizability: RoomResizability::None,
 
-    render_type: RoomDefinitionRenderType::Texture(Texture2D::from_file_with_format(
-      include_bytes!("../../../../../../../assets/room_condo.png"),
-      Some(ImageFormat::Png),
-    )),
+    render_type: RoomDefinitionRenderType::Texture(
+      Texture2D::from_file_with_format(
+        include_bytes!("../../../../../../../assets/room_condo.png"),
+        Some(ImageFormat::Png),
+      ),
+      |_| None,
+    ),
 
     occupancy_limit: 5,
     income: 10000,

@@ -1,5 +1,10 @@
 # TODO
 
+- [ ] configurable windows
+- [ ] a shader for sky
+  - [ ] a room shader that responds to time of day instead of overlay rectangle
+- [ ] different cursors for each tool
+- [ ] inspect tool
 - [ ] BUG: room definition/speed button update handlers only change state if something has_changed() - so
       no button is_active until the player changes it
 - [ ] keyboard shortcuts for speed

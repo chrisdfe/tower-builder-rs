@@ -1,3 +1,5 @@
+use macroquad::prelude::ImageFormat;
+
 use crate::game::slices::ui::elements::BackgroundColorKind;
 
 use super::*;
@@ -21,7 +23,13 @@ pub fn get_definition() -> RoomDefinition {
     price: 1000,
     resizability: RoomResizability::Vertical,
     // resizability: RoomResizability::None,
-    render_type: RoomDefinitionRenderType::Color(Color::new(0.067, 0.067, 0.667, 0.5)),
+    render_type: RoomDefinitionRenderType::Texture(
+      Texture2D::from_file_with_format(
+        include_bytes!("../../../../../../../assets/room_elevator_single.png"),
+        Some(ImageFormat::Png),
+      ),
+      |_| None,
+    ),
     occupancy_limit: 12,
     income: 1000,
   }

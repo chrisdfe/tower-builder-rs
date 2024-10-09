@@ -48,7 +48,7 @@ pub(super) fn render_room(room: &Room, color_override: Option<Color>, game: &Gam
 
       draw_rectangle(x, y, w, h, color);
     }
-    RoomDefinitionRenderType::Texture(texture) => {
+    RoomDefinitionRenderType::Texture(texture, get_draw_params) => {
       // TODO - all of these 2.s should be dependent on dpi
       let y = y - texture.height() / 2.;
 
@@ -58,20 +58,20 @@ pub(super) fn render_room(room: &Room, color_override: Option<Color>, game: &Gam
         WHITE
       };
 
-      // TODO
-      draw_texture_ex(
-        texture,
-        x,
-        y,
-        overlay_color,
+      let draw_params = if let Some(params) = get_draw_params(&texture) {
+        params
+      } else {
         DrawTextureParams {
           dest_size: Some(Vec2 {
             x: texture.width() / 2.,
             y: texture.height() / 2.,
           }),
           ..Default::default()
-        },
-      );
+        }
+      };
+
+      // TODO
+      draw_texture_ex(texture, x, y, overlay_color, draw_params);
     }
   }
 

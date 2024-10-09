@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 use lazy_static::lazy_static;
-use macroquad::texture::Texture2D;
+use macroquad::texture::{DrawTextureParams, Texture2D};
 use serde::{Deserialize, Serialize};
 
 // Re-export for ease of use in RoomDefinition modules
@@ -41,7 +41,7 @@ lazy_static! {
 #[derive(Debug)]
 pub enum RoomDefinitionRenderType {
   Color(Color),
-  Texture(Texture2D),
+  Texture(Texture2D, fn(&Texture2D) -> Option<DrawTextureParams>),
 }
 
 #[derive(Debug)]
