@@ -1,5 +1,8 @@
 # TODO
 
+- [ ] investigate turning Element into a trait again
+  - to help with the state issue
+- [ ] move camera around with middle click
 - [ ] nicer sky colors
 - [ ] first pass at room images
   - [x] split up render.rs into submodules
