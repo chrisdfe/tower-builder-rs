@@ -1,5 +1,10 @@
 # TODO
 
+- [ ] decide what to do about "floor"
+  - [ ] if I keep it, make it work like sim tower (undeletable)
+  - [ ] at the very least, make other rooms be able to be placed on top of it
+- [ ] multiple textures for room (i.e fast food, variants of hotel room layout, etc)
+  - [ ] chosen randomly (or in sequence) like in sim tower?
 - [ ] first pass at room images
   - [x] split up render.rs into submodules
   - [ ] room texture should be overlaid with valid/invalid color in blueprint mode
@@ -8,7 +13,7 @@
   - to help with the state issue
 - [ ] move camera around with middle click
 - [ ] nicer sky colors
-      [ ] fix annoying text line-height issue
+- [ ] fix annoying text line-height issue
   - [ ] maybe text.get_center could help
 - [ ] get rid of the 'text' element field - just use a TextElementContentRenderer field/param!
 - [ ] notifications system/ui

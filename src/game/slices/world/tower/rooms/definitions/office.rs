@@ -1,3 +1,5 @@
+use macroquad::prelude::ImageFormat;
+
 use super::*;
 
 pub fn get_definition() -> RoomDefinition {
@@ -16,7 +18,12 @@ pub fn get_definition() -> RoomDefinition {
     ]),
     price: 1000,
     resizability: RoomResizability::None,
-    render_type: RoomDefinitionRenderType::Color(Color::from_hex(0x44aa99)),
+
+    render_type: RoomDefinitionRenderType::Texture(Texture2D::from_file_with_format(
+      include_bytes!("../../../../../../../assets/room_office.png"),
+      Some(ImageFormat::Png),
+    )),
+
     occupancy_limit: 8,
     income: 1200,
   }

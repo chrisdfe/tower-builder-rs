@@ -1,3 +1,5 @@
+use macroquad::time::get_fps;
+
 use crate::{
   game::slices::{
     tools::Tool,
@@ -33,6 +35,10 @@ pub fn create_node_input() -> TreeNodeInput<Element> {
 
 fn get_children() -> Vec<TreeNodeInput<Element>> {
   vec![
+    (
+      "fps text elemetn", //
+      update_text_with_fps as ElementActionCreator,
+    ),
     (
       "funds text element", //
       update_text_with_funds as ElementActionCreator,
@@ -98,6 +104,12 @@ fn update_text_with_selected_room_definition(
   } else {
     String::from("nothing.")
   };
+
+  ElementAction::UpdateText(text)
+}
+
+fn update_text_with_fps(_: ElementActionCreatorCtx, _: &Element) -> ElementAction {
+  let text = format!("fps: {:?}", get_fps());
 
   ElementAction::UpdateText(text)
 }

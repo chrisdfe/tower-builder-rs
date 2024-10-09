@@ -48,7 +48,7 @@ pub(super) fn render_room(room: &Room, color_override: Option<Color>, game: &Gam
 
       draw_rectangle(x, y, w, h, color);
     }
-    RoomDefinitionRenderType::Image(texture) => {
+    RoomDefinitionRenderType::Texture(texture) => {
       // TODO - all of these 2.s should be dependent on dpi
       let y = y - texture.height() / 2.;
 

@@ -41,7 +41,7 @@ lazy_static! {
 #[derive(Debug)]
 pub enum RoomDefinitionRenderType {
   Color(Color),
-  Image(Texture2D),
+  Texture(Texture2D),
 }
 
 #[derive(Debug)]
