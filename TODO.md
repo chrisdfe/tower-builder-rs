@@ -1,12 +1,14 @@
 # TODO
 
+- [ ] first pass at room images
+  - [x] split up render.rs into submodules
+  - [ ] room texture should be overlaid with valid/invalid color in blueprint mode
+  - [ ] BUG: transportation items should be drawn on top of everything else
 - [ ] investigate turning Element into a trait again
   - to help with the state issue
 - [ ] move camera around with middle click
 - [ ] nicer sky colors
-- [ ] first pass at room images
-  - [x] split up render.rs into submodules
-- [ ] fix annoying text line-height issue
+      [ ] fix annoying text line-height issue
   - [ ] maybe text.get_center could help
 - [ ] get rid of the 'text' element field - just use a TextElementContentRenderer field/param!
 - [ ] notifications system/ui

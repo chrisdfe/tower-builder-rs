@@ -1,4 +1,9 @@
-use macroquad::{color::Color, shapes::draw_rectangle};
+use macroquad::{
+  color::{Color, WHITE},
+  math::Vec2,
+  shapes::draw_rectangle,
+  texture::{draw_texture, draw_texture_ex, DrawTextureParams},
+};
 
 use crate::{
   constants::{CELL_HEIGHT, CELL_WIDTH},
@@ -43,8 +48,24 @@ pub(super) fn render_room(room: &Room, color_override: Option<Color>, game: &Gam
 
       draw_rectangle(x, y, w, h, color);
     }
-    RoomDefinitionRenderType::Image(image) => {
+    RoomDefinitionRenderType::Image(texture) => {
+      // TODO - all of these 2.s should be dependent on dpi
+      let y = y - texture.height() / 2.;
+
       // TODO
+      draw_texture_ex(
+        texture,
+        x,
+        y,
+        WHITE,
+        DrawTextureParams {
+          dest_size: Some(Vec2 {
+            x: texture.width() / 2.,
+            y: texture.height() / 2.,
+          }),
+          ..Default::default()
+        },
+      );
     }
   }
 
