@@ -1,5 +1,9 @@
 # TODO
 
+- [ ] BUG: room definition/speed button update handlers only change state if something has_changed() - so
+      no button is_active until the player changes it
+- [ ] keyboard shortcuts for speed
+- [ ] BUG - rooms still don't show up beneath the cursor correctly - it does in the center of the screen but not around the edges
 - [ ] BUG - LobbyLarge validation is messed up, you can't build any rooms on top of it
 - [ ] get rid of my own Rect struct - I keep confusing it with macroquad's Rect
 - [ ] decide what to do about "floor"
